@@ -1,0 +1,110 @@
+﻿@model List<hypster_tv_DAL.Festival>
+@{
+    ViewBag.Title = "Manage Festivals";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">Manage Festivals</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+        @using (Html.BeginForm("AddNewFestival", "manageFestivals"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="FestivalName" id="FestivalName" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Festival Name </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="FestivalDesc" id="FestivalDesc" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Festival Desc </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="FestivalDate" id="FestivalDate" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Festival Date </div>
+            </div>
+
+                       
+            <div style=" float:left; width:100%; margin-top:5px;"> 
+                <input type="text" name="UserID" id="UserID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">User ID </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="PlaylistID" id="PlaylistID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Playlist ID </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Add New Festival" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+</div>
+
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    <div style=" float:left; width:100%; margin-bottom:5px;">
+        <div style=" float:left; width:18%; font-weight:bold;">Festival Name</div>
+        <div style=" float:left; width:33%; font-weight:bold;">Festival Desc</div>
+        <div style=" float:left; width:13%; font-weight:bold;">Festival Date</div>
+        <div style=" float:left; width:13%; font-weight:bold;">Playlist ID</div>
+        <div style=" float:left; width:13%; font-weight:bold;">User ID</div>
+    </div>
+    
+    @foreach (var item in Model)
+    {
+        <div style=" float:left; width:100%; margin-bottom:5px; background-color:#292929;">
+            
+            <div id="DispFestival_@(item.Festival_ID)">
+                <div style=" float:left; width:18%;">@item.Festival_Name</div>
+                <div style=" float:left; width:33%;">@item.Festival_Desc</div>
+                <div style=" float:left; width:13%;">@item.Festival_Date</div>
+                <div style=" float:left; width:13%;">@item.Festival_Playlist_ID</div>
+                <div style=" float:left; width:13%;">@item.Festival_User_ID</div>
+
+                <div onclick="$('#EditFestival_@(item.Festival_ID)').css('display','block'); $('#DispFestival_@(item.Festival_ID)').css('display','none');" style=" float:left; width:10%; font-weight:bold; cursor:pointer;">EDIT</div>
+            </div>
+
+
+            <div id="EditFestival_@(item.Festival_ID)" style=" display:none;">
+                @using (Html.BeginForm("SaveFestival", "manageFestivals"))
+                {
+                    <input type="hidden" name="Festival_ID" id="Festival_ID" value="@item.Festival_ID" />
+                    <input type="hidden" name="Festival_Category_ID" id="Festival_Category_ID" value="@item.Festival_Category_ID" />
+                    <div style=" float:left; width:18%;"> <input type="text" name="Festival_Name" id="Festival_Name" value="@item.Festival_Name" style=" width:90%;" /></div>
+                    <div style=" float:left; width:43%;"> <input type="text" name="Festival_Desc" id="Festival_Desc" value="@item.Festival_Desc" style=" width:95%;" /></div>
+                    <div style=" float:left; width:13%;"> <input type="text" name="Festival_Date" id="Festival_Date" value="@item.Festival_Date" style=" width:90%;" /></div>
+                    <div style=" float:left; width:13%;"> <input type="text" name="Festival_Playlist_ID" id="Festival_Playlist_ID" value="@item.Festival_Playlist_ID" style=" width:90%;" /></div>
+                    <div style=" float:left; width:13%;"> <input type="text" name="Festival_User_ID" id="Festival_User_ID" value="@item.Festival_User_ID" style=" width:90%;" /></div>
+
+                    <div style=" float:left; width:100%; margin-top:3px; font-weight:bold; cursor:pointer; text-align:right;">
+                        <input type="submit" value="SAVE" style=" height:27px;" />
+                        <input type="button" value="CANCEL" style=" height:27px;" onclick="$('#EditFestival_@(item.Festival_ID)').css('display','none'); $('#DispFestival_@(item.Festival_ID)').css('display','block');" />
+                        <input type="button" value="DELETE" style=" height:27px;" onclick="if(confirm('Are you sure you want to delete?')){window.location='/WebsiteManagement/manageFestivals/DeleteFestival/@item.Festival_ID';}" />
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+   
+</div>

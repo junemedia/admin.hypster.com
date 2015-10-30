@@ -1,0 +1,85 @@
+﻿@model List<hypster_tv_DAL.PlaylistData_Song>
+@{
+    Layout = null;
+
+    int dead_link_count = 0;
+}
+
+
+
+<div style=" float:left; width:100%;">
+    
+    <div id="total_top_1" style=" float:left; width:100%; height:65px; background-color:#131313; margin:10px 0 0 0;">
+    </div>
+
+
+    @foreach (var item in Model)
+    {
+        if (item.copyright == 101)
+        {
+            <div style=" float:left; width:100%; height:65px; background-color:#CC9933; margin:10px 0 0 0;">
+                <img alt="" src="http://i.ytimg.com/vi/@(item.YoutubeId)/0.jpg" style=" float:left; width:80px;" /> 
+                <div style=" float:left; width:450px; margin:10px 0 0 5px; color:#FFFFFF;">@item.FullTitle</div>
+
+                <div class="removeDeadLinkBtn" onclick="DeleteDealLink(this, '@item.playlist_track_id')" style=" float:left; width:80px; margin:10px 0 0 0; background-color:#757575; cursor:pointer; text-align:center;"  >Delete DeadLink</div>
+
+            </div>
+        
+            dead_link_count += 1;
+        }
+        else
+        {
+        <div style=" float:left; width:100%; height:65px; background-color:#232323; margin:10px 0 0 0;">
+            <img alt="" src="http://i.ytimg.com/vi/@(item.YoutubeId)/0.jpg" style=" float:left; width:80px;" /> 
+            <div style=" float:left; width:450px; margin:10px 0 0 5px; color:#FFFFFF;">@item.FullTitle</div>
+
+            <div onclick="CheckForDealLink('@item.YoutubeId', '@item.id')" style=" float:left; width:80px; margin:10px 0 0 0; background-color:#757575; cursor:pointer; text-align:center;"  >Check For DeadLink</div>
+        </div>
+        }
+
+    }
+
+
+
+    <div style=" float:left; width:100%; height:65px; background-color:#131313; margin:10px 0 0 0;">
+        TOTAL DEAD LINKS: @dead_link_count
+
+        <div onclick="RemoveAllDeadLinks_CLICK(this)" style=" background-color:#757575; margin:2px; cursor:pointer;">REMOVE ALL DEAD LINKS</div>
+    </div>
+
+    <script type="text/javascript">
+        $("#total_top_1").html("TOTAL DEAD LINKS: @dead_link_count");
+    </script>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    function DeleteDealLink(sender, playlist_track_id) {
+
+        var user_name = "";
+        user_name = $("#User_Name").val();
+
+
+        $.ajax({
+            type: "POST",
+            url: "/WebsiteManagement/manageDeadLinks/DeleteDealLink/" + playlist_track_id + "?user_name=" + user_name,
+            async: true,
+            success: function (data) {
+                if (data == "ok") {
+                    $(sender).css("display", "none");
+                }
+            }
+        });
+
+    }
+
+
+    function RemoveAllDeadLinks_CLICK(sender) {
+        $(sender).css("display","none");
+        $(".removeDeadLinkBtn").trigger("click");
+    }
+
+</script>

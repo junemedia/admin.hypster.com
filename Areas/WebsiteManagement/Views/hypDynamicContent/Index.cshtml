@@ -1,0 +1,109 @@
+﻿@model List<hypster_tv_DAL.DynamicContent>
+@{
+    ViewBag.Title = "Dynamic Content";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Dynamic Content</h2>
+    </div>
+
+
+
+    <div style=" float:left; width:100%; margin-top:15px; background-color:#454545;">
+        @using (Html.BeginForm("AddNewBanerPage", "hypDynamicContent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {   
+            <div style=" color:#FCF088; font-size:16px;">Add New Baner</div>
+            
+            <div>Baner Name</div>
+            <input id="text_AddNewBaner_BanerName" name="text_AddNewBaner_BanerName" type="text" value="" style=" width:310px;" /> 
+            
+            <div>Href <span style='font-size:11px;'>(http://hypster.com/URL_HERE + ADD -> &rtg=dc1)</span></div>
+            <input id="text_AddNewBaner_href" name="text_AddNewBaner_href" type="text" value="" style=" width:310px;" /> 
+            
+            <div>Image Name <span style='font-size:11px;'>(235981cc-2212-4fe7-8e52-94e29bf31954.jpg)</span></div>
+            <input id="text_AddNewBaner_image" name="text_AddNewBaner_image" type="text" value="" style=" width:310px;" /> 
+            
+            <input type="submit" value="Add New Banner" />
+        }
+    </div>
+
+
+    <div style=" float:left; width:100%; margin-top:15px; background-color:#454545;">
+        @using (Html.BeginForm("AddNewChartPage", "hypDynamicContent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {   
+            <div style=" color:#FCF088; font-size:16px;">Add New Chart</div>
+            
+            
+            <div>Chart Name</div>
+            <input id="text_AddNewChart_ChartName" name="text_AddNewChart_ChartName" type="text" value="" style=" width:310px;" /> 
+            
+            <div>Chart Guid <span style='font-size:11px;'>(Billboard-Top-100---October-2013)</span></div>
+            <input id="text_AddNewChart_chartGuid" name="text_AddNewChart_chartGuid" type="text" value="" style=" width:310px;" /> 
+            
+            
+            <input type="submit" value="Add New Chart" />
+        }
+    </div>
+
+
+    <div style=" float:left; width:100%; margin-top:15px; background-color:#454545;">
+        @using (Html.BeginForm("AddNewPostPage", "hypDynamicContent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {   
+            <div style=" color:#FCF088; font-size:16px;">Add New Post</div>
+            
+            
+            <div>Post Name</div>
+            <input id="text_AddNewPost_PostName" name="text_AddNewPost_PostName" type="text" value="" style=" width:310px;" /> 
+            
+            <div>Post Guid <span style='font-size:11px;'>http://hypster.com/content/HypNews/post/(my-local-test-post) + ADD -> ?rtg=dc1</span></div>
+            <input id="text_AddNewPost_postGuid" name="text_AddNewPost_postGuid" type="text" value="" style=" width:310px;" /> 
+            
+            
+            <input type="submit" value="Add New Post" />
+        }
+    </div>
+
+
+
+
+
+    <!--div style=" float:left; width:100%;">
+        @using (Html.BeginForm("AddNewDynPage", "hypDynamicContent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {   
+           <select id="dr_dynPageType" name="dr_dynPageType" onchange="#" style=" width:310px;">
+                    <option value="1">Baner</option>
+                    <option value="2">Charts</option>
+                    <option value="3">Festivals</option>
+                    <option value="4">News</option>
+                    <option value="5">Popular Music Playlist</option>
+                    <option value="6">Text Block</option>
+            </select>
+        }
+    </div-->
+
+</div>
+
+
+
+
+
+
+<div id="hypArtCH" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+
+    @foreach (var item in Model)
+    {
+        <div style=" float:left; width:100%; min-height:23px; background-color:#131313; margin-bottom:2px;">
+            <div style=" float:left; width:80%;">&nbsp;@item.DynCont_Name</div>
+            <div style="float:left; width:20%; cursor:pointer; text-align:center;" onclick="if(confirm('Are you sure you want to delete?')==true){window.location='/WebsiteManagement/hypDynamicContent/DeleteDynPage?ID=@item.DynCont_ID';}">
+                Delete
+            </div>
+        </div>
+    }
+
+
+</div>

@@ -1,0 +1,103 @@
+﻿@model List<hypster_tv_DAL.FeaturedContent>
+@{
+    ViewBag.Title = "Featured";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+
+
+<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+   <div style=" float:left; width:100%;">   
+        <h2>Featured Content</h2>
+    </div>
+
+
+    <div style=" float:left; width:99%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px 0 0 0; padding:2px; cursor:pointer;" onclick="window.location='/WebsiteManagement/manageFeatured/AddToFeaturedSlideshow';">
+        Featured Slideshow
+    </div>
+
+
+    <div style=" float:left; width:100%; margin-top:10px; ">
+
+        <div style=" float:left; width:100%; height:24px; cursor:pointer; margin:4px 0 0 0; background-color:#191919;" onclick="window.location='/WebsiteManagement/manageFeatured?contType=SP';">
+            &nbsp;Seasonal Playlists
+        </div>
+
+        <div style=" float:left; width:100%; height:24px; cursor:pointer; margin:4px 0 0 0; background-color:#191919;" onclick="window.location='/WebsiteManagement/manageFeatured?contType=AP';">
+            &nbsp;Artist Playlists
+        </div>
+
+        <div style=" float:left; width:100%; height:24px; cursor:pointer; margin:4px 0 0 0; background-color:#191919;" onclick="window.location='/WebsiteManagement/manageFeatured?contType=OT';">
+            &nbsp;Other
+        </div>
+        
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+
+
+    <div style=" float:left; width:100%; ">
+
+        @{ int counter = 0; }
+        @foreach(var item in Model)
+        {
+            if (counter == 12)
+            {
+                <div style=" float:left; width:100%; height:20px; margin:5px 0 10px 0;"><!-- background-color:#131313; --></div>
+                counter = 0;
+            }
+        
+            <div style=" float:left; width:250px; margin:0 6px 6px 0; border-radius:3px; ">
+                <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/imgs/home/home_slideshow/@item.fc_image" onclick="@item.fc_href" style=" float:left; width:250px; cursor:pointer;" />
+
+                <div style=" float:left; width:99%; height:25px; line-height:25px; padding-left:1%; background-color:#121212; color:#dedede; ">
+                    @item.fc_name
+                </div>
+
+                <div style=" float:left; width:99%; height:25px; line-height:25px; padding-left:1%; background-color:#121212; color:#dedede; ">
+                    
+                    <div onclick="alert('will be available later');" style=" float:left; height:22px; line-height:22px; background-color:#454545; margin:2px 0 0 2px; cursor:pointer; padding:0 3px 0 3px; ">
+                        EDIT
+                    </div>
+
+                    <div onclick="deleteFC(@item.fc_ID);" style=" float:left; height:22px; line-height:22px; background-color:#454545; margin:2px 0 0 2px; cursor:pointer; padding:0 3px 0 3px; ">
+                        DELETE
+                    </div>
+
+                </div>
+            </div>
+        
+        
+            counter = counter + 1;
+        }
+
+    </div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+
+    function deleteFC(fc_id) {
+
+        if (confirm('Are you sure you want to delete?') == true) {
+            window.location = "/WebsiteManagement/manageFeatured/deleteFC/" + fc_id;
+        }
+
+    }
+
+</script>

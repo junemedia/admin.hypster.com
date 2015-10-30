@@ -1,0 +1,58 @@
+﻿@model List<hypster_tv_DAL.videoFeaturedSlideshow>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_VideoManagement.cshtml";
+}
+
+
+
+
+
+<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <div style=" float:left; width:100%;">
+        <h2>Manage Slideshow</h2>
+    </div>
+
+    <div style=" float:left; width:97%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px 0 0 0; padding:2px; cursor:pointer;" onclick="window.location='/VideoManagement/featuredVideo/AddNewFeaturedVideo';">
+        &nbsp;Add New Featured Video
+    </div>
+
+</div>
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+    
+
+    
+        @foreach (var item in Model)
+        {
+            <div style=" float:left; width:100%; ">
+
+                <div style=" float:left; width:70px; min-height:450px; background:#565656; padding:5px; margin:10px; text-align:left; ">
+                    <input type="button" value="Edit" onclick="window.location='/VideoManagement/featuredVideo/Edit/@item.videoFeatured_ID';" style=" width:70px;" /><br />
+                    <input type="button" value="Delete" onclick="if(confirm('Are you sure you want to delete?') == true){window.location='/VideoManagement/featuredVideo/Delete/@item.videoFeatured_ID';}" style=" width:70px;" />
+                    <br /><br /><br />
+
+                    <!--input type="button" value="UP" onclick="window.location='/VideoManagement/featuredVideo/Edit/@item.videoFeatured_ID';" style=" width:70px; height:22px;" /><br />
+                    <input type="button" value="DOWN" onclick="window.location='/VideoManagement/featuredVideo/Edit/@item.videoFeatured_ID';" style=" width:70px; height:22px;" /-->
+                </div>
+            
+                <div style=" float:left; background:#565656; padding:5px; margin:10px; text-align:left; line-height:23px; ">
+                    <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/imgs/slideshow/@item.ImageSrc?@( new Random().Next(1000,100000))" /><br />
+                    <text>Name:</text> @item.Name <br />
+                    <text>Order:</text> @item.SortOrder.Value<br />
+                    <text>Guid:</text> @item.Guid<br />
+                    
+                </div>
+
+            </div>
+        }
+    
+    
+</div>

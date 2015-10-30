@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">Songs Play Report</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; background-color:#878787; padding:2px; margin:0 0 10px 0; cursor:pointer;" onclick="window.location='/WebsiteManagement/hypReports/newRegisteredMembers';">
+        New Registered Members
+    </div>
+
+    <div style=" float:left; width:100%; background-color:#878787; padding:2px; margin:0 0 10px 0; cursor:pointer;" onclick="window.location='/WebsiteManagement/hypReports/SongsPlayReport';">
+        Songs Play Report
+    </div>
+
+</div>
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; font-size:21px; ">
+    
+
+    @using (Html.BeginForm("SongsPlayReport", "hypReports", FormMethod.Post))
+    {
+        <input type="text" id="Date_text" name="Date_text" value="@DateTime.Now.ToShortDateString()" style=" width:200px;" />
+        <input type="submit" value="Submit" />    
+    }
+
+    <br />
+    <br />
+
+    @ViewBag.newRegisteredMembersDATE 
+    <br />
+
+    Songs Started - @ViewBag.SongsStarted <br />
+    Songs Played - @ViewBag.SongsPlayed <br />
+    Songs Desktop Player - @ViewBag.SongsDesktopPlayer <br />
+    Songs Apps Mob - @ViewBag.SongsAppsMob <br />
+    Songs Breaking Player - @ViewBag.SongsBreakingPlayer <br />
+
+</div>

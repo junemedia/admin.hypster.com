@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "manageUsernames";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Replace Usernames</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; text-align:right; line-height:27px;">
+    </div>
+
+
+    <div style=" float:left; width:100%; height:470px; overflow:scroll; overflow-x:hidden; margin-top:15px; ">
+    </div>
+
+
+</div>
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+   @using (Html.BeginForm())
+   {
+       <textarea id="txtUsernames" name="txtUsernames" style=" width:100%; height:400px;"></textarea>
+
+       <input type="submit" value="Convert Users" />
+   }    
+</div>

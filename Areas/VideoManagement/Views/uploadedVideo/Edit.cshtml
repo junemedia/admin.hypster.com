@@ -1,0 +1,138 @@
+﻿@model hypster_admin.Areas.VideoManagement.ViewModels.UploadedVideos_ViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout_VideoManagement.cshtml";
+}
+
+
+
+
+<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Manage Latest Video</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; text-align:right;">
+        <input type="text" style=" width:250px; height:20px;" />
+        <input type="button" value="Search" style=" width:55px; height:27px;" />
+    </div>
+
+
+    <div style=" float:left; width:100%; height:600px; overflow:scroll; overflow-x:hidden; margin-top:15px; ">
+
+        <div style=" float:left; width:99%; ">
+            @foreach (var item in Model.videoClips_list)
+            {
+                <div onclick="window.location='/VideoManagement/uploadedVideo/@item.Guid';" style=" float:left; width:98%; min-height:25px; line-height:18px; background:#555555; padding:1%; margin-top:3px; text-align:left; cursor:pointer; ">
+                    @if (item.Status == 0 || item.Status == -1)
+                    {
+                        <div style=" float:left; width:1%; height:38px; background-color:#FCF088;"></div>
+                    }
+                    else
+                    {
+                        <div style=" float:left; width:1%; height:38px; background-color:Green;"></div>
+                    }
+                    <div style=" float:left; width:98%; margin-left:1%;">
+                        <div style=" width:100%; height:20px; overflow:hidden; font-size:15px;">@item.Name</div>
+                        <div style=" width:100%; height:17px; overflow:hidden; font-size:13px; color:#FCF088;">@item.Guid</div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+        <div style=" float:left; width:97%; margin-top:5px; font-size:16px; cursor:pointer; font-weight:bold;">
+            Last 128 videos selected
+        </div>
+
+    </div>
+    
+
+</div>
+
+
+
+
+
+
+@if (Model.edit_clip.videoClip_ID != 0)
+{
+<div style=" float:left; width:67%; min-height:690px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+        
+    @using (Html.BeginForm("Edit", "uploadedVideo", FormMethod.Post, new { enctype = "multipart/form-data", @class = "hypster_admin.Areas.VideoManagement.ViewModels.UploadedVideos_ViewModel" }))
+    {
+        
+        <text>Video Url:</text><br />
+        <input class="txtEditVideo_Name" value="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/video/@Model.edit_clip.Guid" disabled="disabled" />
+        
+        
+        <div style=" float:left; width:100%; margin-bottom:10px; ">
+            Video Name:<br />
+            <input id="Name" name="Name" class="txtEditVideo_Name" type="text" value="@Model.edit_clip.Name" />
+        </div>
+
+
+
+        <div style=" float:left; width:282px; min-height:200px; line-height:160px; background-color:#444444; border-radius:1px; cursor:pointer;" >
+        
+            <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/uploads/covers/@(Model.edit_clip.Guid).png" style=" float:left; margin:2px; width:@System.Configuration.ConfigurationManager.AppSettings["videoThumbnail_Width"]px; height:@System.Configuration.ConfigurationManager.AppSettings["videoThumbnail_Height"]px;" />
+
+            <input type="file" name="file" id="file" style=" margin:2px; float:left; width:278px; height:25px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" />
+        </div>
+
+        
+        
+        <div style=" float:left; width:450px; height:200px; line-height:160px; background-color:#444444; border-radius:1px; cursor:pointer; margin-left:13px;" >
+            <textarea id="Description" name="Description" class="txtEditVideo_Desc">@Model.edit_clip.Description</textarea>
+        </div>
+
+
+        <div style=" float:left; width:100%; min-height:280px; line-height:25px; margin-top:10px; ">
+            Upload Date: <span class="EditVideo_DescT">@Model.edit_clip.UploadDate</span><br />
+            Uploaded By: <span class="EditVideo_DescT">@Model.edit_clip.UploadedBy</span><br />
+            YouTube ID: <input type="text" id="UploadedByName" name="UploadedByName" value="@Model.edit_clip.UploadedByName" /> 
+            Votes: <span class="EditVideo_DescT">@Model.edit_clip.UpVotes | @Model.edit_clip.DownVotes</span><br />
+            Duration: <span class="EditVideo_DescT">@Model.edit_clip.Duration</span><br />
+            Views Number: <span class="EditVideo_DescT">@Model.edit_clip.ViewsNum</span><br />
+            Video GUID: <span class="EditVideo_DescT">@Model.edit_clip.Guid</span><br />
+            @if(ViewBag.DownloadPath != null)
+            {
+                <text>Download this video:</text>
+                <span class="EditVideo_DescT">
+                    <a href="@ViewBag.DownloadPath" style=" color:#FCF088;">HERE</a>
+                </span>
+            }
+        </div>
+
+
+        
+        <div style=" @ViewBag.hideStatus float:left; width:100%; line-height:25px; margin-top:10px; ">
+            <text>Status:</text><br />
+            <select name="Status" id="Status" style=" width:250px; height:25px;"> 
+                <option value="@((int)hypster_tv_DAL.VideoStatus.NoActive)" @if (Model.edit_clip.Status == (int)hypster_tv_DAL.VideoStatus.NoActive)
+                                                                            {<text>selected="selected"</text>}>No Active</option>
+                <option value="@((int)hypster_tv_DAL.VideoStatus.Active)" @if (Model.edit_clip.Status == (int)hypster_tv_DAL.VideoStatus.Active)
+                                                                          {<text>selected="selected"</text>}>Active</option>
+            </select> 
+            <br />
+        </div>
+
+        
+        <div style=" float:left; width:100%; height:30px; text-align:right; margin-top:15px; ">
+            <input id="videoClip_ID" name="videoClip_ID" type="hidden" value="@Model.edit_clip.videoClip_ID" />
+            <input id="Guid" name="Guid" type="hidden" value="@Model.edit_clip.Guid" />
+            <input id="Duration" name="Duration" type="hidden" value="@Model.edit_clip.Duration" />
+
+
+
+            <span style=" font-size:15px; color:#ec4a4e;">@ViewBag.Message</span>
+            <input type="submit" value="Save Changes" style="@ViewBag.hideStatus" />
+        </div>
+        
+    }
+
+</div>
+}

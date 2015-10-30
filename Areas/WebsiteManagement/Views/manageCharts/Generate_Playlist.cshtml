@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Generate_Playlist";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">Generate Playlist</h2>
+    </div>
+
+
+
+    <div style=" float:left; width:100%; margin-top:30px;">
+        @using (Html.BeginForm("Generate_Playlist", "manageCharts"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px; color:#CC9933;">
+                Generate Playlist
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <span>Playlist Name:</span><br />
+                <input type="text" id="plst_name" name="plst_name" value="@ViewBag.Chart_Header" />
+                <br />
+                
+                <span>User ID:</span><br />
+                <input type="text" id="user_id" name="user_id" />
+                <br />
+            </div>
+            
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <textarea id="playlist_data" name="playlist_data" style=" float:right; width:300px; height:500px;"></textarea>
+            </div>
+            
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Generate Playlist" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+
+</div>
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    
+    <h1>@ViewBag.Chart_Header</h1>
+
+
+    @Html.Raw(ViewBag.RetString)
+
+
+</div>

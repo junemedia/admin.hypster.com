@@ -1,0 +1,126 @@
+﻿@model hypster_tv_DAL.Member
+
+@{
+    ViewBag.Title = "user";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:98%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    @using (Html.BeginForm())
+    {
+    
+        <div style=" float:left; width:100%; color:#FCF088;">
+            <h2>&nbsp;USER - @Model.id<br /></h2>
+            <input name="MEM_ID" id="MEM_ID" type="hidden" value="@Model.id" />
+        </div>
+
+        <div style=" float:left; width:310px; text-align:right;">
+    
+            @Html.LabelFor(m => m.username)
+            @Html.EditorFor(m => m.username)<br />
+            <br />
+            @Html.LabelFor(m => m.password)
+            @Html.EditorFor(m => m.password)<br />
+            <br />
+            @Html.LabelFor(m => m.name)
+            @Html.EditorFor(m => m.name)<br />
+            <br />
+            @Html.LabelFor(m => m.regdate)
+            @Html.EditorFor(m => m.regdate)<br />
+            <br />
+            @Html.LabelFor(m => m.active_playlist)
+            @Html.EditorFor(m => m.active_playlist)<br />
+            <br />
+            @Html.LabelFor(m => m.email)
+            @Html.EditorFor(m => m.email)<br />
+            <br />
+            @Html.LabelFor(m => m.autoplay)
+            @Html.EditorFor(m => m.autoplay)<br />
+
+
+            <br />
+            @Html.LabelFor(m => m.sex)
+            @Html.EditorFor(m => m.sex)<br />
+        </div>
+
+        <div style=" float:left; width:310px; text-align:right;">
+    
+            @Html.LabelFor(m => m.AutoshareEnabled)
+            @Html.EditorFor(m => m.AutoshareEnabled)<br />
+            <br />
+            @Html.LabelFor(m => m.birth)
+            @Html.EditorFor(m => m.birth)<br />
+            <br />
+            @Html.LabelFor(m => m.city)
+            @Html.EditorFor(m => m.city)<br />
+            <br />
+            @Html.LabelFor(m => m.CoregProcessed)
+            @Html.EditorFor(m => m.CoregProcessed)<br />
+            <br />
+            @Html.LabelFor(m => m.country)
+            @Html.EditorFor(m => m.country)<br />
+            <br />
+            @Html.LabelFor(m => m.ArtistLevel)
+            @Html.EditorFor(m => m.ArtistLevel)<br />
+            <br />
+            @Html.LabelFor(m => m.email_confirmed)
+            @Html.EditorFor(m => m.email_confirmed)<br />
+
+
+            <br />
+            @Html.LabelFor(m => m.LastActivityIp)
+            @Html.EditorFor(m => m.LastActivityIp)<br />
+            <br />
+            @Html.LabelFor(m => m.OptOutDate)
+            @Html.EditorFor(m => m.OptOutDate)<br />
+            <br />
+            @Html.LabelFor(m => m.profile_pic_id)
+            @Html.EditorFor(m => m.profile_pic_id)<br />
+        </div>
+
+
+        <div style=" float:left; width:310px; text-align:right;">
+            @Html.LabelFor(m => m.email_optout)
+            @Html.EditorFor(m => m.email_optout)<br />
+            <br />
+            @Html.LabelFor(m => m.introduce)
+            @Html.EditorFor(m => m.introduce)<br />
+            <br />
+            @Html.LabelFor(m => m.is_new_artist)
+            @Html.EditorFor(m => m.is_new_artist)<br />
+            <br />
+            @Html.LabelFor(m => m.IsOverEighteen)
+            @Html.EditorFor(m => m.IsOverEighteen)<br />
+            <br />
+            @Html.LabelFor(m => m.israndomplay)
+            @Html.EditorFor(m => m.israndomplay)<br />
+            <br />
+            @Html.LabelFor(m => m.IsSuspended)
+            @Html.EditorFor(m => m.IsSuspended)<br />
+            <br />
+            @Html.LabelFor(m => m.LastActivityDate)
+            @Html.EditorFor(m => m.LastActivityDate)<br />
+
+        
+            <br />
+            @Html.LabelFor(m => m.StatusId)
+            @Html.EditorFor(m => m.StatusId)<br />
+            <br />
+            @Html.LabelFor(m => m.widget_views)
+            @Html.EditorFor(m => m.widget_views)<br />
+            <br />
+            @Html.LabelFor(m => m.zipcode)
+            @Html.EditorFor(m => m.zipcode)<br />
+        </div>
+        
+        
+        <div style=" float:left; width:84%; text-align:right; margin-top:30px;">
+            <span style=" color:#FCF088;"><text>Note: right now only password is editable</text></span> <input type="submit" value="SAVE CHANGES" style=" width:250px;" /> 
+        </div>
+
+        
+    }
+
+</div>

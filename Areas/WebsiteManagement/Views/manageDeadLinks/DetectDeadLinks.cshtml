@@ -1,0 +1,17 @@
+﻿@model List<hypster_tv_DAL.Playlist>
+@{
+    Layout = null;
+}
+
+
+
+<div style=" float:left; width:100%;">
+
+    @foreach (var item in Model)
+    {
+        <div onclick="CheckPlaylist_DeadLinks(@item.id)" style=" float:left; width:100%; height:24px; line-height:24px; margin:7px 0 0 0; cursor:pointer; background-color:#232323;">
+            @item.name
+        </div>
+    }
+
+</div>

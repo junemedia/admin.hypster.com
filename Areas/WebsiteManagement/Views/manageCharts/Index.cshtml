@@ -1,0 +1,144 @@
+﻿@model List<hypster_tv_DAL.Chart>
+@{
+    ViewBag.Title = "Manage Charts";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">Manage Charts</h2>
+    </div>
+
+
+    <div onclick="window.location='/WebsiteManagement/manageCharts/Billboard_Year_End_Hot_100';" style=" float:left; width:100%; margin:5px 0 10px 0; color:#CC9933; background-color:#1a1a1a; cursor:pointer;">
+        &nbsp;Billboard Year-End Hot 100
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+        @using (Html.BeginForm("AddNewChart", "manageCharts"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px; color:#CC9933;">
+                Add New Chart
+            </div>
+
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartName" id="ChartName" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Chart Name </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartDesc" id="ChartDesc" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Chart Desc </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartDate" id="ChartDate" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Chart Date </div>
+            </div>
+
+                       
+            <div style=" float:left; width:100%; margin-top:5px;"> 
+                <input type="text" name="UserID" id="UserID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">User ID </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="PlaylistID" id="PlaylistID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Playlist ID </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Add New Chart" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+
+
+
+    <div style=" float:left; width:100%; margin-top:30px;">
+        @using (Html.BeginForm("GenerateHypsterChart", "manageCharts"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px; color:#CC9933;">
+                Generate Hypster Chart
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="LimitNum" id="LimitNum" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Limit Number </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;"> 
+                <input type="text" name="CutOffID" id="CutOffID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Cut Off ID (curently must be more then 150000000)</div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Generate Hypster Chart" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+
+</div>
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    <div style=" float:left; width:100%; margin-bottom:5px;">
+        <div style=" float:left; width:18%; font-weight:bold;">Chart Name</div>
+        <div style=" float:left; width:33%; font-weight:bold;">Chart Desc</div>
+        <div style=" float:left; width:13%; font-weight:bold;">Chart Date</div>
+        <div style=" float:left; width:13%; font-weight:bold;">Playlist ID</div>
+        <div style=" float:left; width:13%; font-weight:bold;">User ID</div>
+    </div>
+    
+    @foreach (var item in Model)
+    {
+        <div style=" float:left; width:100%; margin-bottom:5px; background-color:#292929;">
+            
+            <div id="DispChart_@(item.Chart_ID)">
+                <div style=" float:left; width:17%; margin-left:1%;">@item.Chart_Name</div>
+                <div style=" float:left; width:33%;">@item.Chart_Desc</div>
+                <div style=" float:left; width:13%;">@item.Chart_Date</div>
+                <div style=" float:left; width:13%;">@item.Chart_Playlist_ID</div>
+                <div style=" float:left; width:13%;">@item.Chart_User_ID</div>
+
+                <div onclick="$('#EditChart_@(item.Chart_ID)').css('display','block'); $('#DispChart_@(item.Chart_ID)').css('display','none');" style=" float:left; width:7%; font-weight:bold; cursor:pointer;">EDIT</div>
+            </div>
+
+
+            <div id="EditChart_@(item.Chart_ID)" style=" display:none;">
+                @using (Html.BeginForm("SaveChart", "manageCharts"))
+                {
+                    <input type="hidden" name="Chart_ID" id="Chart_ID" value="@item.Chart_ID" />
+                    <input type="hidden" name="Chart_Category_ID" id="Chart_Category_ID" value="@item.Chart_Category_ID" />
+                    <div style=" float:left; width:18%;"> <input type="text" name="Chart_Name" id="Chart_Name" value="@item.Chart_Name" style=" width:90%;" /></div>
+                    <div style=" float:left; width:43%;"> <input type="text" name="Chart_Desc" id="Chart_Desc" value="@item.Chart_Desc" style=" width:95%;" /></div>
+                    <div style=" float:left; width:13%;"> <input type="text" name="Chart_Date" id="Chart_Date" value="@item.Chart_Date" style=" width:90%;" /></div>
+                    <div style=" float:left; width:13%;"> <input type="text" name="Chart_Playlist_ID" id="Chart_Playlist_ID" value="@item.Chart_Playlist_ID" style=" width:90%;" /></div>
+                    <div style=" float:left; width:13%;"> <input type="text" name="Chart_User_ID" id="Chart_User_ID" value="@item.Chart_User_ID" style=" width:90%;" /></div>
+
+                    <div style=" float:left; width:100%; margin-top:3px; font-weight:bold; cursor:pointer; text-align:right;">
+                        <input type="submit" value="SAVE" style=" height:27px;" />
+                        <input type="button" value="CANCEL" style=" height:27px;" onclick="$('#EditChart_@(item.Chart_ID)').css('display','none'); $('#DispChart_@(item.Chart_ID)').css('display','block');" />
+                        <input type="button" value="DELETE" style=" height:27px;" onclick="if(confirm('Are you sure you want to delete?')){window.location='/WebsiteManagement/manageCharts/DeleteChart/@item.Chart_ID';}" />
+                        <input type="button" value="CLONE" style=" height:27px;" onclick="window.location='/WebsiteManagement/manageCharts/CloneChart/@item.Chart_GUID';" />
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+   
+</div>

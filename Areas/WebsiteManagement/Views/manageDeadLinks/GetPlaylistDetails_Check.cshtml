@@ -1,0 +1,48 @@
+﻿@model List<hypster_tv_DAL.PlaylistData_Song>
+@{
+    Layout = null;
+
+    int interval = 250;
+}
+
+
+
+<div style=" float:left; width:100%;">
+
+    <script type="text/javascript">
+        @if(Model.Count == 0)
+        {
+            <text> $("#list_playlist_@ViewBag.plst_id").css("background-color","#CC9933"); </text>
+        }
+
+
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            if (i == Model.Count - 1)
+            {
+                <text> setTimeout( function(){ CheckForDealLink('@Model[i].YoutubeId', '@Model[i].id', '@ViewBag.plst_id'); $("#ViewResCH1").css("display","block"); $("#list_playlist_@ViewBag.plst_id").css("background-color","#CC9933");  }, @interval);</text>
+            }
+            else
+            {
+                <text> setTimeout( function(){ CheckForDealLink('@Model[i].YoutubeId', '@Model[i].id', '@ViewBag.plst_id'); }, @interval);</text>
+            }
+
+            interval += 250;
+        }
+        
+    </script>
+
+
+
+    <div style=" float:left; width:100%;">
+        WAIT...
+    </div>
+
+    <div id="ViewResCH1" onclick="CheckPlaylist_DeadLinks_VIEW(@ViewBag.plst_id)" style=" display:none; float:left; width:100%; height:65px; background-color:#131313; margin:10px 0 0 0; cursor:pointer;">
+        
+        <div style=" background-color:#757575; margin:2px; cursor:pointer;">VIEW RESULTS</div>
+
+    </div>
+
+
+</div>

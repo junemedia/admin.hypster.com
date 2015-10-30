@@ -1,0 +1,61 @@
+﻿@model List<hypster_tv_DAL.ArtistCategory>
+@{
+    ViewBag.Title = "Confirm_Artist_Names";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <div style=" float:left; width:100%; cursor:pointer; background-color:#232323;" onclick="window.location='/WebsiteManagement/hypArtists/Confirm_Artist_Names';">
+        <h2 style=" margin-bottom:5px;">Confirm Artist Names</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; height:15px;"></div>
+
+
+
+    <div style=" float:left; width:100%; cursor:pointer; background-color:#232323;" onclick="window.location='/WebsiteManagement/hypArtists';">
+        <h2 style=" margin-bottom:5px;">Artists</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;"></div>
+
+</div>
+
+
+
+
+<div id="hypArtCH" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+    @foreach(var item in Model)
+    {
+        <div style=" float:left; width:100%; height:30px; background-color:#454545; margin-bottom:3px;" >
+            <div style=" float:left; margin:0 0 0 10px;">@item.Name</div>
+            <div style=" float:left; margin:0 0 0 10px; color:#fcf088; cursor:pointer;" onclick="confArtist(@item.Id, this);">Confirm</div>
+        </div>    
+    }
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    function confArtist(artist_id, sender) {
+
+        $.ajax({
+            type: "POST",
+            url: "/WebsiteManagement/hypArtists/ConfArtist?AR_ID=" + artist_id,
+            async: true,
+            success: function (data) {
+                $(sender).css('display', 'none');
+            }
+        });
+
+    }
+
+</script>

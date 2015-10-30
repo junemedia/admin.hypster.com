@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Billboard_Year_End_Hot_100";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">Manage Charts</h2>
+    </div>
+
+
+
+    <div style=" float:left; width:100%; margin-top:30px;">
+        @using (Html.BeginForm("Billboard_Year_End_Hot_100", "manageCharts"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px; color:#CC9933;">
+                Generate Billboard Year-End Hot 100
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartYear" id="ChartYear" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Chart Year </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Generate Billboard Chart" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+
+</div>
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    
+    <h1>@ViewBag.Chart_Header</h1>
+
+
+    @Html.Raw(ViewBag.RetString)
+
+
+
+    @if (ViewBag.RetString != null)
+    {
+        <div style=" float:left; width:100%; margin:10px 0 0 0;">
+        
+            @using (Html.BeginForm("ConvertYearToPlaylist", "manageCharts", FormMethod.Post))
+            {
+                <span>Playlist Name:</span><br />
+                <input type="text" id="plst_name" name="plst_name" value="@ViewBag.Chart_Header" />
+                <br />
+                <span>Year:</span><br />
+                <input type="text" id="curr_year" name="curr_year" value="@ViewBag.curr_year" />
+                <br />
+                <span>User ID:</span><br />
+                <input type="text" id="user_id" name="user_id" />
+                <br />
+
+                <input type="submit" value="Convert To Playlist" />
+            }
+
+        </div>
+    }
+
+    
+</div>

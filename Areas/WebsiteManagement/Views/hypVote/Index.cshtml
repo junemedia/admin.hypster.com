@@ -1,0 +1,62 @@
+﻿@model hypster_tv_DAL.VoteForSong
+@{
+    ViewBag.Title = "Vote";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Vote</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+        @using (Html.BeginForm("AddNewVoteSongs", "hypVote", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+           <text>Youtube Song ID:<br /></text>
+           <input type="text" name="song1_ID" id="song1_ID" value="" style=" width:310px;" />
+           <br />
+           <text>Youtube Song Title:<br /></text>
+           <input type="text" name="song1_Title" id="song1_Title" value="" style=" width:310px;" />
+           <br />
+           <br />
+            
+           <text>Youtube Song ID:<br /></text>
+           <input type="text" name="song2_ID" id="song2_ID" value="" style=" width:310px;" />
+           <br />
+           <text>Youtube Song Title:<br /></text>
+           <input type="text" name="song2_Title" id="song2_Title" value="" style=" width:310px;" />
+           <br />
+           
+            
+           <input type="submit" value="Create New Vote" style=" width:220px;" />
+           @Html.ValidationSummary(true, "", new { @class = "txtValidator" }) 
+        }
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div id="hypArtCH" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+    @Model.Song1_ID
+    <br />
+    @Model.Song1_Title
+    <br />
+    <br />
+    <br />
+
+    @Model.Song2_ID
+    <br />
+    @Model.Song2_Title
+
+</div>
+

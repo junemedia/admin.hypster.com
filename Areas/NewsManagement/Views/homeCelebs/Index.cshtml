@@ -1,0 +1,36 @@
+﻿@model List<hypster_tv_DAL.newsCeleb>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_NewsManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:100px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">   
+        <h2>Celebs</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; ">
+        <a href="/NewsManagement/homeCelebs/AddNewCeleb" >Add New Selebs</a>
+    </div>
+
+</div>
+
+
+
+
+<div style=" float:left; width:65%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+  
+  @foreach (var item in Model)
+  {
+        <a style=" float:left; background-color:#59666c; border:2px solid #59666c; border-radius:2px; margin:0 10px 10px 0;">
+            
+            <img alt="@item.celeb_name" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_celebs/thumb_@item.celeb_image" style=" cursor:pointer; height:100px; " />
+            
+            <input type="button" value="Delete" onclick=" if(confirm('Are you sure you want to delete?') == true){ window.location='/NewsManagement/homeCelebs/DelCeleb?Celeb_ID=@item.celeb_id';}" />
+        </a>
+  }
+    
+</div>

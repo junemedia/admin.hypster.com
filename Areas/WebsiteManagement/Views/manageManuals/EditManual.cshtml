@@ -1,0 +1,101 @@
+﻿    @model  hypster_admin.Areas.WebsiteManagement.ViewModels.ManualViewModel
+@{
+    ViewBag.Title = "Edit Manual";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:98%; padding:1%; background-color:#454545; margin-bottom:5px; text-align:left;"> 
+
+    <h2><span style=" color:#868686;">Edit Manual:</span> @ViewBag.GUID</h2>
+
+
+    <div style=" float:left; width:100%;">
+        HEADER: @Model.manual.Manual_Header
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        GUID: @Model.manual.Manual_Guid
+    </div>
+
+    <div style=" float:left; width:100%;">
+        DATE: @Model.manual.Manual_Date.ToString();
+    </div>
+
+
+    @using (Html.BeginForm("AddManualImage", "manageManuals", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div style=" float:left; width:100%;">
+            ATIVE:
+            <select id="Manual_Active" name="Manual_Active">
+                <option value="1" @if(Model.manual.Manual_Active == 1){<text>selected="selected"</text>}>Active</option>
+                <option value="0" @if(Model.manual.Manual_Active == 0){<text>selected="selected"</text>}>No Active</option>
+            </select>
+        </div>
+
+
+        <div style=" float:left; width:100%;">
+            <input type="hidden" id="Img_Manual_ID" name="Img_Manual_ID" value="@Model.manual.Manual_ID" />
+            IMAGE: <input type="file" id="Img_Manual_Image" name="Img_Manual_Image" value="" style=" width:200px; margin-top:5px; " />
+        </div>
+        
+        
+        <div style=" float:left; width:100%; margin-top:10px;">
+            <input type="submit" value="Save changes" style=" width:320px;" />
+        </div>
+    }
+
+
+</div>
+
+
+
+@foreach (var item in Model.manual_slides)
+{
+    <div style=" float:left; width:98%; padding:1%; background-color:#454545; margin-bottom:5px; color:#FCF088; text-align:left;"> 
+        @using (Html.BeginForm("UpdateSlide", "manageManuals", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="hidden" id="Manual_Slide_ID" name="Manual_Slide_ID"  value="@item.Manual_Slide_ID" />
+            <input type="hidden" id="Manual_Slide_Active" name="Manual_Slide_Active"  value="@item.Manual_Slide_Active" />
+            <input type="text" id="Manual_Slide_Header" name="Manual_Slide_Header" value="@item.Manual_Slide_Header" style=" width:99%;" /><br />
+            <input type="text" id="Manual_Slide_Image" name="Manual_Slide_Image" value="@item.Manual_Slide_Image" disabled="disabled" style=" width:99%;" /><br />
+            <input type="text" id="Manual_Slide_SortOrder" name="Manual_Slide_SortOrder" value="@item.Manual_Slide_SortOrder" style=" width:99%;" /><br />
+            <input type="submit" value="Update" style=" width:300px;" />
+            <input type="button" value="Delete" onclick="if(confirm('Are you sure you want to delete?')==true){window.location='/WebsiteManagement/manageManuals/DeleteSlide/@item.Manual_Slide_ID';}" />
+        }
+        
+        <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/imgs/manuals/@Model.manual.Manual_Guid/@item.Manual_Slide_Image" style=" max-width:1024px; margin-top:10px;" />
+    </div>
+}
+
+
+
+<div onclick="$('#AddNewSlide').css('display','block');" style=" float:left; width:98%; padding:1%; background-color:#454545; margin-bottom:5px; color:#FCF088; cursor:pointer;"> 
+    ADD NEW SLIDE
+
+    <div id="AddNewSlide" style=" display:none;">
+        @using (Html.BeginForm("AddNewSlide", "manageManuals", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <input type="hidden" id="Manual_ID" name="Manual_ID" value="@Model.manual.Manual_ID" />
+        
+            <div style=" float:left; width:100%; text-align:left;">
+                Header<input type="text" id="Slide_Header" name="Slide_Header" value="" style=" width:500px; margin-top:5px; " />
+            </div>
+
+            <div style=" float:left; width:100%; text-align:left;">
+                Image<input type="file" id="Slide_Image" name="Slide_Image" value="" style=" width:500px; margin-top:5px; " />
+            </div>
+
+            <div style=" float:left; width:100%; text-align:left;">
+                Sort Order<input type="text" id="Slide_SortOrder" name="Slide_SortOrder" value="" style=" width:500px; margin-top:5px; " />
+            </div>
+
+            
+            <div style=" float:left; width:100%; text-align:left;">
+                <input type="submit" value="ADD NEW SLIDE" style=" width:170px;" />
+            </div>
+        }
+    </div>
+</div>

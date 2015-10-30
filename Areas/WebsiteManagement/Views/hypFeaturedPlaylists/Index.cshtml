@@ -1,0 +1,58 @@
+﻿@model List<hypster_tv_DAL.FeaturedPlaylist_Result>
+@{
+    ViewBag.Title = "Featured Playlists";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Featured Playlists</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+
+        @using (Html.BeginForm("AddNewFeaturedPlaylist", "hypFeaturedPlaylists", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+           <text>Playlist Name:<br /></text>
+           <input type="text" name="fp_PlaylistName" id="fp_PlaylistName" value="" style=" width:310px;" />
+           <br />
+           <text>Playlist ID:<br /></text>
+           <input type="text" name="fp_PlaylistID" id="fp_PlaylistID" value="" style=" width:310px;" />
+           <br />
+           <text>User ID:<br /></text>
+           <input type="text" name="fp_UserID" id="fp_UserID" value="" style=" width:310px;" />
+           <br />
+           <br />
+            
+           <input type="submit" value="Add Playlist" style=" width:315px;" />
+           @Html.ValidationSummary(true, "", new { @class = "txtValidator" }) 
+        }
+        
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<div id="hypArtCH" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+    @foreach (var item in Model)
+    {
+        <div style=" float:left; width:100%; height:24px; line-height:24px; text-align:left; margin-bottom:1px; background-color:#191919; padding:1px;">
+            <div style=" float:left;">@item.FeaturedPlaylist_PlaylistName</div>
+            <input type="button" value="Delete" onclick="if(confirm('Are you sure you want to delete?')==true){window.location='/hypFeaturedPlaylists/DeleteFeaturedPlaylist?FPLST=@item.FeaturedPlaylist_ID';}" style=" float:left; margin-left:10px;" />
+        </div>
+    }
+
+</div>

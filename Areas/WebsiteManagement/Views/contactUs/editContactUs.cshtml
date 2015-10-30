@@ -1,0 +1,31 @@
+﻿@model hypster_tv_DAL.userContact
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:98%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    @using (Html.BeginForm())
+    {
+        <h2>Edit Contact Us</h2>
+        <input name="CONT_ID" id="CONT_ID" type="hidden" value="@Model.contactID" />
+
+        
+        <div style=" float:left; width:100%;">
+            <div style=" float:left;">@Model.contactEmail</div>
+            <div style=" float:left; margin-left:10px;">@Model.contactSubject</div>
+            <div style=" float:left; margin-left:10px;">@Model.contactText</div>
+        </div>
+        
+        
+        <div style=" float:left; width:100%; margin-top:20px;">
+            <input type="button" value="GO BACK" onclick="window.location='/WebsiteManagement/contactUs';" style=" width:220px;" />
+            <input type="submit" value="DEACTIVATE ITEM" />
+        </div>
+    }
+
+</div>

@@ -1,0 +1,23 @@
+﻿@model List<hypster_tv_DAL.userContact>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:98%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <h2>Users Contacts Submitions</h2>
+
+    @foreach(var item in Model)
+    {
+        <div onclick="window.location='/WebsiteManagement/contactUs/editContactUs/@item.contactID';" style=" float:left; width:98%; min-height:25px; background-color:#656565; padding:1%; margin-bottom:1%; cursor:pointer;">
+            <div style=" float:left;">@item.contactEmail</div>
+            <div style=" float:left; margin-left:10px;">@item.contactSubject</div>
+            <div style=" float:left; margin-left:10px;">@item.contactText</div>
+        </div>
+    }
+
+</div>

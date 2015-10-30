@@ -1,0 +1,65 @@
+﻿@model hypster_tv_DAL.videoFeaturedSlideshow
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout_VideoManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+   <div style=" float:left; width:100%;">   
+        <h2>Edit @ViewBag.ID</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; ">
+    
+        <div style=" float:left; width:100%; height:22px; margin-top:3px; background-color:#222222; color:#FFFFFF; cursor:pointer;">
+            &nbsp;Itm 1
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+    @using (Html.BeginForm("Edit", "featuredVideo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div style=" float:left; width:100%; ">
+
+            <div style=" float:left; background:#565656; padding:5px; margin:10px; text-align:left; line-height:23px; ">
+                <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/imgs/slideshow/@Model.ImageSrc?@( new Random().Next(1000, 100000))" /><br />
+                <text>Name:</text> @Model.Name <br />
+                <text>Order:</text> @Model.SortOrder.Value<br />
+                <text>Guid:</text> @Model.Guid<br />
+                    
+            </div>
+
+        </div>
+       
+       
+        <div style=" float:left; width:100%; padding:10px; "> 
+        
+           @Html.HiddenFor(m => m.Guid) 
+           @Html.HiddenFor(m => m.ImageSrc)
+   
+           <text>Edit Image: (Min. Resolution: 621x376px)<br /></text>
+           <input type="file" name="file" id="file" style="width:560px; height:25px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" /><br />
+           <br />
+
+           <input type="submit" value="Edit Featured Video" style=" width:150px;" /> <input type="submit" value="Cancel" onclick="window.location = '/VideoManagement/featuredVideo';" />
+       
+           @Html.ValidationSummary(true, "", new { @class = "txtValidator" }) 
+
+        </div>
+    }
+    
+</div>

@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Dead Links Detection";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2>Dead Links Detection</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        <span>User Name:</span>
+        <br />
+        <input type="text" id="User_Name" name="User_Name" />
+        <br />
+        <input type="button" value="Submit" onclick="SearchUserPlaylist_DeadLink()" />
+    </div>
+
+
+    <div id="playlists_list" style=" float:left; width:100%;">
+    </div>
+
+</div>
+
+
+
+
+
+<div id="playlist_details" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+</div>
+
+
+<div id="add_details" style=" float:left; width:98%; min-height:230px; background-color:#353535; border-radius:3px; padding:1%; margin-top:1%; text-align:left; color:#FFFFFF; ">
+
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    function SearchUserPlaylist_DeadLink() {
+        $('#playlists_list').html("");
+
+        $.ajax({
+            type: "POST",
+            url: "/WebsiteManagement/manageDeadLinks/DetectDeadLinks_List/" + $("#User_Name").val(),
+            async: true,
+            success: function (data) {
+                $('#playlists_list').html(data);
+            }
+        });
+    }
+
+
+
+    function CheckPlaylist_DeadLinks_VIEW(plst_id) {
+        $("#playlist_details").html("");
+
+        $.ajax({
+            type: "POST",
+            url: "/WebsiteManagement/manageDeadLinks/GetPlaylistDetails_View/" + plst_id,
+            async: true,
+            success: function (data) {
+                $("#playlist_details").html(data);
+            }
+        });
+    }
+
+    function CheckPlaylist_DeadLinks_CHECK(plst_id) {
+        $("#playlist_details").html("");
+
+        $.ajax({
+            type: "POST",
+            url: "/WebsiteManagement/manageDeadLinks/GetPlaylistDetails_Check/" + plst_id,
+            async: true,
+            success: function (data) {
+                $("#playlist_details").html(data);
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+    function CheckForDealLink(link_guid, song_id, plst_id) {
+
+        var xmlHttp = null;
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://gdata.youtube.com/feeds/api/videos/" + link_guid + "?key=AI39si5TNjKgF6yiHwUhKbKwIui2JRphXG4hPXUBdlrNh4XMZLXu--lf66gVSPvks9PlWonEk2Qv9fwiadpNbiuh-9TifCNsqA", false);
+        xmlHttp.send(null);
+        $("#add_details").html(xmlHttp.responseText);
+
+
+
+        var isDeadLink = false;
+
+        if (xmlHttp.responseText == "Private video") {
+            isDeadLink = true;
+        }
+
+        if (xmlHttp.responseText == "Video not found") {
+            isDeadLink = true;
+        }
+
+
+        if (isDeadLink == true) {
+
+            $.ajax({
+                type: "POST",
+                url: "/WebsiteManagement/manageDeadLinks/SubmitDeadLink/" + song_id,
+                async: true,
+                success: function (data) {
+                }
+            });
+
+
+            //inc dead link counter to see how many dead links
+            //
+            var curr_num = "";
+            curr_num = parseInt($("#list_playlist_counter_" + plst_id).html());
+            curr_num += 1;
+            $("#list_playlist_counter_" + plst_id).html(curr_num);
+
+        }
+
+    }
+
+</script>

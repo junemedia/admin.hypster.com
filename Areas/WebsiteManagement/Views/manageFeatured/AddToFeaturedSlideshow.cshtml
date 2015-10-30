@@ -1,0 +1,49 @@
+﻿@model List<hypster_tv_DAL.homeSlideshow>
+
+@{
+    ViewBag.Title = "Featured Slideshow";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+
+
+<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+        <div style=" float:left; width:100%;">
+            <h2>Featured Slideshow</h2>
+        </div>
+
+        <div style=" float:left; width:97%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px 0 0 0; padding:2px; cursor:pointer;" onclick="window.location='/WebsiteManagement/manageSlideshow';">
+            Add Featured Slideshow
+        </div>
+
+</div>
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+    
+        @foreach (var item in Model)
+        {
+            <div style=" float:left; width:100%; ">
+
+                <div style=" float:left; width:97%; background:#565656; padding:5px; margin:10px; text-align:left; line-height:23px; ">
+                    <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/imgs/home/home_slideshow/@item.ImageSrc?@( new Random().Next(1000,100000))" /><br />
+                    <text>URL:</text> @item.href <br />
+                    <text>Order:</text> @item.SortOrder.Value<br />
+                    <text>isActive:</text> @item.isActive.Value<br />
+                </div>
+
+                <div style=" float:left; width:97%; min-height:30px; background:#565656; padding:5px; margin:10px; text-align:left; ">
+                    <input type="button" value="Delete" onclick="if(confirm('Are you sure you want to delete?') == true){window.location='/WebsiteManagement/manageFeatured/DeleteFeaturedSlideshow/@item.homeSlideshow_ID';}" style=" width:80px; margin-right:10px;" />
+                </div>
+
+            </div>
+        }
+    
+</div>

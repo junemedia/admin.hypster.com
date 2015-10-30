@@ -1,0 +1,88 @@
+﻿@model hypster_admin.Areas.WebsiteManagement.ViewModels.hypArtistsViewModel
+@{
+    ViewBag.Title = "Hyp Artists";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <div style=" float:left; width:100%; cursor:pointer; background-color:#232323;" onclick="window.location='/WebsiteManagement/hypArtists/Confirm_Artist_Names';">
+        <h2 style=" margin-bottom:5px;">Confirm Artist Names</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; height:15px;">
+
+    </div>
+
+
+
+    <div style=" float:left; width:100%; cursor:pointer; background-color:#232323;">
+        <h2 style=" margin-bottom:5px;">Artists</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+        @using (Html.BeginForm("AddNewArtist", "hypArtists", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+           <text>Genre:<br /></text>
+           <select name="genre_id" id="genre_id" style=" width:310px;" onchange="change_GenreHypArtist(this);">
+               <option value="0"><--></option>
+               @foreach (var item in Model.genres)
+               {
+                   <option value="@item.Genre_ID">@item.GenreName</option>
+               }
+           </select>
+           <br />
+            
+        
+           <text>Artist Name:<br /></text>
+           <input type="text" name="name" id="name" style=" width:310px;" />
+           <br />
+           
+            
+           <text>Image:<br /></text>
+           <input type="file" name="file" id="file" style=" width:310px; height:25px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" /><br />
+           <br />
+            
+            
+           <input type="submit" value="Add New Artist" style=" width:220px;" />
+           @Html.ValidationSummary(true, "", new { @class = "txtValidator" }) 
+        }
+
+    </div>
+
+</div>
+
+
+
+
+<div id="hypArtCH" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+        @if (ViewBag.Value != null)
+        {
+            <div style="color:#FCF088;">@ViewBag.Value <a href="/WebsiteManagement/hypArtists">Back</a></div>
+        }
+       
+</div>
+
+
+
+<script type="text/javascript">
+
+    function change_GenreHypArtist(object) {
+        if (object.selectedIndex >= 0) {
+            $.ajax({
+                type: "POST",
+                url: "/WebsiteManagement/hypArtists/GetGenreArtists?ID=" + object[object.selectedIndex].value,
+                async: true,
+                success: function (data) {
+                    $('#hypArtCH').html(data);
+                }
+            });
+        }
+    }
+
+</script>

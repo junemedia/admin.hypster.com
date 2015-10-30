@@ -1,0 +1,74 @@
+﻿@model hypster_tv_DAL.homeSlideshow
+@{
+    ViewBag.Title = "AddToFeatured";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+   <div style=" float:left; width:100%;">   
+        <h2>Add To Featured</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; ">
+    
+
+    </div>
+
+</div>
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+    @using (Html.BeginForm("AddToFeatured", "manageFeatured", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        
+       <text>Href:<br /></text>
+       <input type="text" name="href" id="href" class="txtFeaturedGUID" value="@Model.href" />
+       <br /><br />
+
+       <text>Href Mobile: (sample: /apps/appPlaylists/user/saksonvvs?792 )<br /></text>
+       <input type="text" name="href_mobile" id="href_mobile" class="txtFeaturedGUID" value="" />
+       <br /><br />
+        
+        
+       <text>Name:<br /></text>
+       <input type="text" name="name" id="name" class="txtFeaturedGUID" />
+       <br /><br />
+        
+        
+       <text>Image:<br /></text>
+       <input type="text" name="image" id="image" class="txtFeaturedGUID" value="@Model.ImageSrc" />
+       <br /><br />
+       <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/imgs/home/home_slideshow/@Model.ImageSrc" />
+       <br /><br />
+        
+    
+        
+        
+        <text>Content Type:<br /></text>
+        <select id="plstType" name="plstType" style=" width:320px;">
+            <option value="1" >Seasonal Playlists</option>
+            <option value="2" >Artist Playlists</option>
+            <option value="0" selected=selected >Other</option>
+        </select>        <br /><br />
+        
+
+        
+       <input type="hidden" name="ContID" id="ContID" value="@ViewBag.ContID" />
+       <input type="hidden" name="ContType" id="ContType" value="@ViewBag.ContType" />
+        
+        
+       <input type="submit" value="Add New Featured" style=" width:220px;" /> 
+       <input type="button" value="Cancel" onclick="window.location = '/WebsiteManagement/manageFeatured';" />
+       
+       @Html.ValidationSummary(true, "", new { @class = "txtValidator" }) 
+   }
+    
+</div>

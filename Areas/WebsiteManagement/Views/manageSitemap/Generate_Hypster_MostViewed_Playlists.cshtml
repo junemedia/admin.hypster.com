@@ -1,0 +1,37 @@
+﻿@model List<hypster_tv_DAL.Playlist>
+@{
+    ViewBag.Title = "Generate_Hypster_MostViewed_Playlists";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Generate_Hypster_MostViewed_Playlists</h2>
+    </div>
+
+</div>
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+       
+<textarea style=" float:left; width:100%; height:450px;">
+
+@foreach (var item in Model)
+{
+    <url>
+        <loc>http://hypster.com/playlists/user/@item.username?@item.id</loc>
+        <lastmod>2013-03-21T23:03:06+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+}
+
+</textarea>
+
+</div>

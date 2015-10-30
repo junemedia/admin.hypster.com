@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Emails";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Send Conf Email</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+        @using (Html.BeginForm("SendConfEmail", "hypEmails", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+           <text>Email:<br /></text>
+           <input type="text" name="email" id="email" value="" style=" width:310px;" />
+           <br />
+           
+            
+           <input type="submit" value="Send Email" style=" width:220px;" />
+           @Html.ValidationSummary(true, "", new { @class = "txtValidator" }) 
+        }
+
+    </div>
+
+
+</div>
+
+
+
+
+<div id="hypArtCH" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+</div>
+

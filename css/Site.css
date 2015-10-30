@@ -1,0 +1,437 @@
+﻿/* SCROLLBARS SETTINGS */
+/*----------------------------------------------*/
+
+html
+{
+	scrollbar-face-color:#777777;
+	scrollbar-base-color:#777777;
+	scrollbar-arrow-color:black;
+	scrollbar-track-color:#ABABAB;
+	scrollbar-shadow-color:#777777;
+	scrollbar-highlight-color:#777777;
+	scrollbar-3dlight-color:#666666;
+	scrollbar-darkshadow-Color:#666666;
+}
+
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 17px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #ABABAB; 
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #777777; 
+    -webkit-box-shadow: inset 0 0 6px #ABABAB; 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: #ABABAB; 
+}
+
+/*----------------------------------------------*/
+
+
+
+
+
+
+
+
+body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-weight:lighter;
+    color:#EEEEEE;
+    background: #151515 url(/imgs/main_doc_back.jpg) repeat;
+    margin:0px; 
+    padding:0px;
+    
+    overflow-y:scroll;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+
+input[type=button] 
+{
+	height:25px; line-height:19px; border:1px solid #454545; background-color:#DDDDDD; color:#000000; cursor:pointer;
+}
+
+input[type=submit]
+{
+	height:25px; line-height:19px; border:1px solid #454545; background-color:#DDDDDD; color:#000000; cursor:pointer;
+}
+
+input[type=text]
+{
+	font-size:15px;
+	line-height:18px;
+    font-family:Calibri;
+    color:#222222;
+}
+
+textarea
+{
+	font-size:15px;
+	line-height:18px;
+    font-family:Calibri;
+    color:#222222;
+}
+
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+
+
+a
+{
+	color:#FFFFFF;
+	text-decoration:none;
+}
+
+a:hover
+{
+	color:#FFFFFF;
+}
+
+a:visited
+{
+	color:#FFFFFF;
+}
+
+
+
+/*------------------------------------------------------------*/
+
+.txtLogin
+{
+	margin-left:5px;
+	width:250px;
+	height:20px;
+	border:1px solid #454545;
+	
+}
+
+
+.txtValidator
+{
+	color:#FCF088;
+	font-family:Tahoma;
+	font-size:12px;
+	line-height:15px;
+	font-weight:normal;
+}
+
+.txtValidator ul
+{
+	list-style:none;
+}
+
+
+
+.txtUploadName
+{
+	width:500px;
+	height:20px;
+	border:1px solid #454545;
+}
+
+.txtUploadDesc
+{
+	width:500px;
+	height:150px;
+	border:1px solid #454545;
+}
+
+/*------------------------------------------------------------*/
+
+
+
+
+
+/*--------ADMIN NEWS SECTION-----------------------------------*/
+.newsPost_Title
+{
+	width:660px;
+	height:30px;
+	border:1px solid #454545;
+}
+
+
+.newsPost_Content
+{
+	width:660px;
+	height:550px;
+	border:1px solid #454545;
+}
+
+
+.newsPost_ShortContent
+{
+	width:660px;
+	height:250px;
+	border:1px solid #454545;
+}
+
+/*------------------------------------------------------------*/
+
+
+
+
+/* ERROR MESSAGES
+/*------------------------------------------------------------*/
+
+.txtValidator
+{
+	color:#FCF088;
+	font-family:Tahoma;
+	font-size:12px;
+	line-height:15px;
+	font-weight:normal;
+}
+
+.txtValidator ul
+{
+	list-style:none;
+	margin:10px 0 0 0;
+	padding:0px;
+}
+
+/*------------------------------------------------------------*/
+
+
+
+
+/* Featured Videos MESSAGES
+/*------------------------------------------------------------*/
+
+.txtFeaturedGUID
+{
+	width:550px;
+	height:22px;
+	border:1px solid #454545; 
+	background-color:#EEEEEE; 
+	color:#000000;
+}
+
+/*------------------------------------------------------------*/
+
+
+
+/* Edit Videos MESSAGES
+/*------------------------------------------------------------*/
+
+.txtEditVideo_Name
+{
+	width:98%;
+	height:22px;
+	border:1px solid #454545; 
+	background-color:#EEEEEE; 
+	color:#000000;
+}
+
+.txtEditVideo_Desc
+{
+	width:445px;
+	height:200px;
+	border:1px solid #454545; 
+	background-color:#EEEEEE; 
+	color:#000000;
+}
+
+.EditVideo_DescT
+{
+	font-size:16px;
+	color:#FCF088;
+}
+
+/*------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+/*    POST DETAILS SECTION  */
+/*------------------------------------------------------------*/
+
+
+.PostNav_cont
+{
+	float:left; 
+	width:96%; 
+	padding:0 2% 2% 2%; 
+	margin-bottom:13px; 
+	border-radius:2px; 
+	background-color:#222222; 
+	text-align:left;
+}
+
+
+.PostNav_cont .PrevPost
+{
+	float:left; width:120px; height:25px; line-height:25px; margin-top:10px; background-color:#444444; border-radius:2px; color:#f4f4ad; font:300 15px/1.8 'Helvetica Neue',Helvetica,Arial,sans-serif; text-align:center;
+}
+
+
+.PostNav_cont .HomePost
+{
+	float:left; width:120px; height:25px; line-height:25px; margin-left:120px; margin-top:10px; background-color:#444444; border-radius:2px; color:#f4f4ad; font:300 15px/1.8 'Helvetica Neue',Helvetica,Arial,sans-serif; text-align:center;
+}
+
+.PostNav_cont .NextPost
+{
+	float:right; width:120px; height:25px; line-height:25px; margin-top:10px; background-color:#444444; border-radius:2px; color:#f4f4ad; font:300 15px/1.8 'Helvetica Neue',Helvetica,Arial,sans-serif; text-align:center;
+}
+
+
+
+
+.PostComm_cont
+{
+	float:left; width:96%; padding:0 2% 2% 2%; min-height:145px; border-radius:2px; background-color:#222222; text-align:left;
+}
+
+.PostComm_cont .CommHeader
+{
+	float:left; width:100%; margin-top:6px; font:300 17px/1.8 'Helvetica Neue',Helvetica,Arial,sans-serif; text-align:left;
+}
+
+
+
+
+
+/* Post main cont */
+
+.Post_mainCont
+{
+	line-height:21px;
+	float:left; 
+	width:95%; 
+	padding:0 2.5% 2.5% 2.5%; 
+	min-height:245px; 
+	margin-bottom:13px; 
+	border-radius:2px; 
+	text-align:left; 
+	/*background:#333333 url('/imgs/post_grad.png') repeat-x bottom;*/
+	background:#292929;
+}
+
+
+.Post_mainCont h2
+{
+	width:95%; font-size:24px; line-height:30px; margin:10px 0px 0px 0px; color:#f4f4ad; font-weight:bold;
+}
+
+/*------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+/*  POST CONTROLS STYLES */
+/*------------------------------------------------------------*/
+
+.PostImgSt_Left
+{
+	 float:left; border:2px solid #444444; border-radius:2px; margin:5px 10px 0px 0px;
+}
+
+.PostImgSt_Right
+{
+	 float:right; border:2px solid #444444; border-radius:2px; margin:5px 0px 0px 10px;
+}
+
+
+.PostVideoCont
+{
+	float:right; display:block; background-color:#565656; padding:2px; border-radius:2px;
+}
+
+/*------------------------------------------------------------*/
+
+
+
+
+
+.TagI
+{
+    display:block; float:left; padding:2px 5px 2px 5px; margin:0 3px 2px 0; background-color:#131313; border-radius:2px;
+}
+
+
+.brVideoCont
+{
+    float:left;  width:686px; height:386px;  margin-right:9px; margin-top:7px; margin-bottom:20px; border:2px solid #656565;
+    overflow:hidden;
+}

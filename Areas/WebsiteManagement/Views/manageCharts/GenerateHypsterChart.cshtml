@@ -1,0 +1,131 @@
+﻿@model List<hypster_tv_DAL.MostPopularHypsterSongs_Result>
+@{
+    ViewBag.Title = "Manage Charts - Hyp Chart";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">Manage Charts - Hyp Chart</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+        @using (Html.BeginForm("AddNewChart", "manageCharts"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartName" id="ChartName" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Chart Name </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartDesc" id="ChartDesc" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Chart Desc </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartDate" id="ChartDate" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Chart Date </div>
+            </div>
+
+                       
+            <div style=" float:left; width:100%; margin-top:5px;"> 
+                <input type="text" name="UserID" id="UserID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">User ID </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="PlaylistID" id="PlaylistID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Playlist ID </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Add New Chart" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+
+
+
+    <div style=" float:left; width:100%; margin-top:30px;">
+        @using (Html.BeginForm("GenerateHypsterChart", "manageCharts"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px;">
+                Generate Hypster Playlist
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="LimitNum" id="LimitNum" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Limit Number </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;"> 
+                <input type="text" name="CutOffID" id="CutOffID" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Cut Off ID (curently must be more then 150000000)</div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Generate Hypster Chart" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+
+</div>
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    @using (Html.BeginForm("SaveHypsterChart", "manageCharts"))
+    {
+
+
+        foreach (var item in Model)
+        {
+           <div style=" float:left; width:100%; height:40px; line-height:40px; margin-bottom:2px; background-color:#191919;">
+        
+                <img alt="" src="http://i.ytimg.com/vi/@item.YoutubeId/0.jpg" style=" float:left; height:40px;" />
+
+                <div style=" float:left; margin-left:10px;">
+                    @item.SongsNum
+                    &nbsp;
+                    &nbsp;
+                    @item.Title
+                    &nbsp;
+                    @item.YoutubeId
+                </div>
+
+                <input type="hidden" name="playlist_songs_list" value="@item.id" />
+           </div>
+        }
+
+
+        <div style=" float:left; width:98%; background-color:#121212; margin-top:10px; padding:1%;">
+        
+                <h3>Convert To Playlist</h3>
+                <div style=" width:370px; text-align:right; margin-bottom:2px;">
+                    Playlist Name:<input type="text" id="conv_PlaylistName" name="conv_PlaylistName" style=" width:260px;" />
+                </div>
+
+                <div style=" width:370px; text-align:right; margin-bottom:2px;">
+                    User ID:<input type="text" id="conv_UserID" name="conv_UserID" style=" width:260px;" />
+                </div>
+
+                <div style=" width:370px; text-align:right; margin-bottom:2px;">
+                    <input type="submit" value="Convert To Playlist" style=" width:265px;" />
+                </div>
+
+        </div>
+            
+    }
+   
+</div>

@@ -1,0 +1,65 @@
+﻿@model hypster_tv_DAL.Chart
+@{
+    ViewBag.Title = "CloneChart";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">Clone Chart</h2>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+
+    <div style=" float:left; width:50%;">
+        
+        @using (Html.BeginForm("AddNewCloneChart", "manageCharts"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartGuid" id="ChartGuid" value="@Model.Chart_GUID" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Clone Chart Guid </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartName" id="ChartName" value="@Model.Chart_Name" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Clone Chart Name </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartDesc" id="ChartDesc" value="@Model.Chart_Date" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Clone Chart Desc </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ChartDate" id="ChartDate" value="@Model.Chart_Date" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Clone Chart Date </div>
+            </div>
+
+            
+            <!--div style=" float:left; width:100%; margin-top:5px;"><input type="text" name="PlaylistID" id="PlaylistID" value="" style=" float:right; width:200px;" /><div style=" float:right; ">Clone Playlist ID </div></div-->
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="hidden" name="existingChartGuid" id="existingChartGuid" value="@Model.Chart_GUID" />
+                <input type="hidden" name="UserID" id="UserID" value="@Model.Chart_User_ID" />
+
+                <input type="submit" value="Clone This Chart" style=" float:right;" />
+            </div>
+        }
+    </div>
+
+   
+</div>

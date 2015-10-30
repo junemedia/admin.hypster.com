@@ -1,0 +1,58 @@
+﻿@model List<hypster_tv_DAL.Manual>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+
+
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Manage Manuals</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+        @using (Html.BeginForm("AddNewManual", "manageManuals"))
+        {
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="text" name="ManualHeader" id="ManualHeader" value="" style=" float:right; width:200px;" />
+                <div style=" float:right; ">Manual Header </div>
+            </div>
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <select name="ManualActive" id="ManualActive" style=" float:right; width:200px;">
+                    <option value="1">Active</option>
+                    <option value="0">No Active</option>
+                </select>
+                <div style=" float:right; ">Manual Active </div>
+            </div>
+            
+            
+            <div style=" float:left; width:100%; margin-top:5px;">
+                <input type="submit" value="Add New Manual" style=" float:right;" />
+            </div>
+        }
+    </div>
+   
+
+</div>
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    
+    @foreach (var item in Model)
+    {
+        <div onclick="window.location='/WebsiteManagement/manageManuals/EditManual/@item.Manual_Guid';" style=" float:left; width:99%; height:30px; line-height:30px; padding-right:1%; margin-bottom:5px; overflow:hidden; cursor:pointer; background-color:#757575;">
+            @item.Manual_Header
+        </div>
+    }
+       
+</div>

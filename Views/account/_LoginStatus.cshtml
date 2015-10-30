@@ -1,0 +1,21 @@
+﻿
+@if (Request.IsAuthenticated)
+{
+    <div style=" float:right; min-width:120px; height:21px; line-height:21px; margin-top:3px; text-align:right; background-image:url(../imgs/menu_back.png); background-repeat:repeat-x; border:1px solid #333333; border-radius:1px;">
+        &nbsp;
+        "@User.Identity.Name"
+        &nbsp;
+        @Html.ActionLink("Log out", "LogOff", "account")
+        &nbsp;
+    </div>
+}
+else
+{
+    <div style=" float:right; min-width:120px; height:21px; line-height:21px; margin-top:3px; text-align:right; background-image:url(../imgs/menu_back.png); background-repeat:repeat-x; border:1px solid #333333; border-radius:1px;">
+        &nbsp;
+        @Html.ActionLink("Register", "Login", "account")
+        &nbsp;|&nbsp;
+        @Html.ActionLink("Login", "Login", "account")
+        &nbsp;
+    </div>
+}

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "AddNewCeleb";
+    Layout = "~/Views/Shared/_Layout_NewsManagement.cshtml";
+}
+
+
+
+<div style=" float:left; width:28%; min-height:100px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">   
+        <h2>Add New Celeb</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; ">
+    </div>
+
+</div>
+
+
+
+
+<div style=" float:left; width:60%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    <div style=" float:left; width:100%; text-align:left; ">
+        @using (Html.BeginForm("AddNewCeleb", "homeCelebs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            
+            <div style=" float:left; margin-top:20px; width:500px; text-align:right; line-height:30px;">  
+                
+                Name: <input type="text" id="txt_Name" name="txt_Name" value="" style=" width:400px;" /><br />
+                Url:  <input type="text" id="txt_Url" name="txt_Url" value="" style=" width:400px;" /><br />
+                Image: <input type="file" id="file" name="file" style=" width:400px; height:22px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" /><br />
+                <br />
+                
+                <input type="submit" value="Add New Celeb" /> 
+                <input type="button" value="Cancel" onclick="window.location='/NewsManagement/homeCelebs';" />
+            </div>
+            
+        }
+    </div>
+
+</div>

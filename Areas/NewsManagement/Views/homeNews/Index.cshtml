@@ -1,0 +1,58 @@
+﻿@model List<hypster_tv_DAL.newsPost>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_NewsManagement.cshtml";
+}
+
+
+
+
+
+
+
+<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+    <div style=" float:left; width:100%;">
+        <h2>News Management</h2>
+    </div>
+
+    <div style=" float:left; width:99%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px 0 0 0; padding:2px; cursor:pointer;" onclick="window.location='/NewsManagement/homeNews/AddNewPost';">Add New Post</div>
+
+
+
+    <div style=" float:left; width:100%; height:600px; overflow:scroll; overflow-x:hidden; ">
+
+        @foreach( var item in Model)
+        {
+            <div style=" float:left; width:97%; min-height:23px; background-color:#656565; margin:3px 0 0 0; padding:2px; cursor:pointer;" onclick="window.location='/NewsManagement/homeNews/Edit/@item.post_id';">
+                @if (item.post_status == 0 || item.post_status == -1)
+                {
+                    <div style=" float:left; width:1%; min-height:23px; background-color:#FCF088;"></div>
+                }
+                else
+                {
+                    <div style=" float:left; width:1%; min-height:23px; background-color:Green;"></div>
+                }
+
+                <div style=" float:left; width:98%; margin-left:1%;">
+                    @item.post_title
+                </div>
+            </div>
+        }
+
+        <div style=" width:97%; font:14px; color:#fcf088;">
+            Last 256 post selected
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div style=" float:left; width:67%; min-height:690px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+</div>
+
+

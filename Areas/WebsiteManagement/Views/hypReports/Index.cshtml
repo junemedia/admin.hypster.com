@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin:0px 0 5px 0;">hypReports</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%; background-color:#878787; padding:2px; margin:0 0 10px 0; cursor:pointer;" onclick="window.location='/WebsiteManagement/hypReports/newRegisteredMembers';">
+        New Registered Members
+    </div>
+
+    <div style=" float:left; width:100%; background-color:#878787; padding:2px; margin:0 0 10px 0; cursor:pointer;" onclick="window.location='/WebsiteManagement/hypReports/SongsPlayReport';">
+        Songs Play Report
+    </div>
+
+</div>
+
+
+
+
+<div style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; font-size:21px; ">
+    
+    <div style=" float:left; width:98%; margin:1%;"><text>Followers:</text> @ViewBag.Followers_NUM </div>
+    <div style=" float:left; width:98%; margin:1%;"><text>Members:</text> @ViewBag.Members_NUM </div>
+    <div style=" float:left; width:98%; margin:1%;"><text>MemberMusicGenre:</text> @ViewBag.MemberMusicGenre_NUM </div>
+    <div style=" float:left; width:98%; margin:1%;"><text>Photos:</text> @ViewBag.Photos_NUM </div>
+    <div style=" float:left; width:98%; margin:1%;"><text>PlaylistLikes:</text> @ViewBag.PlaylistLikes_NUM </div>
+    <div style=" float:left; width:98%; margin:1%;"><text>Playlists:</text> @ViewBag.Playlists_NUM </div>
+    <div style=" float:left; width:98%; margin:1%;"><text>RadioStation:</text> @ViewBag.RadioStation_NUM </div>
+    <!--div style=" float:left; width:98%; margin:1%;"><text>Songs:</text> @ViewBag.Songs_NUM </div-->
+    <div style=" float:left; width:98%; margin:1%;"><text>Last Song ID:</text> @ViewBag.Last_Song_ID </div>
+
+</div>

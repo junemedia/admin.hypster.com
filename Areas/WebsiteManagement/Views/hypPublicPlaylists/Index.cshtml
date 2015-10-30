@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Vote";
+    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
+}
+
+<div style=" float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    
+
+    <div style=" float:left; width:100%;">
+        <h2 style=" margin-bottom:5px;">Music Playlist Description</h2>
+    </div>
+
+
+    <div style=" float:left; width:100%;">
+        
+       <input id="PPTB" type="text" value="" />
+       <input type="button" value="SHOW" onclick="GenerateLink();" />
+
+       <div id="PPResCont" style=" margin-top:10px;">
+       </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div id="hypArtCH" style=" float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    function GenerateLink() {
+        window.location = '/WebsiteManagement/hypPublicPlaylists/Edit/' + $("#PPTB").val();
+    }
+</script>

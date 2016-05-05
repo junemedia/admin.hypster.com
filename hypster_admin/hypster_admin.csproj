@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{74ADF478-F4D6-4BC8-92AA-A3CEE40DC3CB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>hypster_admin</RootNamespace>
+    <AssemblyName>hypster_admin</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client, Version=1.6.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions, Version=1.6.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.YouTube, Version=1.6.0.0, Culture=neutral, PublicKeyToken=af04a32718ae8833, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Google.GData.YouTube.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="hypster_tv_DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\hypster_tv_DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.1.2.3\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.1.2.3\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.1.2.3\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.1.2.3\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.1.2.3\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=1.2.3.490, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.1.2.3\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Microsoft.Web.Administration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\NewsManagement\Controller\homeCelebsController.cs" />
+    <Compile Include="Areas\NewsManagement\Controller\homeNewsController.cs" />
+    <Compile Include="Areas\NewsManagement\NewsManagementAreaRegistration.cs" />
+    <Compile Include="Areas\VideoManagement\Controllers\featuredVideoController.cs" />
+    <Compile Include="Areas\VideoManagement\Controllers\homeVideoController.cs" />
+    <Compile Include="Areas\VideoManagement\Controllers\pendingVideoController.cs" />
+    <Compile Include="Areas\VideoManagement\Controllers\uploadedVideoController.cs" />
+    <Compile Include="Areas\VideoManagement\VideoManagementAreaRegistration.cs" />
+    <Compile Include="Areas\VideoManagement\ViewModels\UploadedVideos_ViewModel.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\contactUsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\homeWebsiteController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\hypArtistsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\hypDynamicContentController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\hypEmailsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\hypFeaturedPlaylistsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\hypPublicPlaylistsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\hypReportsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\hypVoteController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageAppPoolsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageChartsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageDeadLinksController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageFeaturedController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageFestivalsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageGenresController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageManualsController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageSitemapController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageSlideshowController.cs" />
+    <Compile Include="Areas\WebsiteManagement\Controllers\manageUsersController.cs" />
+    <Compile Include="Areas\WebsiteManagement\ViewModels\hypArtistsViewModel.cs" />
+    <Compile Include="Areas\WebsiteManagement\ViewModels\ManualViewModel.cs" />
+    <Compile Include="Areas\WebsiteManagement\WebsiteManagementAreaRegistration.cs" />
+    <Compile Include="Controllers\accountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\Site.css" />
+    <Content Include="css\theme\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="css\theme\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="css\theme\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="css\theme\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="css\theme\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="css\theme\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="css\theme\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="css\theme\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="css\theme\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="css\theme\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="css\theme\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="css\theme\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="css\theme\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\theme\base\jquery.ui.accordion.css" />
+    <Content Include="css\theme\base\jquery.ui.all.css" />
+    <Content Include="css\theme\base\jquery.ui.autocomplete.css" />
+    <Content Include="css\theme\base\jquery.ui.base.css" />
+    <Content Include="css\theme\base\jquery.ui.button.css" />
+    <Content Include="css\theme\base\jquery.ui.core.css" />
+    <Content Include="css\theme\base\jquery.ui.datepicker.css" />
+    <Content Include="css\theme\base\jquery.ui.dialog.css" />
+    <Content Include="css\theme\base\jquery.ui.progressbar.css" />
+    <Content Include="css\theme\base\jquery.ui.resizable.css" />
+    <Content Include="css\theme\base\jquery.ui.selectable.css" />
+    <Content Include="css\theme\base\jquery.ui.slider.css" />
+    <Content Include="css\theme\base\jquery.ui.tabs.css" />
+    <Content Include="css\theme\base\jquery.ui.theme.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="imgs\logo.gif" />
+    <Content Include="imgs\logo.png" />
+    <Content Include="imgs\main_doc_back.jpg" />
+    <Content Include="imgs\main_doc_back.png" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\NewsManagement\Views\Web.config" />
+    <Content Include="Areas\NewsManagement\Views\homeCelebs\AddNewCeleb.cshtml" />
+    <Content Include="Areas\NewsManagement\Views\homeCelebs\Index.cshtml" />
+    <Content Include="Areas\NewsManagement\Views\homeNews\AddNewPost.cshtml" />
+    <Content Include="Areas\NewsManagement\Views\homeNews\Edit.cshtml" />
+    <Content Include="Areas\NewsManagement\Views\homeNews\getNewsTags.cshtml" />
+    <Content Include="Areas\NewsManagement\Views\homeNews\Index.cshtml" />
+    <Content Include="Areas\VideoManagement\Views\Web.config" />
+    <Content Include="Areas\VideoManagement\Views\featuredVideo\AddNewFeaturedVideo.cshtml" />
+    <Content Include="Areas\VideoManagement\Views\featuredVideo\Edit.cshtml" />
+    <Content Include="Areas\VideoManagement\Views\featuredVideo\Index.cshtml" />
+    <Content Include="Areas\VideoManagement\Views\homeVideo\Index.cshtml" />
+    <Content Include="Areas\VideoManagement\Views\pendingVideo\Index.cshtml" />
+    <Content Include="Areas\VideoManagement\Views\uploadedVideo\Edit.cshtml" />
+    <Content Include="Areas\VideoManagement\Views\uploadedVideo\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\Web.config" />
+    <Content Include="Areas\WebsiteManagement\Views\contactUs\editContactUs.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\contactUs\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\homeWebsite\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypArtists\Confirm_Artist_Names.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypArtists\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypDynamicContent\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypEmails\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypFeaturedPlaylists\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypPublicPlaylists\Edit.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypPublicPlaylists\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypReports\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypReports\newRegisteredMembers.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypReports\SongsPlayReport.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\hypVote\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageAppPools\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageAppPools\StartApplicationPool.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageCharts\Billboard_Year_End_Hot_100.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageCharts\CloneChart.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageCharts\GenerateHypsterChart.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageCharts\Generate_Playlist.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageCharts\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageDeadLinks\DetectDeadLinks.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageDeadLinks\DetectDeadLinks_List.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageDeadLinks\GetPlaylistDetails.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageDeadLinks\GetPlaylistDetails_Check.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageDeadLinks\GetPlaylistDetails_View.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageDeadLinks\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageFeatured\AddToFeatured.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageFeatured\AddToFeaturedSlideshow.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageFeatured\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageFestivals\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageGenres\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageManuals\EditManual.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageManuals\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Charts.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Featured.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Festivals.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Manuals.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_MostLiked_Playlists.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_MostViewed_Playlists.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_News.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Stations.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Website_EN.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Website_ES.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_Website_RU.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Generate_Hypster_WithDesc_Playlists.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSitemap\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSlideshow\AddNewSlideshow.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageSlideshow\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageUsers\Index.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageUsers\manageUsernames.cshtml" />
+    <Content Include="Areas\WebsiteManagement\Views\manageUsers\user.cshtml" />
+    <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.2.js" />
+    <Content Include="Scripts\jquery-1.6.2.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.0.0.debug.js" />
+    <Content Include="Scripts\knockout-2.0.0.js" />
+    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="uploads\new_post.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_NewsManagement.cshtml" />
+    <Content Include="Views\Shared\_Layout_VideoManagement.cshtml" />
+    <Content Include="Views\Shared\_Layout_WebsiteManagement.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\_MenuMain.cshtml" />
+    <Content Include="Views\account\Login.cshtml" />
+    <Content Include="Views\account\_LoginStatus.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55214</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55214/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

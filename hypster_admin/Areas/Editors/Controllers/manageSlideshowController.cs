@@ -116,7 +116,8 @@ namespace hypster_admin.Areas.Editors.Controllers
             else
             {
                 slide.ImageSrc = ImgSrc;
-            }            
+            }
+            slide.href = href;
             hyDB.sp_homeSlideshow_UpdateHomeSlideshow(slide.homeSlideshow_ID, slide.href, slide.ImageSrc);
             hyDB.SaveChanges();
             return RedirectToAction("Index");

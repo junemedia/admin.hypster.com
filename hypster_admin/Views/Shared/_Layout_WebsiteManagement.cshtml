@@ -9,114 +9,83 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 
-
 <body>
     <center>
-        <div style=" width:1130px; clear:both;">
-            
-            
-            <div style=" float:left; width:100%; color:#FFFFFF; text-align:left;">
-                <img alt="Hypster Logo" src="/imgs/logo.png" style=" float:left; margin-top:10px;" />
-                
-
-                <div onclick="window.location='/WebsiteManagement/manageAppPools';" style=" float:right; background-color:#FFFFFF; padding:5px; color:#CC0000; margin:5px 0 0 0; cursor:pointer;">HYPSTER PANIC</div>
-
-
-                
+        <div style="width:1130px; clear:both;">
+            <div style="float:left; width:100%; color:#FFFFFF; text-align:left;">
+                <img alt="Hypster Logo" src="/imgs/logo.png" style="float:left; margin-top:10px;" />
+                <div style="float:right; color:#FFFFFF;">
+                    @Html.Partial("~/Views/account/_LoginStatus.cshtml")
+                </div>
+                <div onclick="window.location='/WebsiteManagement/manageAppPools';" style="float:right; background-color:#FFFFFF; padding:5px; color:#CC0000; margin:5px 0 0 0; cursor:pointer;">HYPSTER PANIC</div>
                 <!-- TOP MENU -->
-                <div style=" float:left; text-align:center; "> 
-
-                    <a href="/home" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                <div style="float:left;text-align:center;width:100%; min-height:100px; ">
+                    <a href="/home" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         HOME 
                     </a>
-
-                    <a href="/WebsiteManagement/manageUsers" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageUsers" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Users
                     </a>
-
-                    <a href="/WebsiteManagement/manageGenres" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageGenres" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Genres
                     </a>
-
-                    <a href="/WebsiteManagement/manageCharts" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageCharts" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Charts
                     </a>
-
-                    <a href="/WebsiteManagement/manageFestivals" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageFestivals" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Festivals
                     </a>
-
-                    <a href="/WebsiteManagement/contactUs" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/contactUs" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Contact Us
                     </a>
-
-                    <a href="/WebsiteManagement/manageManuals" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageManuals" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Manuals
                     </a>
-
-                    <a href="/WebsiteManagement/manageSitemap" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageSitemap" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Sitemap
                     </a>
-
-                    <a href="/WebsiteManagement/manageSlideshow" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    @*<a href="/WebsiteManagement/manageSlideshow" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Slideshow
-                    </a>
-
-                    <a href="/WebsiteManagement/hypReports" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    </a>*@
+                    <a href="/WebsiteManagement/hypReports" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Reports
                     </a>
-
-                    <a href="/WebsiteManagement/hypArtists" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/hypArtists" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Artists
                     </a>
-
-                    <a href="/WebsiteManagement/hypEmails" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/hypEmails" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Emails
                     </a>
-
-                    <a href="/WebsiteManagement/hypVote" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/hypVote" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Vote
                     </a>
-
-                    <a href="/WebsiteManagement/hypPublicPlaylists" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/hypPublicPlaylists" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Public Playlists
                     </a>
-
-                    <a href="/WebsiteManagement/hypFeaturedPlaylists" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/hypFeaturedPlaylists" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Featured Playlists
                     </a>
-
-                    <a href="/WebsiteManagement/hypDynamicContent" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/hypDynamicContent" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Hypster Dynamic Content
                     </a>
-
-                    <a href="/WebsiteManagement/manageFeatured" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageFeatured" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Featured Content
                     </a>
-
-                    <a href="/WebsiteManagement/manageDeadLinks" style=" display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                    <a href="/WebsiteManagement/manageDeadLinks" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
                         Dead Links
                     </a>
-
                 </div>
                 <!-- TOP MENU -->
-
-
             </div>
 
-            <div style=" float:left; width:100%;">
+            <div style="float:left; width:100%;">
                 @RenderBody()
             </div>
             
-
-
-            <div style=" float:left; width:100%; height:30px; background-color:#656565; border-radius:2px; margin-top:15px;"></div>
-
-            <div style=" float:left; width:100%; height:30px;"></div>
+            <div style="float:left; width:100%; height:30px; background-color:#656565; border-radius:2px; margin-top:15px;"></div>
+            <div style="float:left; width:100%; height:30px;"></div>
         </div>
     </center>
-
-
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>

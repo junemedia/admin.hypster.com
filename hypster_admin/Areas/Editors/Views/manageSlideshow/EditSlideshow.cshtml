@@ -1,0 +1,44 @@
+﻿@model hypster_tv_DAL.homeSlideshow
+@{
+    ViewBag.Title = "EditSlideshow";
+    Layout = "~/Views/Shared/_Layout_Editors.cshtml";
+}
+
+<div style="float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    <div style="float:left; width:100%;">
+        <h2>Edit Slide - @ViewBag.ID</h2>
+    </div>
+    <div style="float:left; width:100%; ">
+    </div>
+</div>
+
+<div style="float:left; width:67%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+
+    @using (Html.BeginForm("EditSlideshow", "manageSlideshow", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="text" name="href" id="href" value="@Model.href" class="txtFeaturedGUID" />
+        <br /><br />
+        <div style="float:left; background:#565656; padding:5px; margin:10px; text-align:left; line-height:23px;">
+            <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/imgs/slideshow/@Model.ImageSrc?@( new Random().Next(1000, 100000))" /><br />
+        </div>
+        <br /><br /><br /><br />
+        <text>Image: @Model.ImageSrc (Resolution: 706x360px) !!!!!!!<br /></text>
+        <input type="file" name="file" id="file" style="width:560px; height:25px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" /><br />
+        <input type="hidden" id="ImgSrc" name="ImgSrc" value="@Model.ImageSrc" />
+        <br />
+        if (@ViewBag.check) {
+            @Html.CheckBox("isPopupMusicPlayer", true)
+        }
+        else
+        {
+            @Html.CheckBox("isPopupMusicPlayer")
+        }
+
+        <text>:Popup Music Player</text>
+        <br />
+        <input type="submit" value="Save" style="width:80px;margin-right:15px;" />
+        <input type="button" value="Cancel" onclick="window.location = '/Editors/manageSlideshow';" />
+
+        @Html.ValidationSummary(true, "", new { @class = "txtValidator" })
+    }
+</div>

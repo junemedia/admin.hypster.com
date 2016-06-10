@@ -1,0 +1,54 @@
+﻿@model List<hypster_tv_DAL.homeSlideshow>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Editors.cshtml";
+}
+
+<div style="float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    <div style="float:left; width:100%;">
+        <h2>Manage Slideshow</h2>
+    </div>
+
+    <div style="float:left; width:97%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px 0 0 0; padding:2px; cursor:pointer;" onclick="window.location = '/Editors/manageSlideshow/AddNewSlideshow';">
+        &nbsp;Add New Slide
+    </div>
+</div>
+
+<div style="float:left; width:67%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left;">
+    @foreach (var item in Model)
+    {
+        <div style="float:left; width:100%;">
+            <div style="float:left; width:97%; background:#565656; padding:5px; margin:10px; text-align:left; line-height:23px;">
+                <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/imgs/home/home_slideshow/@item.ImageSrc?@( new Random().Next(1000,100000))" style="width:100%;height:100%" /><br />
+                <text>URL:</text> @item.href <br />
+                <text>Order:</text> @item.SortOrder.Value<br />
+                <text>isActive:</text> @item.isActive.Value<br />
+            </div>
+            <div style="float:left; width:97%; min-height:30px; background:#565656; padding:5px; margin:-9px 10px 10px 10px; text-align:left;">
+                <input type="button" value="Edit" onclick="window.location='/Editors/manageSlideshow/EditSlideshow/@item.homeSlideshow_ID';" style="width:80px; margin-right:5px;" />
+                <input type="button" value="Delete" onclick="if(confirm('Are you sure you want to delete?') == true){window.location='/Editors/manageSlideshow/Delete/@item.homeSlideshow_ID';}" style="width:80px; margin-right:5px;" />
+                <input type="button" value="Activate" onclick="if(confirm('Are you sure you want to activate?') == true){window.location='/Editors/manageSlideshow/Activate/@item.homeSlideshow_ID';}" style="width:80px; margin-right:5px;" />
+                <input type="button" value="Deactivate" onclick="if(confirm('Are you sure you want to deactivate?') == true){window.location='/Editors/manageSlideshow/Deactivate/@item.homeSlideshow_ID';}" style="width:80px; margin-right:5px;" />
+                @*<input type="button" value="Add To Featured" onclick="window.location='/Editors/manageSlideshow/AddToFeatured?id=@item.homeSlideshow_ID&type=slideshow';" style="width:130px; margin-right:5px;" />
+                <input type="button" value="Add To Featured Slideshow" onclick="window.location='/Editors/manageSlideshow/AddToFeaturedSlideshow/@item.homeSlideshow_ID';" style="width:180px; margin-right:5px;" />*@
+                <input type="button" value="UP" style="float:right; width:40px;" onclick="SortOrderEdt_UP(@item.homeSlideshow_ID);" />
+                <input type="button" value="DOWN" style="float:right; width:60px;" onclick="SortOrderEdt_DOWN(@item.homeSlideshow_ID);" />
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function SortOrderEdt_UP(id)
+    {
+        window.location = '/Editors/manageSlideshow/SlideUp?sl=' + id;
+    }
+
+    function SortOrderEdt_DOWN(id)
+    {
+        window.location = '/Editors/manageSlideshow/SlideDown?sl=' + id;
+    }
+</script>
+
+

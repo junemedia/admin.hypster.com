@@ -1,21 +1,21 @@
-﻿
-@if (Request.IsAuthenticated)
+﻿@if (Request.IsAuthenticated)
 {
-    <div style=" float:right; min-width:120px; height:21px; line-height:21px; margin-top:3px; text-align:right; background-image:url(../imgs/menu_back.png); background-repeat:repeat-x; border:1px solid #333333; border-radius:1px;">
+    <div style="float:right;min-width:120px;height:21px;line-height:21px;margin-top:3px;text-align:right;background-image:url(../imgs/menu_back.png);background-repeat:repeat-x;border:1px solid #333333;border-radius:1px;">
         &nbsp;
         "@User.Identity.Name"
-        &nbsp;
-        @Html.ActionLink("Log out", "LogOff", "account")
+        &nbsp;|&nbsp;
+        @Html.ActionLink("Log Out", "LogOff", "account", routeValues: new { Area = "" }, htmlAttributes: null)
         &nbsp;
     </div>
 }
 else
 {
-    <div style=" float:right; min-width:120px; height:21px; line-height:21px; margin-top:3px; text-align:right; background-image:url(../imgs/menu_back.png); background-repeat:repeat-x; border:1px solid #333333; border-radius:1px;">
+    <div style="float:right;min-width:120px;height:21px;line-height:21px;margin-top:3px;text-align:right;background-image:url(../imgs/menu_back.png);background-repeat:repeat-x;border:1px solid #333333;border-radius:1px;">
         &nbsp;
-        @Html.ActionLink("Register", "Login", "account")
+        Login Here:
+        @*@Html.ActionLink("Register", "Login", "account", routeValues: new { Area = "" }, htmlAttributes: null)*@
         &nbsp;|&nbsp;
-        @Html.ActionLink("Login", "Login", "account")
+        @Html.ActionLink("Login", "Login", "account", routeValues: new { Area = "" }, htmlAttributes: null)
         &nbsp;
     </div>
 }

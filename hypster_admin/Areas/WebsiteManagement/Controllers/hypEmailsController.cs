@@ -10,25 +10,24 @@ namespace hypster_admin.Areas.WebsiteManagement.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+                return View();
+            else
+                return RedirectPermanent("/home/");
         }
 
 
         [HttpPost]
         public ActionResult SendConfEmail(string email)
         {
-            hypster_tv_DAL.Email_Manager emailManager = new hypster_tv_DAL.Email_Manager();
-
-
-            emailManager.SendWelcomeEmail("Welcome to Hypster", email);
-
-
-            return RedirectPermanent("/WebsiteManagement/hypEmails");
+            if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+            {
+                hypster_tv_DAL.Email_Manager emailManager = new hypster_tv_DAL.Email_Manager();
+                emailManager.SendWelcomeEmail("Welcome to Hypster", email);
+                return RedirectPermanent("/WebsiteManagement/hypEmails");
+            }
+            else
+                return RedirectPermanent("/home/");
         }
-
-
-
-
-
     }
 }

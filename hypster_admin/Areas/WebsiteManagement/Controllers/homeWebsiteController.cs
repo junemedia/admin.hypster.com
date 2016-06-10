@@ -10,9 +10,10 @@ namespace hypster_admin.Areas.WebsiteManagement.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+                return View();
+            else
+                return RedirectPermanent("/home/");
         }
-
-
     }
 }

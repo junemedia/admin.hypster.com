@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/css/themes/base/css", "~/css/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <center>
+        <div style="width:1130px;clear:both;">
+            <div style="float:left; width:100%; color:#FFFFFF; text-align:left;">
+                <img alt="Hypster Logo" src="/imgs/logo.png" style="float:left; margin-top:10px;" />
+                <div style="float:right; color:#FFFFFF;">
+                    @Html.Partial("~/Views/account/_LoginStatus.cshtml")
+                </div>
+                <!-- TOP MENU -->
+                <div style="float:left;text-align:center;width:100%;min-height:100px;">
+                    <a href="/home" style="display:block;float:left;padding:0 10px 0 10px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:20px;margin-left:10px;cursor:pointer;text-decoration:none;margin-bottom:3px;">
+                        HOME
+                    </a>
+                    <a href="/Editors/manageSlideshow" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">
+                        Slideshow
+                    </a>
+                </div>
+                <!-- TOP MENU -->
+            </div>
+
+            <div style="float:left; width:100%;">
+                @RenderBody()
+            </div>
+            
+            <div style="float:left;width:100%;height:30px;background-color:#656565;border-radius:2px;margin-top:15px;"></div>
+            <div style="float:left;width:100%;height:30px;"></div>
+        </div>
+    </center>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

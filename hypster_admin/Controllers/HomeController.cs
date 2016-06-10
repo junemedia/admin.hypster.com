@@ -6,6 +6,7 @@ namespace hypster_admin.Controllers
     {
         public ActionResult Index()
         {
+            Session.Add("LoggedInRole", "User");
             return View();
         }
     }

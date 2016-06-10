@@ -1,21 +1,32 @@
 ﻿@{
     ViewBag.Title = "Index";
+    hypster_tv_DAL.Member member = new hypster_tv_DAL.Member();
 }
+<h1>Hypster Admin website</h1>
 
+<p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="/home" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:0px;cursor:pointer;text-decoration:none;">
+            HOME
+        </a>
 
-<a href="/home" style="display:block; float:left; width:275px; height:100px; line-height:90px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:23px; margin-left:0px; cursor:pointer; text-decoration:none;">
-    HOME 
-</a>
+        <a href="/Editors/editor" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px; color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
+            Editor Pages
+        </a>
+        if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+        {
+            <a href="/WebsiteManagement/homeWebsite" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
+                Hypster Website
+            </a>
 
-<a href="/WebsiteManagement/homeWebsite" style="display:block; float:left; width:275px; height:100px; line-height:90px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:23px; margin-left:10px; cursor:pointer; text-decoration:none;">
-    Hypster Website
-</a>
+            <a href="/VideoManagement/homeVideo" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
+                Hypster Video
+            </a>
 
-<a href="/VideoManagement/homeVideo" style="display:block; float:left; width:275px; height:100px; line-height:90px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:23px; margin-left:10px; cursor:pointer; text-decoration:none;">
-    Hypster Video
-</a>
-
-<a href="/NewsManagement/homeNews" style="display:block; float:left; width:275px; height:100px; line-height:90px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:23px; margin-left:10px; cursor:pointer; text-decoration:none;">
-    Hypster News
-</a>
-
+            <a href="/NewsManagement/homeNews" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
+                Hypster News
+            </a>
+        }
+    }
+</p>

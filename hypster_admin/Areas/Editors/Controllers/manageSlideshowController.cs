@@ -25,21 +25,12 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewSlideshow(HttpPostedFileBase file, string href, bool isPopupMusicPlayer)
+        public ActionResult AddNewSlideshow(HttpPostedFileBase file, string href)
         {
 
             if (file != null && file.ContentLength > 0)
             {
                 hypster_tv_DAL.homeSlideshow homeSlide = new hypster_tv_DAL.homeSlideshow();
-                if (isPopupMusicPlayer == true)
-                {
-                    homeSlide.href = "OpenPlayerM('" + href + "');";
-                }
-                else
-                {
-                    homeSlide.href = "window.location='" + href + "';";
-                }
-
                 var extension = System.IO.Path.GetExtension(file.FileName);
                 var path = System.IO.Path.Combine(Server.MapPath("~/uploads"), "new_home_slide" + extension);
                 file.SaveAs(path);
@@ -65,7 +56,6 @@ namespace hypster_admin.Areas.Editors.Controllers
                 hyDB.SaveChanges();
 
                 return RedirectToAction("Index");
-
             }
             else
             {
@@ -90,16 +80,11 @@ namespace hypster_admin.Areas.Editors.Controllers
             hypster_tv_DAL.homeslideImageTracking tracking = new hypster_tv_DAL.homeslideImageTracking();
             slide = homeSlideshowManager.homeSlideshowByID(id);
             ViewBag.ID = id;
-            if (slide.href.StartsWith("OpenPlayerM"))
-                ViewBag.check = true;
-            else
-                ViewBag.check = false;
-            slide.href = slide.href.Substring(slide.href.IndexOf("'") + 1).Replace("';","").Replace("');", "");
             return View(slide);
         }
 
         [HttpPost]
-        public ActionResult EditSlideshow(HttpPostedFileBase file, string ImgSrc, string href, bool isPopupMusicPlayer)
+        public ActionResult EditSlideshow(HttpPostedFileBase file, string ImgSrc, string href)
         {
             string[] s = Request.AppRelativeCurrentExecutionFilePath.Split('/');
             hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
@@ -131,16 +116,7 @@ namespace hypster_admin.Areas.Editors.Controllers
             else
             {
                 slide.ImageSrc = ImgSrc;
-            }
-
-            if (isPopupMusicPlayer == true)
-            {
-                slide.href = "OpenPlayerM('" + href + "');";
-            }
-            else
-            {
-                slide.href = "window.location='" + href + "';";
-            }
+            }            
             hyDB.sp_homeSlideshow_UpdateHomeSlideshow(slide.homeSlideshow_ID, slide.href, slide.ImageSrc);
             hyDB.SaveChanges();
             return RedirectToAction("Index");

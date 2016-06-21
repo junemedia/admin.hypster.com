@@ -1,0 +1,50 @@
+﻿@model hypster_tv_DAL.newsPost
+@{
+    ViewBag.Title = "AddNewPost";
+    Layout = "~/Views/Shared/_Layout_Editors.cshtml";
+}
+
+<div style="float:left; width:28%; min-height:100px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    <div style="float:left; width:100%;">
+        <h2>Add New Post</h2>
+    </div>
+
+    <div style="float:left; width:100%; ">
+    </div>
+</div>
+
+<div style="float:left; width:60%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    <div style="float:left; width:100%; text-align:left; ">
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(m => m.post_image)
+
+
+            <text>Header:</text><br />
+            @Html.TextBoxFor(m => m.post_title, new { @class = "newsPost_Title" })<br />
+            <text>Content:</text><br />
+            @Html.TextAreaFor(m => m.post_content, new { @class = "newsPost_Content" })<br />
+
+
+            <div style="margin-top:20px; width:100%; text-align:right;">
+                <input type="submit" value="Add New Post" />
+                <input type="button" value="Cancel" onclick="window.location = '/Editors/managePost';" />
+            </div>
+
+            <br /><br />
+            @Html.ValidationMessage("", new { @class = "txtValidator" });
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function showHide_PostImages() {
+        if ($("#PostImage_cont").css("display") == "none") {
+            $("#PostImage_cont").css("display", "block");
+        }
+        else {
+            $("#PostImage_cont").css("display", "none");
+        }
+    }
+</script>

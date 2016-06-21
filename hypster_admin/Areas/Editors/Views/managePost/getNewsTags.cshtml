@@ -1,0 +1,16 @@
+﻿@model List<hypster_tv_DAL.sp_Tag_GetNewsTags_Result>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <div id="tgn@(item.Tag_News_ID)" class="TagI">
+        <div style="float:left; ">
+            @item.Tag_Name
+        </div>
+        <div style="float:left; background-color:#878787; margin-left:7px; cursor:pointer; padding:0 7px 0 7px;" onclick="del_news_tag(@item.Tag_News_ID)">
+            X
+        </div>
+    </div>
+}

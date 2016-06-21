@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace hypster_admin.Areas.NewsManagement.Controllers
 {
+    [Authorize]
     public class homeCelebsController : Controller
     {
         //

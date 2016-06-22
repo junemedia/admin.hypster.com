@@ -263,5 +263,23 @@ namespace hypster_admin.Areas.Editors.Controllers
             str_val = memberManager.getMemberByUserName(username).id.ToString();
             return str_val;
         }
+
+        public string getPlaylistsByUsername()
+        {
+            string sel_list = "";
+            string username = "";
+            if (Request.QueryString["username"] != null)
+            {
+                username = Request.QueryString["username"];
+            }
+            hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
+            hypster_tv_DAL.playlistManagement playlistManagement = new hypster_tv_DAL.playlistManagement();
+            for (int i = 0; i < playlistManagement.GetUserPlaylists(memberManager.getMemberByUserName(username).id).Count; i++)
+            {
+                if (sel_list != "") sel_list += ",";
+                sel_list += "{\"id\":" + playlistManagement.GetUserPlaylists(memberManager.getMemberByUserName(username).id)[i].id + ", \"name\":\"" + playlistManagement.GetUserPlaylists(memberManager.getMemberByUserName(username).id)[i].name + "\"}";
+            }
+            return "[" + sel_list + "]";
+        }
     }
 }

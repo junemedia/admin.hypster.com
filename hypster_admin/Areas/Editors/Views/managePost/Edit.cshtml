@@ -193,16 +193,10 @@
             </select>
             <br />
 
-            <text>Date Create:</text><br />
-            <text>@Model.post_date</text><input type="text" name="post_date" id="post_date" value="@Model.post_date" style="display:none" />
+            <text>Date Create: </text>
+            <text><i>@Model.post_date</i></text>
             <br />
 
-            <text>Companion ad (1 - if yes)</text><input type="text" name="ad_id" id="ad_id" value="@Model.ad_id" />
-            <br />
-
-            <input type="checkbox" id="splashArt" name="splashArt" /> <text>is splash article?</text>
-            <br />
-            <br />
             <text>Tags:</text>
             <div style="float:left; width:100%;">
                 <input type="hidden" name="newTagArticle" id="newTagArticle" value="@Model.post_id" />

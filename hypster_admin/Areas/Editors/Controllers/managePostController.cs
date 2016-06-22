@@ -71,23 +71,10 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public string Edit(hypster_tv_DAL.newsPost p_Post, string splashArt)
+        public string Edit(hypster_tv_DAL.newsPost p_Post)
         {
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             newsManager.EditPost(p_Post);
-            if (splashArt == "on")
-            {
-                hypster_tv_DAL.sysHypster_Management sysManager = new hypster_tv_DAL.sysHypster_Management();
-                sysManager.SetSplashID(p_Post.post_id);
-            }
-            if (p_Post.ad_id != "")
-            {
-                if (p_Post.ad_id == null)
-                {
-                    p_Post.ad_id = "";
-                }
-                newsManager.SetPostAdID(p_Post);
-            }
 
             //update sitemaps date and ping google and bing
             //

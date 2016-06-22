@@ -30,8 +30,6 @@
                 <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
                     <input type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" style="width:100%;" />
                 </div>
-
-
                 <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:left;">
                     <input type="radio" name="group1" value="PostImgSt_Left" onclick="setImageOrientation(this.value);" /> <text>Left Side</text>
                     <input type="radio" name="group1" value="PostImgSt_Right" onclick="setImageOrientation(this.value);"> <text>Right Side</text>
@@ -42,10 +40,7 @@
                         }
                     </script>
                 </div>
-
                 <textarea id="PostImage_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
-
-
                 <div style="width:100%; text-align:left; color:#FCF088;">New Image Code</div>
                 <textarea id="PostImage_EditTextArea2" style=" width:98%; height:30px;">
                     <img alt="@Model.post_title" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" class="nPostImg" />
@@ -56,7 +51,6 @@
         <!-- POST VIDEO -->
         <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostVideo();">
             <span style="font-size:17px; font-weight:bold;">&nbsp;YOUTUBE VIDEO</span>
-
         </div>
         <div id="PostVideo_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
             YouTube video URL:<br />
@@ -81,104 +75,17 @@
                         alert("Plase Enter video height");
                         return;
                     }
-
                     var youtube_guid = val.match(/v=([^&]+)/)[1];
                     if (youtube_guid == "") {
                         alert("Unable to parse URL.");
                         return;
                     }
-
                     $("#PostVideo_EditTextArea1").css("display", "block");
                     $("#PostVideo_EditTextArea1").val("<span class=\"PostVideoCont\" style=\"width:" + p_w + "px; height:" + p_h + "px; margin-top:5px;\"><iframe width=\"" + p_w + "\" height=\"" + p_h + "\" src=\"http://www.youtube.com/embed/" + youtube_guid + "\" frameborder=\"0\" allowfullscreen></iframe></span>");
                 }
             </script>
         </div>
         <!-- POST VIDEO -->
-        <!-- POST BARONS VIDEO -->
-        <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostBaronsVideo();">
-            <span style="font-size:17px; font-weight:bold;">&nbsp;BARONS VIDEO</span>
-        </div>
-
-        <div id="PostBaronsVideo_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
-            Video URL:<br />
-            <input id="BaronsVideo_URL" type="text" value="" style="width:98%;" /><br />
-            Image URL:<br />
-            <input id="BaronsImage_URL" type="text" value="" style="width:98%;" /><br />
-
-            Width:<input id="BaronsVideo_Width" type="text" value="300" style="width:30px;" />
-            Height:<input id="BaronsVideo_Height" type="text" value="230" style="width:30px;" />
-            <input type="button" value="generate code" onclick="setEmbedBaronsVideo($('#BaronsVideo_URL').val(), $('#BaronsImage_URL').val(), $('#BaronsVideo_Width').val(), $('#BaronsVideo_Height').val());" style=" width:155px;" />
-            <br /><br />
-
-            <textarea id="PostBaronsVideo_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
-            <script type="text/javascript">
-                function setEmbedBaronsVideo(val, image_url, p_w, p_h)
-                {
-                    if (val == "") {
-                        alert("Plase Enter video URL");
-                        return;
-                    }
-                    if (image_url == "") {
-                        alert("Plase Enter image URL");
-                        return;
-                    }
-                    if (p_w == "") {
-                        alert("Plase Enter video width");
-                        return;
-                    }
-                    if (p_h == "") {
-                        alert("Plase Enter video height");
-                        return;
-                    }
-
-                    var player_id = Math.floor(Math.random()*11111);
-                    var player_code1 = "script type='text/javascript' src='http://cdn2.baronsmedia.com/adplayer/jwplayer.js'></script";
-                    var player_code2 = "";
-                    player_code2 += "<div id='ova-jwplayer-container'></div>";
-                    player_code2 += "<div id='player_" + player_id + "'></div>";
-                    var player_code3 = "";
-                    player_code3 += "script type='text/javascript'";
-                    var player_code4 = "";
-                    player_code4 += "jwplayer('ova-jwplayer-container').setup({";
-                    player_code4 += "'flashplayer': 'http://cdn2.baronsmedia.com/adplayer/player.swf',";
-                    player_code4 += "'autostart': true,";
-                    player_code4 += "'mute': false,";
-                    player_code4 += "'playlist': [";
-                    player_code4 += "{";
-                    player_code4 += "file: '" + val + "',";
-                    player_code4 += "image: '" + image_url + "'";
-                    player_code4 += "}";
-                    player_code4 += "],";
-                    player_code4 += "'width': " + p_w + ",";
-                    player_code4 += "'height': " + p_h + ",";
-                    player_code4 += "'controlbar': {";
-                    player_code4 += "'position': 'bottom'";
-                    player_code4 += "},";
-                    player_code4 += "'plugins': {";
-                    player_code4 += "'ova-jw': {";
-                    player_code4 += "'ads': {";
-                    player_code4 += "'schedule': [";
-                    player_code4 += "{";
-                    player_code4 += "'position': 'pre-roll',";
-                    player_code4 += "'tag': 'http://u-ads.adap.tv/a/h/XcXSqhCTA3wp4ZpNwUiWDK7YXY2ISQqS?cb=${AdPlayer.cachebreaker}&pageUrl=http%3A%2F%2Fhypster.com&description=${description}&duration=${duration}&id=${id}&keywords=${keywords}&title=${title}&url=${videourl}&eov=eov'";
-                    player_code4 += "}";
-                    player_code4 += "]";
-                    player_code4 += "}";
-                    player_code4 += "}";
-                    player_code4 += "}";
-                    player_code4 += "});";
-
-                    var player_code5 = "";
-                    player_code5 += "/script";
-                    var player_code6 = "";
-                    player_code6 += "";
-
-                    $("#PostBaronsVideo_EditTextArea1").css("display", "block");
-                    $("#PostBaronsVideo_EditTextArea1").val("<" + player_code1 + ">" + player_code2 + "<" + player_code3 + ">" + player_code4 + "<" + player_code5 + ">" + player_code6 );
-                }
-            </script>
-        </div>
-        <!-- POST BARONS VIDEO -->
         <!-- POST MUSIC PLAYER -->
         <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostMusicPlayer();">
             <span style="font-size:17px; font-weight:bold;">&nbsp;MUSIC PLAYER</span>
@@ -198,117 +105,55 @@
 
             <textarea id="PostMusicPlayer_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
             <script type="text/javascript">
-
-                function getPlaylists() {
-                  var username = $('#Music_User_ID').val();
-
-                  $.ajax({
-                    type: 'GET',
-                    url: '/Editors/managePost/GetPlaylistsByUsername?username=' + username,
-                    async: true,
-                    dataType: 'json',
-                    success: updatePlaylistOptions
-                  })
-                  
+                function getPlaylists()
+                {
+                    var username = $("#Music_User_ID").val();
+                    $.ajax({
+                        type: "GET",
+                        url: "/Editors/managePost/GetPlaylistsByUsername?username=" + username,
+                        async: true,
+                        dataType: "json",
+                        success: updatePlaylistOptions
+                    });                  
                 }
 
-                function updatePlaylistOptions(lists) {
-                  var current;
-                  var option;
-                  var selectEl = $('#Music_Playlist_ID');
+                function updatePlaylistOptions(lists)
+                {
+                    var current;
+                    var option;
+                    var selectEl = $("#Music_Playlist_ID");
 
-                  // clear out current options
-                  selectEl.empty();
+                    // clear out current options
+                    selectEl.empty();
 
-                  // add empty option
-                  option = $('<option></option>').attr("value", "").text("");
-                  selectEl.append(option);
-
-                  for (var i = 0; i < lists.length; i++) {
-                    current = lists[i];
-                    option = $('<option></option>').attr("value", current.id).text(current.name);
+                    // add empty option
+                    option = $("<option></option>").attr("value", "").text("");
                     selectEl.append(option);
-                  }
+
+                    for (var i = 0; i < lists.length; i++)
+                    {
+                        current = lists[i];
+                        option = $("<option></option>").attr("value", current.id).text(current.name);
+                        selectEl.append(option);
+                    }
                 }
 
-                function setEmbedMusicPlayer(user_name, playlist_id) {
-                  
-                  $.ajax({
-                      type: "POST",
-                      url: "/Editors/managePost/getUserIdByName?username=" + user_name,
-                      async: true,
-                      success: function (data) {
+                function setEmbedMusicPlayer(user_name, playlist_id)
+                {                  
+                    $.ajax({
+                        type: "POST",
+                        url: "/Editors/managePost/getUserIdByName?username=" + user_name,
+                        async: true,
+                        success: function (data)
+                        {
                           $("#PostMusicPlayer_EditTextArea1").css("display", "block");
                           $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://localhost:50718/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
-                      }
-                  });
+                        }
+                    });
                 }
             </script>
         </div>
         <!-- POST MUSIC PLAYER -->
-        <!-- POST Wotchit VIDEO -->
-        <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostWotchitVideo();">
-            <span style="font-size:17px; font-weight:bold;">&nbsp;Wotchit VIDEO</span>
-        </div>
-
-        <div id="PostWotchitVideo_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
-
-            Video URL:<br />
-            <input id="WotchitVideo_URL" type="text" value="" style="width:98%;" /><br />
-            Image URL:<br />
-            <input id="WotchitImage_URL" type="text" value="" style="width:98%;" /><br />
-
-            Width:<input id="WotchitVideo_Width" type="text" value="686" style="width:30px;" />
-            Height:<input id="WotchitVideo_Height" type="text" value="386" style="width:30px;" />
-            <input type="button" value="generate code" onclick="setEmbedWotchitVideo($('#WotchitVideo_URL').val(), $('#WotchitImage_URL').val(), $('#WotchitVideo_Width').val(), $('#WotchitVideo_Height').val());" style="width:155px;" />
-            <br /><br />
-
-            <textarea id="Wotchit_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
-            <script type="text/javascript">
-                function setEmbedWotchitVideo(val, image_url, p_w, p_h)
-                {
-                    if (val == "") {
-                        alert("Plase Enter video URL");
-                        return;
-                    }
-                    if (image_url == "") {
-                        alert("Plase Enter image URL");
-                        return;
-                    }
-                    if (p_w == "") {
-                        alert("Plase Enter video width");
-                        return;
-                    }
-                    if (p_h == "") {
-                        alert("Plase Enter video height");
-                        return;
-                    }
-
-                    var player_id = Math.floor(Math.random() * 11111);
-                    var player_ss = "";
-                    player_ss += "<" + "script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js'><" + "/script>";
-                    player_ss += "<" + "script src='http://cdn2.baronsmedia.com/adplayer/jwplayer.js'><"+"/script>";
-                    player_ss += "<div style='padding:8px 0 8px 0;'><" + "div id='ova-jwplayer-container'><"+"/div></div>";
-                    player_ss += "<" + "script type='text/javascript'>";
-                    player_ss += "jwplayer('ova-jwplayer-container').setup({ ";
-                    player_ss += "  'flashplayer': 'http://cdn2.baronsmedia.com/adplayer/player.swf', ";
-                    player_ss += " 'autostart': true, ";
-                    player_ss += " 'mute': false, ";
-                    player_ss += " 'playlist': [{ file: '"+ val + "', ";
-                    player_ss += " image: '" + image_url + "'}], ";
-                    player_ss += " 'width': 686, ";
-                    player_ss += " 'height': 386, ";
-                    player_ss += " 'controlbar': { 'position': 'bottom' }, ";
-                    player_ss += " 'plugins': { 'ova-jw': { 'ads': { 'schedule': [{ 'position': 'pre-roll', ";
-                    player_ss += " 'tag': 'http://u-ads.adap.tv/a/h/XcXSqhCTA3wp4ZpNwUiWDK7YXY2ISQqS?cb=${AdPlayer.cachebreaker}&pageUrl=http%3A%2F%2Fhypster.com&description=${description}&duration=${duration}&id=${id}&keywords=${keywords}&title=${title}&url=${videourl}&eov=eov'}]}}} }); ";
-                    player_ss += "<" + "/script>";
-
-                    $("#Wotchit_EditTextArea1").css("display", "block");
-                    $("#Wotchit_EditTextArea1").val(player_ss);
-                }
-            </script>
-        </div>
-        <!-- POST Wotchit VIDEO -->
     </div>
 </div>
 
@@ -417,28 +262,12 @@
             $("#PostVideo_cont").css("display", "none");
     }
 
-    function showHide_PostBaronsVideo()
-    {
-        if ($("#PostBaronsVideo_cont").css("display") == "none")
-            $("#PostBaronsVideo_cont").css("display", "block");
-        else
-            $("#PostBaronsVideo_cont").css("display", "none");
-    }
-
     function showHide_PostMusicPlayer()
     {
         if ($("#PostMusicPlayer_cont").css("display") == "none")
             $("#PostMusicPlayer_cont").css("display", "block");
         else
             $("#PostMusicPlayer_cont").css("display", "none");
-    }
-
-    function showHide_PostWotchitVideo()
-    {
-        if ($("#PostWotchitVideo_cont").css("display") == "none")
-            $("#PostWotchitVideo_cont").css("display", "block");
-        else
-            $("#PostWotchitVideo_cont").css("display", "none");
     }
 
     function addNewTag_click()

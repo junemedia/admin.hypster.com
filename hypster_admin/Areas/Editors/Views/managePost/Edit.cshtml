@@ -187,28 +187,62 @@
         <div id="PostMusicPlayer_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
 
             Username:<br />
-            <input id="Music_User_ID" type="text" value="" style="width:98%;" /><br />
+            <input id="Music_User_ID" type="text" value="" style="width:98%;" onblur="getPlaylists()" /><br />
             Playlist ID:<br />
-            <input id="Music_Playlist_ID" type="text" value="" style="width:98%;" /><br />
+            <select id="Music_Playlist_ID" style="width:98%;height:24px;line-height:24px;background:#eee;">
+                <option value=""></option>
+            </select><br />
 
             <input type="button" value="generate code" onclick="setEmbedMusicPlayer($('#Music_User_ID').val(), $('#Music_Playlist_ID').val());" style="width:155px;" />
             <br /><br />
 
             <textarea id="PostMusicPlayer_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
             <script type="text/javascript">
-                    function setEmbedMusicPlayer(user_name, playlist_id) {
 
-                        $.ajax({
-                            type: "POST",
-                            url: "/Editors/managePost/getUserIdByName?username=" + user_name,
-                            async: true,
-                            success: function (data) {
-                                $("#PostMusicPlayer_EditTextArea1").css("display", "block");
-                                $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
-                            }
-                        });
+                function getPlaylists() {
+                  var username = $('#Music_User_ID').val();
 
-                    }
+                  $.ajax({
+                    type: 'GET',
+                    url: '/Editors/managePost/GetPlaylistsByUsername?username=' + username,
+                    async: true,
+                    dataType: 'json',
+                    success: updatePlaylistOptions
+                  })
+                  
+                }
+
+                function updatePlaylistOptions(lists) {
+                  var current;
+                  var option;
+                  var selectEl = $('#Music_Playlist_ID');
+
+                  // clear out current options
+                  selectEl.empty();
+
+                  // add empty option
+                  option = $('<option></option>').attr("value", "").text("");
+                  selectEl.append(option);
+
+                  for (var i = 0; i < lists.length; i++) {
+                    current = lists[i];
+                    option = $('<option></option>').attr("value", current.id).text(current.name);
+                    selectEl.append(option);
+                  }
+                }
+
+                function setEmbedMusicPlayer(user_name, playlist_id) {
+                  
+                  $.ajax({
+                      type: "POST",
+                      url: "/Editors/managePost/getUserIdByName?username=" + user_name,
+                      async: true,
+                      success: function (data) {
+                          $("#PostMusicPlayer_EditTextArea1").css("display", "block");
+                          $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://localhost:50718/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
+                      }
+                  });
+                }
             </script>
         </div>
         <!-- POST MUSIC PLAYER -->
@@ -309,8 +343,8 @@
 
             <text>Status:</text><br />
             <select name="post_status" id="post_status" style="width:250px; height:25px;">
-                <option value="@((int)hypster_tv_DAL.postStatus.NoActive)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.NoActive) { <text> selected="selected" </text> }>No Active</option>
-                <option value="@((int)hypster_tv_DAL.postStatus.Active)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.Active) { <text> selected="selected" </text> }>Active</option>
+                <option value="@((int)hypster_tv_DAL.postStatus.NoActive)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.NoActive) { <text> selected="selected" </text>  }>No Active</option>
+                <option value="@((int)hypster_tv_DAL.postStatus.Active)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.Active) { <text> selected="selected" </text>  }>Active</option>
             </select>
             <br />
 
@@ -446,4 +480,3 @@
         }
     }
 </script>
-

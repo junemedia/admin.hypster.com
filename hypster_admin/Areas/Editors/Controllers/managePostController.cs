@@ -71,7 +71,7 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public string Edit(hypster_tv_DAL.newsPost p_Post)
+        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post)
         {
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             newsManager.EditPost(p_Post);
@@ -103,7 +103,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 bing_responseString = bing_reader.ReadToEnd();
             }
             //-------------------------------------------------------------------------------------------------------------
-            return google_responseString + "<br/>" + bing_responseString + " <br/> <a href='/Editors/managePost'>Go To News Home</a> ";
+            return RedirectToAction("Index");
         }
         //------------------------------------------------------------------------------------------
 

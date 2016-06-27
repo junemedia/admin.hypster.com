@@ -90,6 +90,10 @@
 	    margin:5px 0 0 4px;
 	    background:url('/imgs/delete_icon_s.png') no-repeat center;
     }
+    .PlstItm_Del
+    {
+        float:right; height:10px; cursor:pointer; margin:0 0 0 15px; font-size: 12px;
+    }
 </style>
 <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif'; font-size:14px; color:#FF0000;">@ViewBag.Message</div>
 <div style="float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
@@ -98,7 +102,7 @@
     </div>
     <div style="float:left; width:100%; height:600px; overflow:scroll; overflow-x:hidden;">
         <div id="AddNewPlstItm" class="AddNewPlstItm" onclick="$('#AddNewPlaylist_Container').css('display','block'); $('.AddNewPlstItm').css('display','none');">
-            <div>+ ADD NEW PLAYLIST</div>
+            <div style="cursor:pointer;">+ ADD NEW PLAYLIST</div>
         </div>
         @using (Html.BeginForm("AddNewPlaylist", "managePlaylist", FormMethod.Post))
         {
@@ -113,7 +117,9 @@
         {
             <div id="textName_cont_@item.id" class="selection">
                 <a href="/Editors/managePlaylist/?playlist_id=@item.id">@item.name</a>
+                <div class="PlstItm_Del" title="Delete Playlist" onclick="Pl_DelPlaylist(@item.id);">Delete List</div>
             </div>
+            
         }
     </div>
 </div>
@@ -206,12 +212,26 @@
 
         function add_new_tag_nav() 
         {
-            $('#AddNewTag_InnrContainer').css('display', 'block');
-            var vrval = $('#AddNewTag_InnrContainer').position().top - $(window).height() / 2 - 50;
-            $('html').scrollTop(vrval);
-            $('body').scrollTop(vrval);
+            $("#AddNewTag_InnrContainer").css("display", "block");
+            var vrval = $("#AddNewTag_InnrContainer").position().top - $(window).height() / 2 - 50;
+            $("html").scrollTop(vrval);
+            $("body").scrollTop(vrval);
         }
 
+        function Pl_DelPlaylist(p_playlist_id) 
+        {
+            if (confirm("Are you sure you want to delete?") == true) {
+                window.location = "/Editors/managePlaylist/delelePlaylistSong?ACT=delete_playlist&playlist_id=" + p_playlist_id; 
+            }
+        }
+
+        function Pl_DelSong(p_song_id, p_playlist_id) 
+        {
+            if (confirm("Are you sure you want to delete?") == true)
+            {        
+                window.location = "/Editors/managePlaylist/delelePlaylistSong?ACT=delete_song&song_id=" + p_song_id + "&playlist_id=" + p_playlist_id;    
+            }
+        }
 
         function load_more_songs_plst_details() 
         {

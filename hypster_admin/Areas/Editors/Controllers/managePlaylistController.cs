@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using Google.Apis.Services;
+﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace hypster_admin.Areas.Editors.Controllers
 {
@@ -438,6 +438,118 @@ namespace hypster_admin.Areas.Editors.Controllers
                 hypDB.SaveChanges();
             }
             return RedirectPermanent("/Editors/managePlaylist/?playlist_id=" + Sel_Playlist_ID);
+        }
+
+        [Authorize]
+        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0)]
+        public ActionResult delelePlaylistSong()
+        {
+            hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel model = new hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel();
+            hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
+            hypster_tv_DAL.playlistManagement playlistManager = new hypster_tv_DAL.playlistManagement();
+            hypster_tv_DAL.memberManagement userManager = new hypster_tv_DAL.memberManagement();
+            hypster_tv_DAL.songsManagement songsManager = new hypster_tv_DAL.songsManagement();
+            model.member = memberManager.getMemberByUserName(User.Identity.Name);
+
+            if (Request.QueryString["ACT"] != null)
+            {
+
+                switch (Request.QueryString["ACT"].ToString())
+                {
+                    case "delete_playlist":
+                        int d_playlist_id = 0;
+                        if (Int32.TryParse(Request.QueryString["playlist_id"], out d_playlist_id) == false)
+                            d_playlist_id = 0;
+                        if (d_playlist_id != 0)
+                        {
+                            playlistManager.Delete_Playlist(model.member.id, d_playlist_id);
+                            //check if this playlist is default
+                            if (model.member.active_playlist == d_playlist_id)
+                            {
+                                memberManager.SetUserDefaultPlaylist(User.Identity.Name, model.member.id, 0);
+                            }
+                            return RedirectPermanent("/Editors/managePlaylist/");
+                        }
+                        break;
+                    case "delete_song":
+                        int d_song_id = 0;
+                        if (Int32.TryParse(Request.QueryString["song_id"], out d_song_id) == false)
+                            d_song_id = 0;
+                        string pl_id = "";
+                        if (Request.QueryString["playlist_id"] != null)
+                            pl_id = Request.QueryString["playlist_id"].ToString();
+                        if (d_song_id != 0)
+                        {
+                            playlistManager.DeleteSong(model.member.id, d_song_id);
+                            return RedirectPermanent("/Editors/managePlaylist/?playlist_id=" + pl_id);
+                        }
+                        break;
+                    case "delete_song_plr":
+                        int d_song_id1 = 0;
+                        if (Int32.TryParse(Request.QueryString["song_id"], out d_song_id1) == false)
+                            d_song_id1 = 0;
+
+                        if (d_song_id1 != 0)
+                        {
+                            playlistManager.DeleteSong(model.member.id, d_song_id1);
+
+                            if (Request.QueryString["ret_url"] == null)
+                            {
+                                return RedirectPermanent("/Editors/managePlaylist/");
+                            }
+                            else
+                            {
+                                return RedirectPermanent("/Editors/managePlaylist/");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            model.playlist = playlistManager.GetUserPlaylists(model.member.id);
+
+            int playlist_id = 0;
+            if (Request.QueryString["playlist_id"] != null)
+            {
+                if (Int32.TryParse(Request.QueryString["playlist_id"], out playlist_id) == false)
+                    playlist_id = 0;
+            }
+            else
+            {
+                playlist_id = model.member.active_playlist;
+            }
+
+            foreach (var item in model.playlist)
+            {
+                if (item.id == playlist_id)
+                {
+                    ViewBag.ActivePlaylistName = item.name;
+                    ViewBag.ActivePlaylistID = item.id;
+                }
+            }
+
+            if (playlist_id != 0)
+            {
+                model.playlistData_Song = playlistManager.GetSongsForPlayList(model.member.id, playlist_id);
+            }
+            else
+            {
+                model.playlistData_Song = playlistManager.GetSongsForPlayList(model.member.id, model.member.active_playlist);
+            }
+
+            hypster_tv_DAL.TagManagement tagManager = new hypster_tv_DAL.TagManagement();
+            if (playlist_id != 0)
+            {
+                model.tags_list = tagManager.GetPlaylistTags(playlist_id);
+            }
+            else
+            {
+                model.tags_list = tagManager.GetPlaylistTags(model.member.active_playlist);
+            }
+
+            return View(model);
         }
     }
 }

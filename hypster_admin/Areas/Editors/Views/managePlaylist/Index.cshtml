@@ -1,0 +1,246 @@
+﻿@model hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Desc = "Create free playlists, and listen commercial free music.";
+    Layout = "~/Views/Shared/_Layout_Editors.cshtml";
+}
+
+<style type="text/css">
+    .selection {
+        width: 290px;
+        height: 20px;
+        margin: 5px 10px 0 0;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 16px;
+    }
+
+    #sortablePlaylist {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        float: left;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    #sortablePlaylist .srt_itm {
+        float: left;
+        width: 98%;
+        height: 57px;
+        background-color: #FFFFFF;
+        color: #000000;
+        cursor: pointer;
+        overflow: hidden;
+        margin-top: 4px;
+    }
+
+    .MainHeadSongs
+    {
+	    float:left; 
+        height:40px; 
+        line-height:30px; 
+        text-align:left; 
+        color:#FCF088; 
+        line-height:35px;
+        width:100%;
+        font-weight:bold; 
+        font-size:22px;
+        border:2px solid #00ff90;
+        border-radius:5px;
+    }
+
+    .SongItm
+    {
+	    background-color:#858c90; 
+        border-radius:1px; 
+        float:left; 
+        width:490px; 
+        height:28px; 
+        line-height:28px; 
+        margin-top:7px; 
+        padding:5px; 
+        color:#FFFFFF; 
+        font-family:'Lato', sans-serif;
+        font-weight:lighter;
+        font-size:17px;
+        overflow:hidden;
+        cursor:pointer;
+    }
+
+    .SongTitle
+    {
+	    float:left; width:390px; overflow:hidden; margin-left:7px; color:#EFEFEF;
+    }
+
+    .SongImg
+    {
+	    float:left; width:67px; height:50px; margin:4px 0 0 4px; border-radius:2px;	
+    }
+
+    .SongItm_Edt
+    {
+	    float:left; width:25px; height:33px; line-height:33px; cursor:pointer;
+	    margin:5px 0 0 4px;
+	    background:url('/imgs/play_icon_lte.png') no-repeat center;
+    }
+
+    .SongItm_Del
+    {
+	    float:left; width:25px; height:33px; line-height:33px; cursor:pointer;
+	    margin:5px 0 0 4px;
+	    background:url('/imgs/delete_icon_s.png') no-repeat center;
+    }
+</style>
+<div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif'; font-size:14px; color:#FF0000;">@ViewBag.Message</div>
+<div style="float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    <div style="float:left;width:100%;">
+        <h2>Playlist Management - <span id="pId">@ViewBag.ActivePlaylistID</span></h2>
+    </div>
+    <div style="float:left; width:100%; height:600px; overflow:scroll; overflow-x:hidden;">
+        <div id="AddNewPlstItm" class="AddNewPlstItm" onclick="$('#AddNewPlaylist_Container').css('display','block'); $('.AddNewPlstItm').css('display','none');">
+            <div>+ ADD NEW PLAYLIST</div>
+        </div>
+        @using (Html.BeginForm("AddNewPlaylist", "managePlaylist", FormMethod.Post))
+        {
+            <div id="AddNewPlaylist_Container" style="display:none">
+                <input id="AddPlaylist_Name" name="AddPlaylist_Name" type="text" maxlength="60" />
+                <input id="AddPlaylist_Save" type="submit" value="Add new playlist" />
+                <input id="AddPlaylist_Cancel" type="button" value="Cancel" onclick="$('#AddNewPlaylist_Container').css('display','none'); $('.AddNewPlstItm').css('display','block');" />
+            </div>
+        }
+
+        @foreach (var item in Model.playlist)
+        {
+            <div id="textName_cont_@item.id" class="selection">
+                <a href="/Editors/managePlaylist/?playlist_id=@item.id">@item.name</a>
+            </div>
+        }
+    </div>
+</div>
+<div style="float:left; width:67%; min-height:690px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
+    <div class="MainHeadSongs" title="Play Playlist: @ViewBag.ActivePlaylistName">
+        @ViewBag.ActivePlaylistName
+    </div>
+    <div id="sortablePlaylist">
+        @{ int i_counter = 1;}
+        @foreach (var item in Model.playlistData_Song)
+        {
+            <div id="song_@item.playlist_track_id" style="height:60px;margin:3px;padding:2px;border:1px solid #00ff90;border-radius:5px;">
+                <div onmouseup="isMOUSE_UP_ON = true;" onmousedown="mouse_down($('#song_@item.playlist_track_id'));" onmouseout="mouse_up($('#song_@item.playlist_track_id'), '@item.playlist_track_id', @ViewBag.ActivePlaylistID );" style="width:90%;font-size:12px;">
+                    <img class="SongImg" alt="" src="http://i.ytimg.com/vi/@item.YoutubeId/0.jpg" />
+                    <span style="margin-left:5px;">@(i_counter)</span>
+                    @item.Title
+                </div>
+                <div class="SongItm_Edt" title="Play Song" onclick="OpenPlayerM('/Editors/managePlaylist/song/@item.YoutubeId?@HttpUtility.UrlEncode(item.FullTitle)')" style="width:5%"></div>
+                <div class="SongItm_Del" title="Delete Song" onclick="Pl_DelSong(@item.playlist_track_id, @ViewBag.ActivePlaylistID);" style="width:5%"></div>
+            </div>
+
+            i_counter = i_counter + 1;
+
+            if (i_counter > 400)
+            {
+                <div id="LoMPlstBtn" class="srt_itm" onclick="load_more_songs_plst_details();">
+                    <div id="LoMPlstBtnHeader" style="float:left; width:100%; line-height:50px; font-size:21px; text-align:center; color:#fcf088;">
+                        Load more songs for this playlist
+                    </div>
+                </div>
+                break;
+            }
+        }
+    </div>
+
+    <!-- botttom, tags -->
+    @if (Model.playlistData_Song.Count == 0)
+    {
+        <div class="EmptyPlCont">
+            <div>Playlist is empty</div>
+        </div>
+    }
+    <a class="AddNewSong_Container" href="#" onclick="window.location = '/Editors/managePlaylist/addNewSongs?playlist=' + $('#pId').text(); return false;">&nbsp;+ Add New Song</a>
+    <div class="AddNewTag_Container" onclick="$('#AddNewTag_InnrContainer').css('display','block');">&nbsp;+ Add New Tag</div>
+
+    <script type="text/javascript">
+        var isMOUSE_UP_ON = false;
+        var old_order = 0;
+        function mouse_down(obj, link_id) {
+            var index = $("#sortablePlaylist .srt_itm").index(obj);
+            old_order = index;
+        }
+
+        function mouse_up(obj, song_id, aplid) 
+        {
+            if (isMOUSE_UP_ON == true) 
+            {
+                var new_order = $("#sortablePlaylist .srt_itm").index(obj);
+                var set_order = (new_order - old_order);
+                var randomnumber = Math.floor(Math.random() * 1100000);
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/apps/appPlaylist/applyOrder?SONG_ID=" + song_id + "&SONG_ORDER=" + set_order + "&ACTIVE_PL=" + aplid + "&Rnum=" + randomnumber,
+                //    async: true,
+                //    success: function (data) {
+                //    }
+                //});
+
+                isMOUSE_UP_ON = false;
+                old_order = 0;
+            }
+        }
+
+        function OpenPlayerM(params) 
+        {
+            var player_W = 1210;
+            var player_H = 710;
+
+            if (myWidth < 1210)
+                player_W = myWidth;
+            if (myWidth > 1310)
+                player_W = 1310;
+
+            if (myHeight < 710) {
+                player_H = myHeight;
+                player_W = 1210;
+            }
+            window.location = params;
+        }
+
+        function add_new_tag_nav() 
+        {
+            $('#AddNewTag_InnrContainer').css('display', 'block');
+            var vrval = $('#AddNewTag_InnrContainer').position().top - $(window).height() / 2 - 50;
+            $('html').scrollTop(vrval);
+            $('body').scrollTop(vrval);
+        }
+
+
+        function load_more_songs_plst_details() 
+        {
+            $("#LoMPlstBtnHeader").html("Loading...");
+
+            @*$.ajax({
+                type: "POST",
+                url: "/create/playlistDetailsAD?playlist_id=@ViewBag.ActivePlaylistID",
+                async: true,
+                success: function (data) {
+                    $('#LoMPlstBtn').css('display', 'none');
+                    $('#sortablePlaylist').append(data);
+                }
+            });*@
+        }
+
+        function clean_dead_links()
+        {
+            Hide_Content();
+            $(document).scrollTop(0);
+            @*$.ajax({
+                type: "POST",
+                url: "/playlist/CleanDeadLinks?PL_ID=@ViewBag.ActivePlaylistID",
+                async: true,
+                success: function (data) {
+                    $('#popupContainer').html(data);
+                }
+            });*@
+        }
+        $(function () { $("#sortablePlaylist").sortable(); $("#sortablePlaylist").disableSelection(); });
+    </script>
+</div>

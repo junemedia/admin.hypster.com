@@ -1,0 +1,143 @@
+﻿@model hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel
+@{
+    ViewBag.Title = "Free online music playlist";
+    ViewBag.Desc = "Create you own free online music playlists and embed them on blogs such as Tumblr or Blogger";
+    ViewBag.ActivePage = "listen";
+    Layout = "~/Views/Shared/_Layout_Editors.cshtml";
+}
+<div>
+    <div>
+        <input type="text" id="txtSearchString" name="txtSearchString" onKeyUp="ListenSearchString_KeyUp(event)" value="@if (@ViewBag.searchString != null){<text>@ViewBag.searchString</text>}else{<text> Enter Artist, Song or Genre</text>}" onfocus="if(this.value == ' Enter Artist, Song or Genre') this.value = '';" onblur="if(this.value == '') this.value = ' Enter Artist, Song or Genre';" />
+        <div onclick="SearchMusic();"></div>
+    </div>
+    <div onclick="showHide_AddSearch(this);">ADVANCED SEARCH</div>
+    <div id="AddSearch" style="display:none">
+        <div id="AddSearchIC">
+            <div style="float:left; width:40%;">
+                <div class="AdvSrch">&nbsp;Search by youtube id (GJzF7H2e3Tw):</div>
+                <div class="AdvSrchYTS">
+                    <input type="text" id="txtSearchString_youtube" name="txtSearchString" value="Enter youtube id" onfocus="if (this.value == 'Enter youtube id') this.value = '';" onblur="if (this.value == '') this.value = 'Enter youtube id';" />
+                    <div id="btnSearch_youtube" onclick="SearchMusicYTID();">Search</div>
+                </div>
+            </div>
+            <div style="float:left; width:40%; margin:0 0 0 10%;">
+                <div class="AdvSrch">&nbsp;Order By:</div>
+                <div class="AdvSrchOrdr">
+                    <div>
+                        <input type="radio" name="group_orderBy" value="relevance">Relevance<br>
+                        <input type="radio" name="group_orderBy" value="published">Published<br>
+                        <input type="radio" name="group_orderBy" value="viewCount">View Count<br>
+                        <input type="radio" name="group_orderBy" value="rating">Rating<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="listenSlideContHolder">
+        <div class="CompCheckC"></div>
+    </div>
+    <div style="visibility:hidden">
+        <input type="text" id="playlist_id" value="@ViewBag.playlist_id" />
+    </div>
+</div>
+<div id="popupContainer"></div>
+<script type="text/javascript">
+@if (ViewBag.searchString != null)
+{
+    <text>SearchMusicStr('@ViewBag.searchString');</text>
+}
+var isOrderOn = "";
+function SearchMusic()
+{
+    var ss = $("#txtSearchString").val();
+
+    if ($("input[name=group_orderBy]:radio").val() != undefined)
+    {
+        isOrderOn = $("input[name=group_orderBy]:radio").val();
+    }
+    SearchMusicStr(ss);
+}
+
+function SearchMusicStr(search_string)
+{
+    $('#listenSlideContHolder').html("<div style='float:right;'><span style='font-size:24px; color:#959595;'>Searching...</span></div>");
+
+    var ss = search_string;
+    ss = ss.replace(" ", "+");
+    ss = ss.replace("/", "+");
+    ss = ss.replace("\\", "+");
+    ss = ss.replace("&", "+");
+    ss = ss.replace("$", "+");
+    ss = ss.replace("?", "+");
+    ss = ss.replace("!", "+");
+    ss = ss.replace(".", "+");
+
+    var search_url = "/search/Music?ss=" + ss;
+    if (isOrderOn != "") {
+        search_url += "&orderBy=" + isOrderOn;
+    }
+    $.ajax({
+        type: "GET",
+        url: search_url,
+        async: true,
+        success: function (data) {
+            $('#listenSlideContHolder').html(data);
+        }
+    });
+    $(document).scrollTop(750);
+}
+
+function ListenSearchString_KeyUp(e) {
+    if (window.event) {
+        if (window.event.keyCode == 13) {
+            SearchMusic();
+        }
+    }
+    else {
+        if (e.which == 13) {
+            SearchMusic();
+        }
+    }
+}
+
+function showHide_AddSearch(caller) {
+    if ($("#AddSearch").css("display") == "none") {
+        $("#AddSearch").css("display", "block");
+        $("#MainSearchLn").css("height", "130px;");
+
+        $(".contMiddle").css("display", "none");
+
+        //caller.innerHTML = "Hide";
+
+        $("#txtSearchString").css("background-color", "#DDDDDD");
+        $("#txtSearchString").css("border", "3px solid #DDDDDD");
+    }
+    else {
+        $("#AddSearch").css("display", "none");
+        $("#MainSearchLn").css("height", "70px;");
+
+        $(".contMiddle").css("display", "block");
+
+        //caller.innerHTML = "Advanced Search";
+
+        $("#txtSearchString").css("background-color", "#FFFFFF");
+        $("#txtSearchString").css("border", "3px solid #FFFFFF");
+    }
+}
+
+function SearchMusicYTID() {
+    var ss = $("#txtSearchString_youtube").val();
+    ss = ss.replace(" ", "+");
+    $('#listenSlideContHolder').html("<div style='float:right; width:680px;'><span style='font-size:24px; color:#454545;'>Searching...</span></div>");
+    $.ajax({
+        type: "GET",
+        url: "/search/Music?ss=" + ss, @*'http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]' +*@
+        async: true,
+        success: function (data) {
+            $('#listenSlideContHolder').html(data);
+        }
+    });
+
+    $(document).scrollTop(640);
+}
+</script>

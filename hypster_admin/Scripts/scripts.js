@@ -42,6 +42,37 @@ function SearchMusicStr(search_string)
     $(document).scrollTop(750);
 }
 
+function SearchMusicStrPage(search_string, page) {
+
+    $('#listenSlideContHolder').html("<div style='float:right; width:680px;'><span style='font-size:24px; color:#959595;'>Searching...</span></div>");
+
+    var ss = search_string;
+    ss = ss.replace(" ", "+");
+    ss = ss.replace("/", "+");
+    ss = ss.replace("\\", "+");
+    ss = ss.replace("&", "+");
+    ss = ss.replace("$", "+");
+    ss = ss.replace("?", "+");
+    ss = ss.replace("!", "+");
+    ss = ss.replace(".", "+");
+
+    var search_url = "/search/Music?ss=" + ss + "&page=" + page;
+    if (isOrderOn != "") {
+        search_url += "&orderBy=" + isOrderOn;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: search_url,
+        async: true,
+        success: function (data) {
+            $('#listenSlideContHolder').html(data);
+        }
+    });
+
+    $(document).scrollTop(640);
+}
+
 function ListenSearchString_KeyUp(e) {
     if (window.event) {
         if (window.event.keyCode == 13) {

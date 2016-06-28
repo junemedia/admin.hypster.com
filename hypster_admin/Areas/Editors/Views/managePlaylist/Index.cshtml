@@ -6,94 +6,7 @@
 }
 
 <style type="text/css">
-    .selection {
-        width: 290px;
-        height: 20px;
-        margin: 5px 10px 0 0;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-size: 16px;
-    }
-
-    #sortablePlaylist {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        float: left;
-        width: 100%;
-        margin-bottom: 8px;
-    }
-
-    #sortablePlaylist .srt_itm {
-        float: left;
-        width: 98%;
-        height: 57px;
-        background-color: #FFFFFF;
-        color: #000000;
-        cursor: pointer;
-        overflow: hidden;
-        margin-top: 4px;
-    }
-
-    .MainHeadSongs
-    {
-	    float:left; 
-        height:40px; 
-        line-height:30px; 
-        text-align:left; 
-        color:#FCF088; 
-        line-height:35px;
-        width:100%;
-        font-weight:bold; 
-        font-size:22px;
-        border:2px solid #00ff90;
-        border-radius:5px;
-    }
-
-    .SongItm
-    {
-	    background-color:#858c90; 
-        border-radius:1px; 
-        float:left; 
-        width:490px; 
-        height:28px; 
-        line-height:28px; 
-        margin-top:7px; 
-        padding:5px; 
-        color:#FFFFFF; 
-        font-family:'Lato', sans-serif;
-        font-weight:lighter;
-        font-size:17px;
-        overflow:hidden;
-        cursor:pointer;
-    }
-
-    .SongTitle
-    {
-	    float:left; width:390px; overflow:hidden; margin-left:7px; color:#EFEFEF;
-    }
-
-    .SongImg
-    {
-	    float:left; width:67px; height:50px; margin:4px 0 0 4px; border-radius:2px;	
-    }
-
-    .SongItm_Edt
-    {
-	    float:left; width:25px; height:33px; line-height:33px; cursor:pointer;
-	    margin:5px 0 0 4px;
-	    background:url('/imgs/play_icon_lte.png') no-repeat center;
-    }
-
-    .SongItm_Del
-    {
-	    float:left; width:25px; height:33px; line-height:33px; cursor:pointer;
-	    margin:5px 0 0 4px;
-	    background:url('/imgs/delete_icon_s.png') no-repeat center;
-    }
-    .PlstItm_Del
-    {
-        float:right; height:10px; cursor:pointer; margin:0 0 0 15px; font-size: 12px;
-    }
+    
 </style>
 <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif'; font-size:14px; color:#FF0000;">@ViewBag.Message</div>
 <div style="float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
@@ -127,7 +40,7 @@
         @ViewBag.ActivePlaylistName
     </div>
     <div id="sortablePlaylist">
-        <a class="AddNewSong_Container" href="#" onclick="window.location = '/Editors/managePlaylist/addNewSongs?playlist=' + $('#pId').text(); return false;">&nbsp;+ Add New Song</a>
+        <a class="AddNewSong_Container" href="#" onclick="window.location = '/Editors/managePlaylist/addNewSongs?playlist=' + $('#pId').text(); return false;"><input type="button" value="Add New Song" /></a>
         @*<a class="AddNewTag_Container" href="#" onclick="$('#AddNewTag_InnrContainer').css('display','block');">&nbsp;+ Add New Tag</a>*@
         @{ int i_counter = 1;}
         @foreach (var item in Model.playlistData_Song)

@@ -6,21 +6,17 @@
 }
 
 <div style="float:right; width:924px;">
-    <div id="MessageBox1" style="opacity:0; filter:alpha(opacity=0);"></div>
     <div class="SearchPageRoot">
     @{ int curr_index = 1; }
     @{ int back_id = 1; }
     @if (Model != null)
     {
-        <div style="float:left; width:29%; min-height:100px;">
-            &nbsp;
-        </div>
-        <div style="float:left; width:69%;">
+        <div style="float:left;">
             @foreach (var item in Model)
             {
                 <div class="SongItm">
                     <div class="lfCont">
-                        <img alt="" class="imgThumb" src="@item.Snippet.Thumbnails.Default__.Url" onclick="OpenPlayerM('https://www.youtube.com/watch?v=@item.Id.VideoId');" />
+                        <img class="imgThumb" src="@item.Snippet.Thumbnails.Default__.Url" onclick="OpenPlayerM('https://www.youtube.com/watch?v=@item.Id.VideoId');" />
                         <div class="songCont" onclick="OpenPlayerM('https://www.youtube.com/watch?v=@item.Id.VideoId');">
                             @item.Snippet.Title
                         </div>

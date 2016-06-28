@@ -1,14 +1,17 @@
 ﻿@model hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel
 @{
-    ViewBag.Title = "Free online music playlist";
+    ViewBag.Title = "Add New Song";
     ViewBag.Desc = "Create you own free online music playlists and embed them on blogs such as Tumblr or Blogger";
     ViewBag.ActivePage = "listen";
     Layout = "~/Views/Shared/_Layout_Editors.cshtml";
 }
-<div>
+
+<h2>@ViewBag.Title</h2>
+
+<div style="width:100%;min-height:600px;background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
     <div>
         <input type="text" id="txtSearchString" name="txtSearchString" onKeyUp="ListenSearchString_KeyUp(event)" value="@if (@ViewBag.searchString != null){<text>@ViewBag.searchString</text>}else{<text> Enter Artist, Song or Genre</text>}" onfocus="if(this.value == ' Enter Artist, Song or Genre') this.value = '';" onblur="if(this.value == '') this.value = ' Enter Artist, Song or Genre';" />
-        <div onclick="SearchMusic();"></div>
+        <button class="search_btn" onclick="SearchMusic();">Search</button>
     </div>
     <div id="listenSlideContHolder">
         <div class="CompCheckC"></div>
@@ -17,7 +20,7 @@
         <input type="text" id="playlist_id" value="@ViewBag.playlist_id" />
     </div>
 </div>
-<div id="popupContainer"></div>
+@*<div id="popupContainer"></div>*@
 <script type="text/javascript">
 @if (ViewBag.searchString != null)
 {

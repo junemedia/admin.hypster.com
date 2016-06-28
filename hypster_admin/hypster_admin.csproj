@@ -52,6 +52,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Apis, Version=1.9.3.19379, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.9.2.27817, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.9.3.19379, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.YouTube.v3, Version=1.9.2.152, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.YouTube.v3.dll</HintPath>
+    </Reference>
     <Reference Include="Google.GData.Client, Version=1.6.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Google.GData.Client.dll</HintPath>
@@ -189,6 +205,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Editors\Controllers\editorController.cs" />
+    <Compile Include="Areas\Editors\Controllers\managePlaylistController.cs" />
+    <Compile Include="Areas\Editors\Controllers\managePostController.cs" />
+    <Compile Include="Areas\Editors\Controllers\manageSlideshowController.cs" />
+    <Compile Include="Areas\Editors\EditorsAreaRegistration.cs" />
+    <Compile Include="Areas\Editors\ViewModels\AddToPlayListViewModel.cs" />
+    <Compile Include="Areas\Editors\ViewModels\PlaylistViewModel.cs" />
     <Compile Include="Areas\NewsManagement\Controller\homeCelebsController.cs" />
     <Compile Include="Areas\NewsManagement\Controller\homeNewsController.cs" />
     <Compile Include="Areas\NewsManagement\NewsManagementAreaRegistration.cs" />
@@ -222,6 +245,7 @@
     <Compile Include="Areas\WebsiteManagement\WebsiteManagementAreaRegistration.cs" />
     <Compile Include="Controllers\accountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\searchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -333,6 +357,20 @@
     <Content Include="Areas\WebsiteManagement\Views\manageUsers\Index.cshtml" />
     <Content Include="Areas\WebsiteManagement\Views\manageUsers\manageUsernames.cshtml" />
     <Content Include="Areas\WebsiteManagement\Views\manageUsers\user.cshtml" />
+    <Content Include="Areas\Editors\Views\editor\Index.cshtml" />
+    <Content Include="Areas\Editors\Views\managePlaylist\addNewSongs.cshtml" />
+    <Content Include="Areas\Editors\Views\managePlaylist\addToPlayList.cshtml" />
+    <Content Include="Areas\Editors\Views\managePlaylist\delelePlaylistSong.cshtml" />
+    <Content Include="Areas\Editors\Views\managePlaylist\Index.cshtml" />
+    <Content Include="Areas\Editors\Views\managePlaylist\MPL.cshtml" />
+    <Content Include="Areas\Editors\Views\managePost\AddNewPost.cshtml" />
+    <Content Include="Areas\Editors\Views\managePost\Edit.cshtml" />
+    <Content Include="Areas\Editors\Views\managePost\getNewsTags.cshtml" />
+    <Content Include="Areas\Editors\Views\managePost\Index.cshtml" />
+    <Content Include="Areas\Editors\Views\manageSlideshow\AddNewSlideshow.cshtml" />
+    <Content Include="Areas\Editors\Views\manageSlideshow\EditSlideshow.cshtml" />
+    <Content Include="Areas\Editors\Views\manageSlideshow\Index.cshtml" />
+    <Content Include="Areas\Editors\Views\Web.config" />
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -350,6 +388,7 @@
     <Content Include="Scripts\knockout-2.0.0.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\scripts.js" />
     <Content Include="uploads\new_post.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -372,6 +411,9 @@
     <Content Include="Views\Shared\_MenuMain.cshtml" />
     <Content Include="Views\account\Login.cshtml" />
     <Content Include="Views\account\_LoginStatus.cshtml" />
+    <Content Include="Views\search\Music.cshtml" />
+    <Content Include="Views\search\MusicYTID.cshtml" />
+    <Content Include="Views\Shared\_Layout_Editors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,9 +1,4 @@
-﻿@using Google.Apis.Auth.OAuth2;
-@using Google.Apis.Services;
-@using Google.Apis.Upload;
-@using Google.Apis.Util.Store;
-@using Google.Apis.YouTube.v3;
-@using Google.Apis.YouTube.v3.Data;
+﻿@using Google.Apis.YouTube.v3.Data;
 
 @model List<SearchResult>
 @{
@@ -22,15 +17,15 @@
         {
             <div class="SongItm">
                 <div class="lfCont">
-                    <img alt="" class="imgThumb" src="@item.Snippet.Thumbnails.Default.Url" onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');" />
-                    <div class="songCont" onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');">
+                    <img alt="" class="imgThumb" src="@item.Snippet.Thumbnails.Default__.Url" onclick="OpenPlayerM('https://www.youtube.com/watch?v=@item.Id.VideoId');" />
+                    <div class="songCont" onclick="OpenPlayerM('https://www.youtube.com/watch?v=@item.Id.VideoId');">
                         @item.Snippet.Title
                     </div>                    
                 </div>
 
                 <div class="rtCont">                    
-                    <div onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');" style="float:left; width:34px; height:34px; margin:5px 0 0 5px; background:#000000 url(/imgs/plr_play_btn.png) no-repeat 9px 2px; border:2px solid #FFFFFF; border-radius:22px; cursor:pointer;"></div>
-                    <div onclick="ShowAddToMyPlaylist('?song_guid=@item.Id.VideoId&song_title=@System.Web.HttpUtility.UrlEncode(item.Snippet.Title)');" style="float:left; width:34px; height:34px; line-height:34px; text-align:center; margin:5px 0 0 5px; background-color:#000000; border:2px solid #FFFFFF; border-radius:22px; color:#FFFFFF; cursor:pointer; font-size:13px;">
+                    <div onclick="OpenPlayerM('https://www.youtube.com/watch?v=@item.Id.VideoId');" style="float:left; width:34px; height:34px; margin:5px 0 0 5px; background:#000000 url(/imgs/plr_play_btn.png) no-repeat 9px 2px; border:2px solid #FFFFFF; border-radius:22px; cursor:pointer;"></div>
+                    <div onclick="ShowAddToMyPlaylist('@item.Id.VideoId','@System.Web.HttpUtility.UrlEncode(item.Snippet.Title)');" style="float:left; width:34px; height:34px; line-height:34px; text-align:center; margin:5px 0 0 5px; background-color:#000000; border:2px solid #FFFFFF; border-radius:22px; color:#FFFFFF; cursor:pointer; font-size:13px;">
                         ADD
                     </div>
                 </div>

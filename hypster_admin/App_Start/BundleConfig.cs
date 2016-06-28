@@ -35,6 +35,8 @@ namespace hypster_admin
                         "~/css/themes/base/jquery.ui.datepicker.css",
                         "~/css/themes/base/jquery.ui.progressbar.css",
                         "~/css/themes/base/jquery.ui.theme.css"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                "~/Scripts/scripts.js"));
         }
     }
 }

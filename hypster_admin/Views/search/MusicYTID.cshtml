@@ -5,74 +5,45 @@
 @using Google.Apis.YouTube.v3;
 @using Google.Apis.YouTube.v3.Data;
 
-
 @model List<SearchResult>
 @{
     ViewBag.Title = "Music Search";
     Layout = null;
 }
 
-
-
-
 <div style="float:right; width:1024px; min-height:100px; margin:0 0 20px 0;">
     <div class="SearchPageRoot">
-    
-        
-        <div style=" float:left; width:29%; min-height:100px;">
+        <div style="float:left; width:29%; min-height:100px;">
             &nbsp;
         </div>
         
-        
-        <div style=" float:left; width:69%; padding:10px 0 0 0;">
-            @foreach (var item in Model)
-            {
-                <div class="SongItm">
-                
-
-                    <div class="lfCont">
-                    
-                        <img alt="" class="imgThumb" src="@item.Snippet.Thumbnails.Default.Url" onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');" />
-                    
-                        <div class="songCont" onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');">
-                            @item.Snippet.Title
-                        </div>
-                    
-                    </div>
-
-
-
-                    <div class="rtCont">
-                    
-                        <div onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');" style=" float:left; width:34px; height:34px; margin:5px 0 0 5px; background:#000000 url(/imgs/plr_play_btn.png) no-repeat 9px 2px; border:2px solid #FFFFFF; border-radius:22px; cursor:pointer;">
-                        </div>
-
-                        <div onclick="ShowAddToMyPlaylist('?song_guid=@item.Id.VideoId&song_title=@System.Web.HttpUtility.UrlEncode(item.Snippet.Title)');" style=" float:left; width:34px; height:34px; line-height:34px; text-align:center; margin:5px 0 0 5px; background-color:#000000; border:2px solid #FFFFFF; border-radius:22px; color:#FFFFFF; cursor:pointer; font-size:13px;">
-                            ADD
-                        </div>
-
-                    </div>
-
-                
-
-
+        <div style="float:left; width:69%; padding:10px 0 0 0;">
+        @foreach (var item in Model)
+        {
+            <div class="SongItm">
+                <div class="lfCont">
+                    <img alt="" class="imgThumb" src="@item.Snippet.Thumbnails.Default.Url" onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');" />
+                    <div class="songCont" onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');">
+                        @item.Snippet.Title
+                    </div>                    
                 </div>
-                
-            }
-        
 
+                <div class="rtCont">                    
+                    <div onclick="OpenPlayerM('/playlists/song/@item.Id.VideoId?@HttpUtility.UrlEncode(item.Snippet.Title)');" style="float:left; width:34px; height:34px; margin:5px 0 0 5px; background:#000000 url(/imgs/plr_play_btn.png) no-repeat 9px 2px; border:2px solid #FFFFFF; border-radius:22px; cursor:pointer;"></div>
+                    <div onclick="ShowAddToMyPlaylist('?song_guid=@item.Id.VideoId&song_title=@System.Web.HttpUtility.UrlEncode(item.Snippet.Title)');" style="float:left; width:34px; height:34px; line-height:34px; text-align:center; margin:5px 0 0 5px; background-color:#000000; border:2px solid #FFFFFF; border-radius:22px; color:#FFFFFF; cursor:pointer; font-size:13px;">
+                        ADD
+                    </div>
+                </div>
+            </div>
+        }
 
-            @if (Model.Count() == 0)
-            {
+        @if (Model.Count() == 0)
+        {
             <div class="NFMessageCont">
                 <div>No video results for “@ViewBag.search_string.Replace("+", " ")”</div>
             </div>
-            }
+        }
         </div>
-
-    
-
-
     </div>
 </div>
 

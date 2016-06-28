@@ -136,10 +136,6 @@
         }
     }
 
-    function change_player_playlist(object) {
-        window.location = "/Editors/managePlaylist/user/@(ViewBag.Username)?" + object[object.selectedIndex].value;
-    }
-
     var isReady = false;
     function onPlayerReady(event) {
         if(isReady == false)

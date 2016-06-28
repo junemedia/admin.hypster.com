@@ -186,7 +186,6 @@ namespace hypster_admin.Controllers
 
             try
             {
-
                 var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                 {
                     ApiKey = System.Configuration.ConfigurationManager.AppSettings["YouTubeAPIKEY"],
@@ -210,7 +209,10 @@ namespace hypster_admin.Controllers
                 }
                 return View(videos);
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace + " " + ex.Message);
+            }
             return View();
         }
     }

@@ -95,26 +95,6 @@
 </div>
 
 <script type="text/javascript">
-    @*function AddNewSongOnComplete()
-    {
-        if ($("#MessageBox1").html() != "") {
-            window.location = $("#MessageBox1").html();
-        }
-        else {
-
-            try {
-                if ($('#StayHereCheck').val() == '1') {
-                    RefreshMagWid('@User.Identity.Name');
-                }
-            } catch (ex) { }
-
-
-            Show_Content();
-            $("#popupContainer").html("");
-        }
-
-    }*@
-
     function Add_and_stay_here_CLICK() {
         $('#StayHereCheck').val('1');
         $('.AddBtn2').attr('value', 'Please wait...');
@@ -135,21 +115,6 @@
         $('#popupContainer').html("");
     }
 
-    function RefreshMagWid(username) {
-
-        var randomnumber = Math.floor(Math.random() * 1100000);
-
-        $.ajax({
-            type: "POST",
-            url: "/magWidget/Mag_1st_song/" + username + "?rnd=" + randomnumber,
-            async: true,
-            success: function (data) {
-                try {
-                    $("#MagWidCH1").html(data);
-                } catch (ex) { }
-            }
-        });
-    }
     $("#AddToPlaylistCont1").css("display", "block");
     $("#AddToPlaylistCont1").css("margin-left", (($(window).width() - 850) / 2) + "px");
 </script>

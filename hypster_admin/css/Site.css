@@ -391,14 +391,6 @@ a:visited
 
 /*------------------------------------------------------------*/
 
-
-
-
-
-
-
-
-
 /*  POST CONTROLS STYLES */
 /*------------------------------------------------------------*/
 
@@ -461,18 +453,20 @@ a:visited
 }
 
 .MainHeadSongs
-{
-	float:left; 
-    height:40px; 
-    line-height:30px; 
+{ 
     text-align:left; 
     color:#FCF088; 
     line-height:35px;
     width:100%;
     font-weight:bold; 
     font-size:22px;
-    border:2px solid #00ff90;
     border-radius:5px;
+}
+
+.tagsCHHeader1 {
+    color:#FCF088;
+    font-weight:bold; 
+    font-size:18px;
 }
 
 .SongItm
@@ -552,7 +546,36 @@ a:visited
     float:right;width:220px;text-align:right
 }
 
-.AddNewSong_Container input
+.AddNew_Container input
 {
     margin:5px; border-radius:5px;
 }
+
+#tagsEditBtn
+{
+    float:left; 
+    background-color:#ff006e; 
+    border-radius:2px; 
+    padding:1px 5px 1px 5px; 
+    margin-left:2px; 
+    cursor:pointer;
+    text-align:center;
+}
+
+.delTagSpn
+{
+    background-color: #000;
+    border-radius:2px;
+    font-size:11px;
+    cursor:pointer;
+    color: #F00;
+}
+
+/*#tagsConHldr1 
+{
+    height:60px;
+    margin:3px;
+    padding:2px;
+    border:1px solid #00ff90;
+    border-radius:5px;
+}*/

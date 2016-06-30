@@ -194,7 +194,7 @@
             <br />
 
             <text>Date Create: </text>
-            <text><i>@Model.post_date</i></text>
+            <text><i>@Model.post_date</i></text><input type="hidden" name="post_date" id="post_date" value="@Model.post_date" />
             <br />
 
             <text>Tags:</text>
@@ -238,68 +238,3 @@
         }
     </div>
 </div>
-
-<script type="text/javascript">
-    function showHide_PostImages()
-    {
-        if ($("#PostImage_cont").css("display") == "none")
-            $("#PostImage_cont").css("display", "block");
-        else
-            $("#PostImage_cont").css("display", "none");
-    }
-
-    function showHide_PostVideo()
-    {
-        if ($("#PostVideo_cont").css("display") == "none")
-            $("#PostVideo_cont").css("display", "block");
-        else
-            $("#PostVideo_cont").css("display", "none");
-    }
-
-    function showHide_PostMusicPlayer()
-    {
-        if ($("#PostMusicPlayer_cont").css("display") == "none")
-            $("#PostMusicPlayer_cont").css("display", "block");
-        else
-            $("#PostMusicPlayer_cont").css("display", "none");
-    }
-
-    function addNewTag_click()
-    {
-        if ($('#newTagName').val() == "")
-        {
-            alert("Tag is empty");
-            return;
-        }
-
-        var res_str = $('#newTagName').val();
-        res_str = res_str.replace("http://", "");
-        res_str = res_str.replace("https://", "");
-        res_str = res_str.replace("http", "");
-
-        $.ajax({
-            type: "POST",
-            url: "/Editors/managePost/addnewtag?tag_name=" + res_str + "&article_id=" + $('#newTagArticle').val(),
-            async: true,
-            success: function (data) {
-                $("#tagsHolder1").prepend("<a class='TagI' href='/tags/" + res_str + "'>" + res_str + "</a>");
-                $("#newTagName").val("");
-            }
-        });
-    }
-
-    function del_news_tag(tag_plst_id)
-    {
-        if (confirm('Are you sure?') == true)
-        {
-            $.ajax({
-                type: "POST",
-                url: "/Editors/managePost/deletetag?tag_plst_id=" + tag_plst_id + "&article_id=" + $('#newTagArticle').val(),
-                async: true,
-                success: function (data) {
-                    $("#tgn" + tag_plst_id).css("display", "none");
-                }
-            });
-        }
-    }
-</script>

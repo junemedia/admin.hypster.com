@@ -165,9 +165,9 @@ namespace hypster_admin.Areas.Editors.Controllers
             hypster_tv_DAL.Song song = new hypster_tv_DAL.Song();
             song = songsManager.GetSongByGUID(Song_Guid);
             //-----------------------------------------------------------------------------------------
-            if (Song_Title.Length > 160)
+            if (Song_Title.Length > 75)
             {
-                Song_Title = Song_Title.Substring(0, 160);
+                Song_Title = Song_Title.Substring(0, 75);
             }
 
             //-----------------------------------------------------------------------------------------
@@ -212,17 +212,14 @@ namespace hypster_admin.Areas.Editors.Controllers
                 //get newely added song
                 song = songsManager.GetSongByGUID(Song_Guid);
 
-
                 //add to playlist data
                 hypster_tv_DAL.PlaylistData new_playlistData = new hypster_tv_DAL.PlaylistData();
                 new_playlistData.playlist_id = Convert.ToInt32(Sel_Playlist_ID);
                 new_playlistData.songid = song.id;
                 new_playlistData.sortid = Sel_Sort_Order;
                 new_playlistData.userid = userManager.getMemberByUserName(User.Identity.Name).id;
-
                 hypDB.PlaylistDatas.AddObject(new_playlistData);
                 hypDB.SaveChanges();
-
             }
             else //if song exist in database
             {
@@ -232,8 +229,6 @@ namespace hypster_admin.Areas.Editors.Controllers
                 new_playlistData.songid = song.id;
                 new_playlistData.sortid = Sel_Sort_Order;
                 new_playlistData.userid = curr_user.id;
-
-
                 hypDB.PlaylistDatas.AddObject(new_playlistData);
                 hypDB.SaveChanges();
             }

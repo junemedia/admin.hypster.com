@@ -114,7 +114,7 @@
                         async: true,
                         dataType: "json",
                         success: updatePlaylistOptions
-                    });                  
+                    });
                 }
 
                 function updatePlaylistOptions(lists)
@@ -139,7 +139,7 @@
                 }
 
                 function setEmbedMusicPlayer(user_name, playlist_id)
-                {                  
+                {
                     $.ajax({
                         type: "POST",
                         url: "/Editors/managePost/getUserIdByName?username=" + user_name,
@@ -147,7 +147,7 @@
                         success: function (data)
                         {
                           $("#PostMusicPlayer_EditTextArea1").css("display", "block");
-                          $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://localhost:50718/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
+                          $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
                         }
                     });
                 }

@@ -47,6 +47,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 hypster_tv_DAL.homeSlideshowManager slideshowManager = new hypster_tv_DAL.homeSlideshowManager();
                 slideshowManager.IncAllSlides();
 
+                homeSlide.href = href;
                 homeSlide.isActive = true;
                 homeSlide.SortOrder = 1;
                 homeSlide.ImageSrc = image_guid + file_slide.Extension;

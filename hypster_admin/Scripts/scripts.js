@@ -152,23 +152,6 @@ function OpenPlayerM(params)
     window.open(params, "_blank");
 }
 
-function SearchMusicYTID()
-{
-    var ss = $("#txtSearchString_youtube").val();
-    ss = ss.replace(" ", "+");
-    $("#listenSlideContHolder").html("<div style='float:right; width:680px;'><span style='font-size:24px; color:#454545;'>Searching...</span></div>");
-
-    $.ajax({
-        type: "GET",
-        url: "/search/MusicYTID?ss=" + ss,
-        async: true,
-        success: function (data) {
-            $("#listenSlideContHolder").html(data);
-        }
-    });
-    $(document).scrollTop(640);
-}
-
 function add_new_tag()
 {
     if ($("#newTagName").val() == "")

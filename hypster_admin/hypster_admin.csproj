@@ -54,19 +54,25 @@
     </Reference>
     <Reference Include="Google.Apis, Version=1.9.3.19379, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.dll</HintPath>
+      <HintPath>\\216.240.146.2\hypster_dev\App_Data\Google.Apis.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Auth, Version=1.9.2.27817, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.Auth.dll</HintPath>
+      <HintPath>\\216.240.146.2\hypster_dev\App_Data\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices">
+      <HintPath>\\216.240.146.2\hypster_dev\App_Data\Google.Apis.Auth.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Core, Version=1.9.3.19379, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.Core.dll</HintPath>
+      <HintPath>\\216.240.146.2\hypster_dev\App_Data\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices">
+      <HintPath>\\216.240.146.2\hypster_dev\App_Data\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.YouTube.v3, Version=1.9.2.152, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\hypster.com\hypster\bin\Google.Apis.YouTube.v3.dll</HintPath>
+      <HintPath>\\216.240.146.2\hypster_dev\App_Data\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
     <Reference Include="Google.GData.Client, Version=1.6.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -121,6 +127,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\..\hypster.com\hypster\bin\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Microsoft.Web.Administration.dll</HintPath>
@@ -140,6 +149,9 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\..\hypster.com\hypster\bin\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -412,7 +424,6 @@
     <Content Include="Views\account\Login.cshtml" />
     <Content Include="Views\account\_LoginStatus.cshtml" />
     <Content Include="Views\search\Music.cshtml" />
-    <Content Include="Views\search\MusicYTID.cshtml" />
     <Content Include="Views\Shared\_Layout_Editors.cshtml" />
   </ItemGroup>
   <ItemGroup>

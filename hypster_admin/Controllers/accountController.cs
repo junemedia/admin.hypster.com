@@ -86,9 +86,12 @@ namespace hypster_admin.Controllers
                 else
                 {
                     ViewBag.ForgotPassword = true;
-                    ModelState.AddModelError("", "The user name or password provided is incorrect. ");
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
+            else
+                ModelState.AddModelError("", "Please enter user name AND password to login.");
+
             return View();
         }
 

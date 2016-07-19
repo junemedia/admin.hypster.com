@@ -268,5 +268,35 @@ namespace hypster_admin.Areas.Editors.Controllers
             }
             return "[" + sel_list + "]";
         }
+
+        public string getPlaylistName()
+        {
+            string playlistname = "";
+            string playlistid = "";
+            if (Request.QueryString["playlistid"] != null)
+            {
+                playlistid = Request.QueryString["playlistid"];
+                try
+                {
+                    hypster_tv_DAL.playlistManagement playlistManagement = new hypster_tv_DAL.playlistManagement();
+                    int list = playlistManagement.GetPlaylistById(Convert.ToInt32(playlistid)).Count;
+                    if (list == 0)
+                        return "Error: The Playlist DOES NOT EXIST!!!";
+                    for (int i = 0; i < list; i++)
+                    {
+                        playlistname = playlistManagement.GetPlaylistById(Convert.ToInt32(playlistid))[i].name;
+                    }
+                }
+                catch (Exception e)
+                {                    
+                    return "Error: No such Playlist. " + e.Message + "\n" + e.StackTrace;
+                }
+                return playlistname;
+            }
+            else
+            {
+                return "Error: The ID is null.";
+            }
+        }
     }
 }

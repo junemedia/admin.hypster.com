@@ -23,10 +23,9 @@ namespace hypster_admin.Controllers
                 hypster_tv_DAL.memberManagement membersManager = new hypster_tv_DAL.memberManagement();
                 if (membersManager.ValidateUser(p_member.username, p_member.password))
                 {
-                    string IP_Address;
-                    IP_Address = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                    string IP_Address = Request.ServerVariables["HTTP_X_FORWARDED_FOR_ADMIN"];
                     if (IP_Address == null)
-                        IP_Address = Request.ServerVariables["REMOTE_ADDR"];
+                        IP_Address = Request.ServerVariables["REMOTE_ADDR_ADMIN"];
                     else
                         IP_Address = "";
 
@@ -48,13 +47,13 @@ namespace hypster_admin.Controllers
                     //----------------------------------------------------------------------------------------------
                     //this code is updating email tracker (some another tracker can be implemented)
                     //
-                    if (HttpContext.Request.Cookies.AllKeys.Contains("ETT") || member.ArtistLevel > 0)
+                    if (HttpContext.Request.Cookies.AllKeys.Contains("ETT_ADMIN") || member.ArtistLevel > 0)
                     {
                         membersManager.UpdateMemberTrackData(User.Identity.Name, member.id);
 
-                        if (HttpContext.Request.Cookies["ETT"] != null)
+                        if (HttpContext.Request.Cookies["ETT_ADMIN"] != null)
                         {
-                            HttpCookie cookie = HttpContext.Request.Cookies["ETT"];
+                            HttpCookie cookie = HttpContext.Request.Cookies["ETT_ADMIN"];
                             cookie.Expires = DateTime.Now.AddDays(-4);
                             this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
                         }

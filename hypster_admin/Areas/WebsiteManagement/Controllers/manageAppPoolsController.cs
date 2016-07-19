@@ -41,9 +41,9 @@ namespace hypster_admin.Areas.WebsiteManagement.Controllers
         public string StartApplicationPoolComm()
         {
             string IP_Address;
-            IP_Address = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            IP_Address = Request.ServerVariables["HTTP_X_FORWARDED_FOR_ADMIN"];
             if (IP_Address == null)
-                IP_Address = Request.ServerVariables["REMOTE_ADDR"];
+                IP_Address = Request.ServerVariables["REMOTE_ADDR_ADMIN"];
             else
                 IP_Address = "";
 

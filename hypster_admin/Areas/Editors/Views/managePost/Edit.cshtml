@@ -55,24 +55,14 @@
         <div id="PostVideo_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
             YouTube video URL:<br />
             <input id="YouTube_ID" type="text" value="" style="width:98%;" /><br />
-            Width:<input id="YouTube_Width" type="text" value="420" style="width:30px;" />
-            Height:<input id="YouTube_Height" type="text" value="250" style="width:30px;" />
-            <input type="button" value="generate code" onclick="setEmbedVideo($('#YouTube_ID').val(), $('#YouTube_Width').val(), $('#YouTube_Height').val());" style="width:155px;" />
+            <input type="button" value="generate code" onclick="setEmbedVideo($('#YouTube_ID').val());" style="width:155px;" />
             <br /><br />
 
             <textarea id="PostVideo_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
             <script type="text/javascript">
-                function setEmbedVideo(val, p_w, p_h) {
+                function setEmbedVideo(val) {
                     if (val == "") {
                         alert("Plase Enter video GUID");
-                        return;
-                    }
-                    if (p_w == "") {
-                        alert("Plase Enter video width");
-                        return;
-                    }
-                    if (p_h == "") {
-                        alert("Plase Enter video height");
                         return;
                     }
                     var youtube_guid = val.match(/v=([^&]+)/)[1];
@@ -81,7 +71,7 @@
                         return;
                     }
                     $("#PostVideo_EditTextArea1").css("display", "block");
-                    $("#PostVideo_EditTextArea1").val("<span class=\"PostVideoCont\" style=\"width:" + p_w + "px; height:" + p_h + "px; margin-top:5px;\"><iframe width=\"" + p_w + "\" height=\"" + p_h + "\" src=\"http://www.youtube.com/embed/" + youtube_guid + "\" frameborder=\"0\" allowfullscreen></iframe></span>");
+                    $("#PostVideo_EditTextArea1").val("<span class=\"PostVideoCont\" style=\"width:420px; height:250px; margin-top:5px;\"><iframe width=\"420\" height=\"250\" src=\"http://www.youtube.com/embed/" + youtube_guid + "\" frameborder=\"0\" allowfullscreen></iframe></span>");
                 }
             </script>
         </div>
@@ -92,11 +82,12 @@
         </div>
 
         <div id="PostMusicPlayer_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
-
             Username:<br />
-            <input id="Music_User_ID" type="text" value="" style="width:98%;" onblur="getPlaylists()" /><br />
+            <div class="wrapper" style="width:270px;">
+                <input id="Music_User_ID" type="text" style="width:85%;" class="input_field" /><button onclick="getPlaylists()">GO</button>
+            </div><br />            
             Playlist ID:<br />
-            <select id="Music_Playlist_ID" style="width:98%;height:24px;line-height:24px;background:#eee;">
+            <select id="Music_Playlist_ID" class="input_field" style="width:270px;height:24px;line-height:24px;background:#eee;">
                 <option value=""></option>
             </select><br />
 
@@ -105,51 +96,28 @@
 
             <textarea id="PostMusicPlayer_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
             <script type="text/javascript">
-                function getPlaylists()
-                {
-                    var username = $("#Music_User_ID").val();
-                    $.ajax({
-                        type: "GET",
-                        url: "/Editors/managePost/GetPlaylistsByUsername?username=" + username,
-                        async: true,
-                        dataType: "json",
-                        success: updatePlaylistOptions
-                    });
-                }
-
-                function updatePlaylistOptions(lists)
-                {
-                    var current;
-                    var option;
-                    var selectEl = $("#Music_Playlist_ID");
-
-                    // clear out current options
-                    selectEl.empty();
-
-                    // add empty option
-                    option = $("<option></option>").attr("value", "").text("");
-                    selectEl.append(option);
-
-                    for (var i = 0; i < lists.length; i++)
-                    {
-                        current = lists[i];
-                        option = $("<option></option>").attr("value", current.id).text(current.name);
-                        selectEl.append(option);
-                    }
-                }
-
                 function setEmbedMusicPlayer(user_name, playlist_id)
                 {
-                    $.ajax({
-                        type: "POST",
-                        url: "/Editors/managePost/getUserIdByName?username=" + user_name,
-                        async: true,
-                        success: function (data)
-                        {
-                          $("#PostMusicPlayer_EditTextArea1").css("display", "block");
-                          $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
-                        }
-                    });
+                    var errMsg = "";
+                    if (user_name == "")
+                        errMsg += "Username\n";
+                    if (playlist_id == "")
+                        errMsg += "Playlist ID\n";
+
+                    if (errMsg != "")
+                        alert("Please fill out the following fields:\n" + errMsg);
+                    else
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Editors/managePost/getUserIdByName?username=" + user_name,
+                            async: true,
+                            success: function (data) {
+                                $("#PostMusicPlayer_EditTextArea1").css("display", "block");
+                                $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
+                            }
+                        });
+                    }
                 }
             </script>
         </div>
@@ -233,6 +201,7 @@
                         $("#previewBtn").val("Preview");
                         isPreview = false;
                     }
+<<<<<<< HEAD
                 }
                 tinymce.init({
                     selector: 'textarea#post_content.newsPost_Content',
@@ -245,6 +214,9 @@
                     menubar: false,
                     toolbar_items_size: 'medium',
                 });
+=======
+                }                
+>>>>>>> plclone
             </script>
         }
     </div>

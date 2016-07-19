@@ -234,6 +234,17 @@
                         isPreview = false;
                     }
                 }
+                tinymce.init({
+                    selector: 'textarea#post_content.newsPost_Content',
+                    height: 500,
+                    plugins: [
+                        "advlist autolink autosave link image lists preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount code media nonbreaking"
+                    ],                    
+                    toolbar: "bold italic underline strikethrough | cut copy paste | searchreplace | bullist numlist | undo redo preview | link unlink image media code",
+                    menubar: false,
+                    toolbar_items_size: 'medium',
+                });
             </script>
         }
     </div>

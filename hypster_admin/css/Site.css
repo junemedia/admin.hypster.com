@@ -571,11 +571,29 @@ a:visited
     color: #F00;
 }
 
-/*#tagsConHldr1 
+.wrapper 
 {
-    height:60px;
-    margin:3px;
-    padding:2px;
-    border:1px solid #00ff90;
+    border:1px solid #000;
+    background-color: #FFF;
+    display:inline-block;
+}
+
+.wrapper button 
+{
+    border-radius:2px;
+    border:solid 1px #444444;
+    margin:1px;
+}
+
+.submit_btn
+{
+    border:solid 2px #ddd;
+    margin:4px;
     border-radius:5px;
-}*/
+    width:70px;
+}
+
+.error 
+{
+    border:solid 2px #f00;
+}

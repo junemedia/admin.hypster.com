@@ -45,6 +45,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 model.tags_list = tagManager.GetPlaylistTags(playlist_id);
             else
                 model.tags_list = tagManager.GetPlaylistTags(model.member.active_playlist);
+
             return View(model);
         }
 
@@ -345,6 +346,75 @@ namespace hypster_admin.Areas.Editors.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize]
+        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0)]
+        public ActionResult clonePlaylist()
+        {
+            hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel model = new hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel();
+            hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
+            hypster_tv_DAL.playlistManagement playlistManager = new hypster_tv_DAL.playlistManagement();
+            string playlistId = Request.QueryString["playlistId"];
+            string playlistName = "";
+            if (playlistId != "")
+            {
+                hypster_tv_DAL.Member member = new hypster_tv_DAL.Member();
+
+                if (Request.QueryString["cloneTo"] != "")
+                    member = memberManager.getMemberByUserName(Request.QueryString["cloneTo"]);
+                else
+                    member = memberManager.getMemberByUserName(User.Identity.Name);
+
+                if (Request.QueryString["playlistName"] != "")
+                {
+                    playlistName = Request.QueryString["playlistName"];
+                    hypster_tv_DAL.Playlist playlist = new hypster_tv_DAL.Playlist();
+                    playlist.name = playlistName;
+                    playlist.userid = member.id;
+
+                    string crtd = DateTime.Now.ToString("yyyyMMdd");
+                    int crtd_i = 0;
+                    Int32.TryParse(crtd, out crtd_i);
+                    playlist.create_time = crtd_i;
+
+                    if (playlist.name.Length > 60)
+                        playlist.name = playlist.name.Substring(0, 60);
+
+                    hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
+                    hyDB.Playlists.AddObject(playlist);
+                    hyDB.SaveChanges();
+
+                    List<hypster_tv_DAL.Playlist> playlists_list = playlistManager.GetUserPlaylists(member.id);
+                    int clLsId = playlists_list[playlists_list.Count - 1].id;
+                    int plId = Convert.ToInt32(playlistId);
+                    model.playlistData_Song = playlistManager.GetPlayListDataByPlaylistID(plId);
+                    for (int i = 0; i < model.playlistData_Song.Count; i++)
+                    {
+                        if (model.playlistData_Song[i].id != null)
+                        {
+                            hypster_tv_DAL.PlaylistData new_playlistData = new hypster_tv_DAL.PlaylistData();
+                            new_playlistData.playlist_id = clLsId;
+                            new_playlistData.songid = (int)model.playlistData_Song[i].id;
+                            new_playlistData.sortid = model.playlistData_Song[i].sortid;
+                            new_playlistData.userid = member.id;
+                            hyDB.PlaylistDatas.AddObject(new_playlistData);
+                            hyDB.SaveChanges();
+                        }
+                    }
+                }                
+                else
+                {
+                    Exception PlaylistIdNull = new Exception("The Playlist ID " + playlistId + " is NULL.\n\n");
+                    Response.Write("Error: " + PlaylistIdNull.Message);
+                }
+            }
+            else
+            {
+                Exception PlaylistIdNull = new Exception("The Playlist ID " + playlistId + " is NULL.\n\n");
+                Response.Write("Error: " + PlaylistIdNull.Message);
+            }
+            return RedirectPermanent("/Editors/managePlaylist/");
         }
 
         #region TAGS_LOGIC

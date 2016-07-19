@@ -5,16 +5,17 @@
 <h1>Hypster Admin website</h1>
 
 <p>
-    @if (User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
+{
+    <a href="/home" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:0px;cursor:pointer;text-decoration:none;">
+        HOME
+    </a>
+    if (Session["Roles"] != null && (Session["Roles"].Equals("Editor") || Session["Roles"].Equals("Admin")))
     {
-        <a href="/home" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:0px;cursor:pointer;text-decoration:none;">
-            HOME
-        </a>
-
         <a href="/Editors/editor" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px; color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
             Editor Pages
         </a>
-        if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+        if (Session["Roles"].Equals("Admin"))
         {
             <a href="/WebsiteManagement/homeWebsite" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
                 Hypster Website
@@ -29,4 +30,5 @@
             </a>
         }
     }
+}
 </p>

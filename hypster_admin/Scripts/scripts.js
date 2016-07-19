@@ -93,7 +93,6 @@ function showHide_AddSearch(caller)
         $("#AddSearch").css("display", "block");
         $("#MainSearchLn").css("height", "130px;");
         $(".contMiddle").css("display", "none");
-        //caller.innerHTML = "Hide";
         $("#txtSearchString").css("background-color", "#DDDDDD");
         $("#txtSearchString").css("border", "3px solid #DDDDDD");
     }
@@ -102,7 +101,6 @@ function showHide_AddSearch(caller)
         $("#AddSearch").css("display", "none");
         $("#MainSearchLn").css("height", "70px;");
         $(".contMiddle").css("display", "block");
-        //caller.innerHTML = "Advanced Search";
         $("#txtSearchString").css("background-color", "#FFFFFF");
         $("#txtSearchString").css("border", "3px solid #FFFFFF");
     }
@@ -214,14 +212,23 @@ function showHide_PostVideo() {
     if ($("#PostVideo_cont").css("display") == "none")
         $("#PostVideo_cont").css("display", "block");
     else
+    {
+        $("#YouTube_ID").val("");
+        $("#PostVideo_EditTextArea1").val("");
         $("#PostVideo_cont").css("display", "none");
+    }
 }
 
 function showHide_PostMusicPlayer() {
     if ($("#PostMusicPlayer_cont").css("display") == "none")
         $("#PostMusicPlayer_cont").css("display", "block");
     else
+    {
+        $("#Music_User_ID").val("");
+        $("#Music_Playlist_ID").val("");
+        $("#PostMusicPlayer_EditTextArea1").val("");
         $("#PostMusicPlayer_cont").css("display", "none");
+    }
 }
 
 function addNewTag_click() {
@@ -257,4 +264,98 @@ function del_news_tag(tag_plst_id) {
             }
         });
     }
+}
+
+function validateCloneList(playlistId, playlistName, cloneTo)
+{
+    var choice = $("input:radio[name=choice]:checked").val();
+    var errMsg = "";
+    $(".input_field").removeClass("error");
+    if (choice == "Input Playlist ID")
+    {
+        if (playlistId == "") {
+            errMsg += "Playlist ID\n";
+            $("#Playlist_ID").addClass("error");
+        }
+    }
+    if (choice == "Search Playlist") {
+        if ($("#Music_User_ID").val() == "") {
+            errMsg += "Username\n";
+            $("#Music_User_ID").addClass("error");
+        }
+        if (playlistId == "") {
+            errMsg += "Choose a Playlist\n";
+            $("#Music_Playlist_ID").addClass("error");
+        }
+    }
+    if (playlistName == "") {
+        errMsg += "Playlist Name\n";
+        $("#Playlist_Name").addClass("error");
+    }
+
+    if (errMsg != "")
+        alert("Please Fill Up the following fields:\n" + errMsg);
+    else if (isNaN(playlistId)) {
+        alert("Please make sure the Playlist ID is a valid number.");
+    }
+    else {
+        if (confirm('Are you sure?')) {
+            $.ajax({
+                type: "GET",
+                url: "/Editors/managePlaylist/clonePlaylist?playlistId=" + playlistId + "&playlistName=" + playlistName + "&cloneTo=" + cloneTo,
+                async: true,
+                success: function (data) {
+                    if (data.indexOf("Error:") > 0)
+                        alert(data);
+                    else
+                        window.location = "/Editors/managePlaylist/";
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + " " + ajaxOptions + "\n" + thrownError + "\n\n" + xhr.responseText);
+                }
+            });
+        }
+    }
+}
+
+function reset() {
+    $(".input_field").removeClass("error");
+    $(".input_field").each(function () {
+        $(this).val("");
+    });
+    $("option", "#Music_Playlist_ID").remove();
+}
+
+function getPlaylists() {
+    var username = $("#Music_User_ID").val();
+    $.ajax({
+        type: "GET",
+        url: "/Editors/managePost/GetPlaylistsByUsername?username=" + username,
+        async: true,
+        dataType: "json",
+        success: updatePlaylistOptions
+    });
+}
+
+function updatePlaylistOptions(lists) {
+    var current;
+    var option;
+    var selectEl = $("#Music_Playlist_ID");
+
+    // clear out current options
+    selectEl.empty();
+
+    if (lists.length > 0) {
+        // add empty option
+        option = $("<option></option>").attr("value", "").text("- Select one -");
+        selectEl.append(option);
+
+        for (var i = 0; i < lists.length; i++) {
+            current = lists[i];
+            option = $("<option></option>").attr("value", current.id).text(current.name);
+            selectEl.append(option);
+        }
+    }
+    else
+        option = $("<option></option>").attr("value", "").text("");
 }

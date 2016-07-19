@@ -405,8 +405,8 @@ namespace hypster_admin.Areas.Editors.Controllers
                 }                
                 else
                 {
-                    Exception PlaylistIdNull = new Exception("The Playlist ID " + playlistId + " is NULL.\n\n");
-                    Response.Write("Error: " + PlaylistIdNull.Message);
+                    Exception PlaylistNameNull = new Exception("The Playlist Name is NULL.\n\n");
+                    Response.Write("Error: " + PlaylistNameNull.Message);
                 }
             }
             else

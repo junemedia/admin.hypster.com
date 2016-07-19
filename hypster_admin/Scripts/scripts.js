@@ -288,7 +288,7 @@ function validateCloneList(playlistId, playlistName, cloneTo)
                 url: "/Editors/managePlaylist/clonePlaylist?playlistId=" + playlistId + "&playlistName=" + playlistName + "&cloneTo=" + cloneTo,
                 async: true,
                 success: function (data) {
-                    if (data.indexOf("Error:") > 0)
+                    if (data.indexOf("Error: ") >= 0)
                         alert(data);
                     else
                         window.location = "/Editors/managePlaylist/";

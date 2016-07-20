@@ -184,13 +184,6 @@ function delete_plst_tag(tag_id)
     });
 }
 
-function showHide_PostImages() {
-    if ($("#PostImage_cont").css("display") == "none")
-        $("#PostImage_cont").css("display", "block");
-    else
-        $("#PostImage_cont").css("display", "none");
-}
-
 function showHide_PostVideo() {
     if ($("#PostVideo_cont").css("display") == "none")
         $("#PostVideo_cont").css("display", "block");

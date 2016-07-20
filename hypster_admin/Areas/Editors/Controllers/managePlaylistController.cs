@@ -457,7 +457,6 @@ namespace hypster_admin.Areas.Editors.Controllers
                 hypster_tv_DAL.TagManagement tagManager = new hypster_tv_DAL.TagManagement();
                 int tag_ID = 0;
                 tag_ID = tagManager.AddNewTag(tag_name);
-                //tagManager.AddTagToPlaylist(tag_ID, playlist_id);
                 ret_res = tagManager.AddTagToPlaylist(tag_ID, playlist_id).ToString();
             }
             else

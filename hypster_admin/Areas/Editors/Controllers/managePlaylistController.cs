@@ -355,6 +355,7 @@ namespace hypster_admin.Areas.Editors.Controllers
             hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel model = new hypster_admin.Areas.Editors.ViewModels.PlaylistViewModel();
             hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
             hypster_tv_DAL.playlistManagement playlistManager = new hypster_tv_DAL.playlistManagement();
+            hypster_tv_DAL.TagManagement tagManager = new hypster_tv_DAL.TagManagement();
             string playlistId = Request.QueryString["playlistId"];
             string playlistName = "";
             if (playlistId != "")
@@ -389,6 +390,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                     int clLsId = playlists_list[playlists_list.Count - 1].id;
                     int plId = Convert.ToInt32(playlistId);
                     model.playlistData_Song = playlistManager.GetPlayListDataByPlaylistID(plId);
+                    model.tags_list = tagManager.GetPlaylistTags(plId);
                     for (int i = 0; i < model.playlistData_Song.Count; i++)
                     {
                         if (model.playlistData_Song[i].id != null)
@@ -399,6 +401,18 @@ namespace hypster_admin.Areas.Editors.Controllers
                             new_playlistData.sortid = model.playlistData_Song[i].sortid;
                             new_playlistData.userid = member.id;
                             hyDB.PlaylistDatas.AddObject(new_playlistData);
+                            hyDB.SaveChanges();
+                        }
+                    }
+                    
+                    for (int j = 0; j < model.tags_list.Count; j++)
+                    {
+                        if (model.tags_list[j].Tag_ID != null)
+                        {
+                            hypster_tv_DAL.Tag_Playlist plTag = new hypster_tv_DAL.Tag_Playlist();
+                            plTag.Playlist_ID = clLsId;
+                            plTag.Tag_ID = model.tags_list[j].Tag_ID;
+                            hyDB.Tag_Playlist.AddObject(plTag);
                             hyDB.SaveChanges();
                         }
                     }

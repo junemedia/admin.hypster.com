@@ -383,6 +383,7 @@
     <Content Include="Areas\Editors\Views\manageSlideshow\EditSlideshow.cshtml" />
     <Content Include="Areas\Editors\Views\manageSlideshow\Index.cshtml" />
     <Content Include="Areas\Editors\Views\Web.config" />
+    <Content Include="Areas\WebsiteManagement\Views\manageUsers\AddNewUser.cshtml" />
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />

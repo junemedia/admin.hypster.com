@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-
     @Styles.Render("~/css/themes/base/css", "~/css/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/scripts")
 </head>
 
 <body>
@@ -17,7 +17,7 @@
                 <div style="float:right; color:#FFFFFF;">
                     @Html.Partial("~/Views/account/_LoginStatus.cshtml")
                 </div>
-                <div onclick="window.location='/WebsiteManagement/manageAppPools';" style="float:right; background-color:#FFFFFF; padding:5px; color:#CC0000; margin:5px 0 0 0; cursor:pointer;">HYPSTER PANIC</div>
+                @*<div onclick="window.location='/WebsiteManagement/manageAppPools';" style="float:right; background-color:#FFFFFF; padding:5px; color:#CC0000; margin:5px 0 0 0; cursor:pointer;">HYPSTER PANIC</div>*@
                 <!-- TOP MENU -->
                 <div style="float:left;text-align:center;width:100%; min-height:100px; ">
                     <a href="/home" style="display:block; float:left; padding:0 10px 0 10px; height:50px; line-height:50px; background-color:#787878; border-radius:2px; color:#FFFFFF; font-size:20px; margin-left:10px; cursor:pointer; text-decoration:none; margin-bottom:3px;">

@@ -78,8 +78,8 @@ namespace hypster_admin.Areas.Editors.Controllers
         {
             hypster_tv_DAL.homeSlideshowManager homeSlideshowManager = new hypster_tv_DAL.homeSlideshowManager();
             hypster_tv_DAL.homeSlideshow slide = new hypster_tv_DAL.homeSlideshow();
-            hypster_tv_DAL.homeslideImageTracking tracking = new hypster_tv_DAL.homeslideImageTracking();
-            slide = homeSlideshowManager.homeSlideshowByID(id);
+            //hypster_tv_DAL.homeslideImageTracking tracking = new hypster_tv_DAL.homeslideImageTracking();
+            //slide = homeSlideshowManager.homeSlideshowByID(id);
             ViewBag.ID = id;
             return View(slide);
         }
@@ -119,7 +119,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 slide.ImageSrc = ImgSrc;
             }
             slide.href = href;
-            hyDB.sp_homeSlideshow_UpdateHomeSlideshow(slide.homeSlideshow_ID, slide.href, slide.ImageSrc);
+            //hyDB.sp_homeSlideshow_UpdateHomeSlideshow(slide.homeSlideshow_ID, slide.href, slide.ImageSrc);
             hyDB.SaveChanges();
             return RedirectToAction("Index");
         }

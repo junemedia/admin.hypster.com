@@ -335,3 +335,83 @@ function updatePlaylistOptions(lists) {
     else
         option = $("<option></option>").attr("value", "").text("");
 }
+
+function SearchUser()
+{
+    $("#serUserPar").removeClass("error");
+
+    if ($("#serUserPar").val() == "") {
+        $("#serUserPar").addClass("error");
+        alert("Please Fill Up the textbox.");
+        return false;
+    }
+    else
+    {
+        //console.log($("#SearchFor").val() + "; " + validateEmail($("#serUserPar").val()));
+        if ($("#SearchFor").val() == "serUserEmail" && !validateEmail($("#serUserPar").val()))
+        {
+            $("#serUserPar").addClass("error");
+            alert("Please Verify if the email format is correct.");
+            return false;
+        }
+        else if ($("#SearchFor").val() == "serUserID" && isNaN($("#serUserPar").val()))
+        {
+            $("#serUserPar").addClass("error");
+            alert("Please Verify this is a Number.");
+            return false;
+        }
+        else
+            return true;
+    }
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function validatePassword(password) {
+    var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    return re.test(password);
+}
+
+function validateUserInfo() {
+    var errMsg = "";
+    $(".newUser_fields").removeClass("error");
+    if ($("#username").val() == "") {
+        $("#username").addClass("error");
+        errMsg += "Username\n";
+    }
+    if ($("#password").val() == "") {
+        $("#password").addClass("error");
+        errMsg += "Password\n";
+    }
+    if ($("#name").val() == "") {
+        $("#name").addClass("error");
+        errMsg += "Name\n";
+    }
+    if ($("#email").val() == "") {
+        $("#email").addClass("error");
+        errMsg += "Email Address\n";
+    }
+
+    if (errMsg != "") {
+        alert("Please Fill Up the following fields:\n" + errMsg);
+        return false;
+    }
+    else {
+        if ($("#password").val().length < 8 || !validatePassword($("#password").val()))
+        {
+            $("#password").addClass("error");
+            alert("Password must be at least 8 characters long AND must have at least 1 Upper Case, 1 Lower Case characters, and 1 Number.");
+            return false;
+        }
+        if (!validateEmail($("#email").val())) {
+            $("#email").addClass("error");
+            alert("Please make sure the email address is in correct format.");
+            return false;
+        }        
+        else
+            return true;
+    }
+}

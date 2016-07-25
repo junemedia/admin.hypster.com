@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace hypster_admin.Areas.WebsiteManagement.Controllers
@@ -48,6 +49,75 @@ namespace hypster_admin.Areas.WebsiteManagement.Controllers
                 return RedirectPermanent("/home/");
         }
 
+        [HttpGet]
+        public ActionResult AddNewUser()
+        {
+            if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+            {
+                hypster_tv_DAL.Member member = new hypster_tv_DAL.Member();
+                return View(member);
+            }
+            else
+                return RedirectPermanent("/home/");            
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public ActionResult AddNewUser(hypster_tv_DAL.Member member, int DOB_YYYY, int DOB_MM, int DOB_DD)
+        {
+            if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+            {
+                hypster_tv_DAL.Member memberAdd = new hypster_tv_DAL.Member();
+                hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
+                hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
+
+                memberAdd.username = member.username;
+                memberAdd.password = member.password;
+                memberAdd.name = member.name;
+                memberAdd.email = member.email;
+                memberAdd.adminLevel = member.adminLevel;
+                memberAdd.country = member.country;
+                memberAdd.city = member.city;
+                memberAdd.zipcode = member.zipcode;
+                memberAdd.birth = new DateTime(DOB_YYYY, DOB_MM, DOB_DD);
+                memberAdd.sex = Convert.ToByte(member.sex);
+                string IP_Address;
+                IP_Address = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                if (IP_Address == null)
+                    IP_Address = Request.ServerVariables["REMOTE_ADDR"];
+                else
+                    IP_Address = "";
+                memberAdd.RegistrationIp = IP_Address;
+            
+                memberAdd.regdate = DateTime.Now;
+                if (memberAdd.username != "" && memberAdd.password != "" && memberAdd.name != "" && memberAdd.email != "")
+                {
+                    bool usernameClean = (memberManager.getMemberByUserName(memberAdd.username).id == 0);
+                    bool emailClean = (memberManager.getMemberByEmail(memberAdd.email).id == 0);
+                    if (!usernameClean)
+                    {
+                        ModelState.AddModelError("", "The Username has already been used, please select another one!!");
+                        return View(memberAdd);
+                    }
+                    if (!emailClean)
+                    {
+                        ModelState.AddModelError("", "The Email Address has already been registered, please choose another email address!!");
+                        return View(memberAdd);
+                    }
+                
+                    hyDB.Members.AddObject(memberAdd);
+                    hyDB.SaveChanges();
+                
+                    return RedirectToAction("Index", "manageUsers");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Please Fill Up the Username, Password, Name, and Email for the New User!!");
+                    return View(memberAdd);
+                }
+            }
+            else
+                return RedirectPermanent("/home/");
+        }
 
         public ActionResult user(int id)
         {
@@ -56,7 +126,7 @@ namespace hypster_admin.Areas.WebsiteManagement.Controllers
                 hypster_tv_DAL.Member memberEdit = new hypster_tv_DAL.Member();
                 hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
                 memberEdit = memberManager.getMemberByID(id);
-                return View(memberEdit);
+                return PartialView("user", memberEdit);
             }
             else
                 return RedirectPermanent("/home/");
@@ -71,17 +141,21 @@ namespace hypster_admin.Areas.WebsiteManagement.Controllers
                 hypster_tv_DAL.Member memberEdit = new hypster_tv_DAL.Member();
                 hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
                 memberEdit = memberManager.getMemberByID(MEM_ID);
-                if(member.password != "")
-                    memberEdit.password = member.password.ToString();
-                memberManager.UpdateMemberPassword(User.Identity.Name, memberEdit.id, memberEdit.password);
-                return RedirectToAction("/user/" + MEM_ID);
+                memberEdit.id = MEM_ID;
+                memberEdit.username = member.username;
+                memberEdit.password = member.password.ToString();
+                memberEdit.name = member.name;
+                memberEdit.email = member.email;
+                memberEdit.adminLevel = member.adminLevel;
+                memberManager.UpdateMemberUsername(memberEdit.username, memberEdit.id);
+                memberManager.UpdateMemberPassword(memberEdit.username, memberEdit.id, memberEdit.password);
+                memberManager.UpdateMemberProfileDetailsNameEmailAdminLevel(memberEdit.username, MEM_ID, memberEdit.name, memberEdit.email, memberEdit.adminLevel);
+                return RedirectToAction("/");
             }
             else
                 return RedirectPermanent("/home/");
         }
-
-
-
+        
 
         public ActionResult manageUsernames()
         {
@@ -91,8 +165,7 @@ namespace hypster_admin.Areas.WebsiteManagement.Controllers
                 return RedirectPermanent("/home/");
         }
 
-
-
+        
         [HttpPost]
         public ActionResult manageUsernames(string txtUsernames)
         {

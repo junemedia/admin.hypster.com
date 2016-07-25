@@ -88,20 +88,16 @@ textarea {
     margin: 0.5em 0 0 0;
 }
 
-
-
-input[type=button] 
-{
-	height:25px; line-height:19px; border:1px solid #454545; background-color:#DDDDDD; color:#000000; cursor:pointer;
-}
-
+input[type=button],
 input[type=submit]
 {
 	height:25px; line-height:19px; border:1px solid #454545; background-color:#DDDDDD; color:#000000; cursor:pointer;
 }
 
-input[type=text]
+input[type=text], 
+select
 {
+    margin:2px;
 	font-size:15px;
 	line-height:18px;
     font-family:Calibri;
@@ -603,3 +599,31 @@ a:visited
 {
     width: 660px;
 }
+
+#manageUserTbl .single-line,
+#addUserTbl .single-line,
+addUserTbl2 .single-line
+{
+    width: 160px;
+    height: 20px;
+}
+
+.newUser_fields
+{
+    width: 200px;
+    height: 20px;
+}
+
+.newUser_DropDown {
+    float: left;
+    outline: none;
+    height: 25px;
+    margin: 2px 0 0 5px;
+    background-color: #FFFFFF;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-weight: lighter;
+    font-size: 18px;
+    width: 164px;
+}
+

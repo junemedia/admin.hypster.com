@@ -24,7 +24,7 @@
 
         @foreach (var item in Model.playlist)
         {
-            <div id="textName_cont_@item.id" class="selection">
+            <div id='textName_cont_@item.id' class='selection'>
                 <a href="/Editors/managePlaylist/?playlist_id=@item.id">@item.name</a>
                 <div class="PlstItm_Del" title="Delete Playlist" onclick="Pl_DelPlaylist(@item.id);">Delete List</div>
             </div>
@@ -39,7 +39,7 @@
             <div id="searchByUser" style="height:100px">
                 Username:<br />
                 <div class="wrapper" style="width:270px;">
-                    <input id="Music_User_ID" type="text" style="width:85%;" class="input_field" /><button onclick="getPlaylists()">GO</button>
+                    <input id="Music_User_ID" type="text" style="width:83%;" class="input_field" /><button onclick="getPlaylists()">GO</button>
                 </div><br />
                 Choose a Playlist:<br />
                 <select id="Music_Playlist_ID" class="input_field" style="width:270px;height:24px;line-height:24px;background:#eee;" onchange="playlistName('')">
@@ -49,7 +49,7 @@
             <div id="searchByID" style="display:none;height:100px">
                 Playlist ID:<br />
                 <div class="wrapper" style="width:270px;">
-                    <input id="Playlist_ID" type="text" style="width:270px;" class="input_field" onblur="playlistName('id')" />
+                    <input id="Playlist_ID" type="text" style="width:97%;" class="input_field" onblur="playlistName('id')" />
                 </div><br />
             </div>
             Playlist Name:<input id="Playlist_Name" type="text" class="input_field" style="width:90%;" />
@@ -190,7 +190,7 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + " " + ajaxOptions + "\n" + thrownError + "\n\n" + xhr.responseText);
                     }
-                });                
+                });
             }
             else
                 $("#Playlist_Name").val($("#Music_Playlist_ID option:selected").text());

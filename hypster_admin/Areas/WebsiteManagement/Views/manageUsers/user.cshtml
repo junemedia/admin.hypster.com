@@ -1,126 +1,45 @@
 ﻿@model hypster_tv_DAL.Member
 
-@{
-    ViewBag.Title = "user";
-    Layout = "~/Views/Shared/_Layout_WebsiteManagement.cshtml";
-}
-
-
-<div style=" float:left; width:98%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
-    
-    @using (Html.BeginForm())
+<div style="float:left; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">    
+    @using (Html.BeginForm("user", "manageUsers", FormMethod.Post, new { onsubmit = "return validateUserInfo();" }))
     {
-    
-        <div style=" float:left; width:100%; color:#FCF088;">
-            <h2>&nbsp;USER - @Model.id<br /></h2>
+        <div style="float:left; width:100%; color:#FCF088;">
+            <h2>&nbsp;@Model.name<br /></h2>
             <input name="MEM_ID" id="MEM_ID" type="hidden" value="@Model.id" />
         </div>
 
-        <div style=" float:left; width:310px; text-align:right;">
-    
-            @Html.LabelFor(m => m.username)
-            @Html.EditorFor(m => m.username)<br />
-            <br />
-            @Html.LabelFor(m => m.password)
-            @Html.EditorFor(m => m.password)<br />
-            <br />
-            @Html.LabelFor(m => m.name)
-            @Html.EditorFor(m => m.name)<br />
-            <br />
-            @Html.LabelFor(m => m.regdate)
-            @Html.EditorFor(m => m.regdate)<br />
-            <br />
-            @Html.LabelFor(m => m.active_playlist)
-            @Html.EditorFor(m => m.active_playlist)<br />
-            <br />
-            @Html.LabelFor(m => m.email)
-            @Html.EditorFor(m => m.email)<br />
-            <br />
-            @Html.LabelFor(m => m.autoplay)
-            @Html.EditorFor(m => m.autoplay)<br />
-
-
-            <br />
-            @Html.LabelFor(m => m.sex)
-            @Html.EditorFor(m => m.sex)<br />
+        <div style="float:left; width:100%;">
+            <table id="manageUserTbl" style="width:100%;">
+                <tr>
+                    <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.username, "Username: ")</td><td style="width:30%">@Html.TextBoxFor(m => m.username, new { @id = "username", @class = "newUser_fields" })</td>
+                    <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.password, "Password: ")</td>
+                    <td style="width:30%">
+                        <input type="password" id="password" class="newUser_fields" value="@Model.password" style="margin-left:2px;" onblur="$('#userPasswordHdn').val($('#password').val());" />
+                        @Html.TextBoxFor(model => model.password, new { @id = "userPasswordHdn", style = "display:none" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.name, "Name: ")</td><td style="width:30%">@Html.TextBoxFor(m => m.name, new { @id = "name", @class = "newUser_fields" })</td>
+                    <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.email, "Email Address: ")</td><td style="width:30%">@Html.TextBoxFor(m => m.email, new { @id = "email", @class = "newUser_fields" })</td>
+                </tr>
+                <tr>
+                    <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.adminLevel, "Admin Level: ")</td>
+                    <td style="width:30%">
+                        @Html.DropDownListFor(model => model.adminLevel, new SelectList(
+                            new List<Object>
+                            {
+                                new { Value = 0 , Text = "User" },
+                                new { Value = 1 , Text = "Editor" },
+                                new { Value = 2 , Text = "Admin"}
+                            },
+                            "Value", "Text",
+                        0), new { @style = "width: 164px; height: 25px;" })                        
+                    </td>
+                </tr>
+            </table>
         </div>
-
-        <div style=" float:left; width:310px; text-align:right;">
-    
-            @Html.LabelFor(m => m.AutoshareEnabled)
-            @Html.EditorFor(m => m.AutoshareEnabled)<br />
-            <br />
-            @Html.LabelFor(m => m.birth)
-            @Html.EditorFor(m => m.birth)<br />
-            <br />
-            @Html.LabelFor(m => m.city)
-            @Html.EditorFor(m => m.city)<br />
-            <br />
-            @Html.LabelFor(m => m.CoregProcessed)
-            @Html.EditorFor(m => m.CoregProcessed)<br />
-            <br />
-            @Html.LabelFor(m => m.country)
-            @Html.EditorFor(m => m.country)<br />
-            <br />
-            @Html.LabelFor(m => m.ArtistLevel)
-            @Html.EditorFor(m => m.ArtistLevel)<br />
-            <br />
-            @Html.LabelFor(m => m.email_confirmed)
-            @Html.EditorFor(m => m.email_confirmed)<br />
-
-
-            <br />
-            @Html.LabelFor(m => m.LastActivityIp)
-            @Html.EditorFor(m => m.LastActivityIp)<br />
-            <br />
-            @Html.LabelFor(m => m.OptOutDate)
-            @Html.EditorFor(m => m.OptOutDate)<br />
-            <br />
-            @Html.LabelFor(m => m.profile_pic_id)
-            @Html.EditorFor(m => m.profile_pic_id)<br />
+        <div style="float:left; width:100%; text-align:right; margin-top:30px;">
+            <input type="submit" value="SAVE CHANGES" class="submit_btn" style="width:150px;" />
         </div>
-
-
-        <div style=" float:left; width:310px; text-align:right;">
-            @Html.LabelFor(m => m.email_optout)
-            @Html.EditorFor(m => m.email_optout)<br />
-            <br />
-            @Html.LabelFor(m => m.introduce)
-            @Html.EditorFor(m => m.introduce)<br />
-            <br />
-            @Html.LabelFor(m => m.is_new_artist)
-            @Html.EditorFor(m => m.is_new_artist)<br />
-            <br />
-            @Html.LabelFor(m => m.IsOverEighteen)
-            @Html.EditorFor(m => m.IsOverEighteen)<br />
-            <br />
-            @Html.LabelFor(m => m.israndomplay)
-            @Html.EditorFor(m => m.israndomplay)<br />
-            <br />
-            @Html.LabelFor(m => m.IsSuspended)
-            @Html.EditorFor(m => m.IsSuspended)<br />
-            <br />
-            @Html.LabelFor(m => m.LastActivityDate)
-            @Html.EditorFor(m => m.LastActivityDate)<br />
-
-        
-            <br />
-            @Html.LabelFor(m => m.StatusId)
-            @Html.EditorFor(m => m.StatusId)<br />
-            <br />
-            @Html.LabelFor(m => m.widget_views)
-            @Html.EditorFor(m => m.widget_views)<br />
-            <br />
-            @Html.LabelFor(m => m.zipcode)
-            @Html.EditorFor(m => m.zipcode)<br />
-        </div>
-        
-        
-        <div style=" float:left; width:84%; text-align:right; margin-top:30px;">
-            <span style=" color:#FCF088;"><text>Note: right now only password is editable</text></span> <input type="submit" value="SAVE CHANGES" style=" width:250px;" /> 
-        </div>
-
-        
     }
-
 </div>

@@ -30,26 +30,26 @@
                 <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
                     <input type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" style="width:100%;" />
                 </div>
-                <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:left;">
-                    <input type="radio" name="group1" value="PostImgSt_Left" onclick="setImageOrientation(this.value);" /> <text>Left Side</text>
-                    <input type="radio" name="group1" value="PostImgSt_Right" onclick="setImageOrientation(this.value);"> <text>Right Side</text>
-                    <script type="text/javascript">
-                        function setImageOrientation(val) {
-                            $("#PostImage_EditTextArea1").css("display", "block");
-                            $("#PostImage_EditTextArea1").val("<img alt=\"@Model.post_title\" src=\"http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image\" class=\"" + val + "\" />");
-                        }
-                    </script>
-                </div>
-                <textarea id="PostImage_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
-                <div style="width:100%; text-align:left; color:#FCF088;">New Image Code</div>
-                <textarea id="PostImage_EditTextArea2" style=" width:98%; height:30px;">
-                    <img alt="@Model.post_title" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" class="nPostImg" />
-                </textarea>
+                @*<div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:left;">
+                <input type="radio" name="group1" value="PostImgSt_Left" onclick="setImageOrientation(this.value);" /> <text>Left Side</text>
+                <input type="radio" name="group1" value="PostImgSt_Right" onclick="setImageOrientation(this.value);"> <text>Right Side</text>
+                <script type="text/javascript">
+                    function setImageOrientation(val) {
+                        $("#PostImage_EditTextArea1").css("display", "block");
+                        $("#PostImage_EditTextArea1").val("<img alt=\"@Model.post_title\" src=\"http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image\" class=\"" + val + "\" />");
+                    }
+                </script>
+            </div>
+            <textarea id="PostImage_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
+            <div style="width:100%; text-align:left; color:#FCF088;">New Image Code</div>
+            <textarea id="PostImage_EditTextArea2" style=" width:98%; height:30px;">
+                <img alt="@Model.post_title" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" class="nPostImg" />
+            </textarea>*@
             }
         </div>
         <!-- POST IMAGE -->
         <!-- POST VIDEO -->
-        @*<div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostVideo();">
+        <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostVideo();">
             <span style="font-size:17px; font-weight:bold;">&nbsp;YOUTUBE VIDEO</span>
         </div>
         <div id="PostVideo_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
@@ -74,7 +74,7 @@
                     $("#PostVideo_EditTextArea1").val("<span class=\"PostVideoCont\" style=\"width:420px; height:250px; margin-top:5px;\"><iframe width=\"420\" height=\"250\" src=\"http://www.youtube.com/embed/" + youtube_guid + "\" frameborder=\"0\" allowfullscreen></iframe></span>");
                 }
             </script>
-        </div>*@
+        </div>
         <!-- POST VIDEO -->
         <!-- POST MUSIC PLAYER -->
         <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostMusicPlayer();">
@@ -128,14 +128,15 @@
 <div style="float:left; width:60%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1.5%; margin-left:1%; text-align:left;">
     <div style="float:left; width:100%; line-height:30px;">
         Post Url:
-        <input class="newsPost_Title" type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid" disabled="disabled" />
+        <a href="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid" target="_blank">http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid</a>
+        @*<input class="newsPost_Title" type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid" disabled="disabled" />*@
         @using (Html.BeginForm())
         {
             @Html.HiddenFor(m => m.post_guid)
             @Html.HiddenFor(m => m.post_id)
             @Html.HiddenFor(m => m.post_image)
 
-            <text>Header:</text>
+            <text>Title:</text>
             @Html.TextBoxFor(m => m.post_title, new { @class = "newsPost_Title" })<br />
 
             <text>Content:</text>

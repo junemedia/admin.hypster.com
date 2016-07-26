@@ -46,6 +46,8 @@ namespace hypster_admin.Areas.Editors.Controllers
             else
                 model.tags_list = tagManager.GetPlaylistTags(model.member.active_playlist);
 
+            ViewBag.TotalResults = model.playlistData_Song.Count;
+            //ViewBag.PageSize = 20;
             return View(model);
         }
 

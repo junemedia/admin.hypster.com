@@ -79,31 +79,36 @@
     </div>
 
     <div id="sortablePlaylist">
-        <a class="AddNew_Container" href="#" onclick="window.location = '/Editors/managePlaylist/addNewSongs?playlist=' + $('#newTagPlst').val(); return false;"><input type="button" value="Add New Song" /></a>        
-        @{ int i_counter = 1;}
-        @foreach (var item in Model.playlistData_Song)
+        <a class="AddNew_Container" href="#" onclick="window.location = '/Editors/managePlaylist/addNewSongs?playlist=' + $('#newTagPlst').val(); return false;"><input type="button" value="Add New Song" /></a>
+        @{ 
+            int page_size = 20;
+            int total_pages = ViewBag.TotalResults / page_size;
+        }
+        @if ((ViewBag.TotalResults % page_size) > 0) { total_pages += 1; }
+        @for (int i = 0; i < total_pages; i++)
         {
-            <div id="song_@item.playlist_track_id" style="height:60px;margin:3px;padding:2px;border:1px solid #00ff90;border-radius:5px;">
-                <div onmouseup="isMOUSE_UP_ON = true;" style="width:90%;font-size:12px;">
-                    <img class="SongImg" alt="" src="http://i.ytimg.com/vi/@item.YoutubeId/0.jpg" />
-                    <span style="margin-left:5px;">@(i_counter)</span>
-                    @item.Title
-                </div>
-                <div class="SongItm_Edt" title="Play Song" onclick="OpenPlayerM('https://www.youtube.com/watch?v=@item.YoutubeId')" style="width:5%"></div>
-                <div class="SongItm_Del" title="Delete Song" onclick="Pl_DelSong(@item.playlist_track_id, @ViewBag.ActivePlaylistID);" style="width:5%"></div>
-            </div>
-
-            i_counter = i_counter + 1;
-
-            if (i_counter > 400)
-            {
-                <div id="LoMPlstBtn" class="srt_itm" onclick="load_more_songs_plst_details();">
-                    <div id="LoMPlstBtnHeader" style="float:left; width:100%; line-height:50px; font-size:21px; text-align:center; color:#fcf088;">
-                        Load more songs for this playlist
+            int count = i * page_size;
+            int count2 = (i + 1) * page_size;
+            if (total_pages * page_size == count2) { count2 = count + (ViewBag.TotalResults % page_size); }
+            <div id="page_@i" style="display:none;">
+                @for (int j = count; j < count2; j++)
+                {
+                    <div id="song_@Model.playlistData_Song[j].playlist_track_id" style="height:60px;margin:3px;padding:2px;border:1px solid #00ff90;border-radius:5px;">
+                        <div onmouseup="isMOUSE_UP_ON = true;" style="width:90%;font-size:12px;">
+                            <img class="SongImg" alt="" src="http://i.ytimg.com/vi/@Model.playlistData_Song[j].YoutubeId/0.jpg" />
+                            <span style="margin-left:5px;">@(j+1)</span>
+                            @Model.playlistData_Song[j].Title
+                        </div>
+                        <div class="SongItm_Edt" title="Play Song" onclick="OpenPlayerM('https://www.youtube.com/watch?v=@Model.playlistData_Song[j].YoutubeId')" style="width:5%"></div>
+                        <div class="SongItm_Del" title="Delete Song" onclick="Pl_DelSong(@Model.playlistData_Song[j].playlist_track_id, @ViewBag.ActivePlaylistID);" style="width:5%"></div>
                     </div>
-                </div>
-                break;
-            }
+                }
+            </div>
+        }        
+        @if (ViewBag.TotalResults > page_size)
+        {
+            <div id="PrevBtn" class="pageButton" onclick="pageClick(-1, @total_pages)">PREVIOUS</div>
+            <div id="NextBtn" class="pageButton" onclick="pageClick(1, @total_pages)">NEXT</div>
         }
     </div>
 
@@ -114,8 +119,12 @@
             <div>Playlist is empty</div>
         </div>
     }    
-
+    <input type="text" id="showPage" value="" style="display:none" />
     <script type="text/javascript">
+        $("#textName_cont_@ViewBag.ActivePlaylistID").addClass("selectedPlaylist");
+        $("#page_0").css("display", "");
+        $("#showPage").val("0");
+        $("#PrevBtn").css("display", "none");
         function add_new_tag_nav()
         {
             $("#AddNewTag_InnrContainer").css("display", "block");
@@ -167,11 +176,8 @@
                 }
             });*@
         }
-        $(function () { $("#sortablePlaylist").sortable(); $("#sortablePlaylist").disableSelection(); });
-        function playlistName(input)
-        {
-            if (input == "id")
-            {
+        function playlistName(input) {
+            if (input == "id") {
                 $.ajax({
                     type: "POST",
                     url: "/Editors/managePost/getPlaylistName?playlistid=" + $("#Playlist_ID").val(),
@@ -195,5 +201,10 @@
             else
                 $("#Playlist_Name").val($("#Music_Playlist_ID option:selected").text());
         }
+        $(function () {
+            $("#sortablePlaylist").sortable();
+            $("#sortablePlaylist").disableSelection();
+        });
+
     </script>
 </div>

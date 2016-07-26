@@ -415,3 +415,16 @@ function validateUserInfo() {
             return true;
     }
 }
+
+function pageClick(num, num2)
+{
+    var current = parseInt($("#showPage").val());
+    $(".pageButton").css("display", "");
+    $("#page_" + current).css("display", "none");
+    $("#page_" + eval(current + num)).css("display", "");
+    $("#showPage").val(eval(current + num));
+    if (eval(current + num) == 0)
+        $("#PrevBtn").css("display", "none");
+    if (eval(current + num) == (num2-1))
+        $("#NextBtn").css("display", "none");
+}

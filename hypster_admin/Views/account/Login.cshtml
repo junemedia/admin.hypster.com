@@ -1,5 +1,4 @@
 ﻿@model hypster_tv_DAL.Member
-
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
@@ -10,10 +9,10 @@
     <div style="float:left; width:100%; min-height:130px; border-radius:2px; line-height:30px; padding:5px; background-color:#787878; text-align:right; ">
         <span style="color:#EEEEEE; font-size:15px;">Hypster Admin: Please Login</span>
         @using(Html.BeginForm()){
-            @Html.TextBoxFor(m => m.username, new { @class = "txtLogin"})<br />
-            @Html.PasswordFor(m => m.password, new { @class = "txtLogin"})<br />
+            @Html.TextBoxFor(m => m.username, new { @id="Username", @class = "txtLogin"})<br />
+            @Html.PasswordFor(m => m.password, new { @id = "Password", @class = "txtLogin"})<br />
             <input type="submit" value="login" style="width:90px;" />
-            @Html.ValidationSummary(true, "", new { @class = "txtValidator" })
+            <span style="text-align:left;">@Html.ValidationSummary(true, "", new { @class = "txtValidator" })</span>
         }
     </div>
 </div>

@@ -64,17 +64,22 @@ namespace hypster_admin.Controllers
                     isActive_check = membersManager.isActiveCheck(member.id);
                     if (isActive_check == true)
                     {
-                        if (p_member.username == member.username && p_member.password == member.password && member.adminLevel > 0)
+                        if (p_member.password == member.password)//p_member.username == member.username && 
                         {
-                            System.Web.Security.FormsAuthentication.SetAuthCookie(p_member.username, false);
-                            if (member.adminLevel > 1)
-                                Session.Add("Roles", "Admin");
+                            if (member.adminLevel > 0)
+                            {
+                                System.Web.Security.FormsAuthentication.SetAuthCookie(p_member.username, false);
+                                if (member.adminLevel > 1)
+                                    Session.Add("Roles", "Admin");
+                                else
+                                    Session.Add("Roles", "Editor");
+                                return RedirectToAction("Index", "Home");
+                            }
                             else
-                                Session.Add("Roles", "Editor");
-                            return RedirectToAction("Index", "Home");
+                                return Redirect("http://www.hypster.com/");
                         }
                         else
-                            return Redirect("http://www.hypster.com/");
+                            ModelState.AddModelError("", "The Password fields is CASE SENSITIVE.");
                     }
                     else
                     {

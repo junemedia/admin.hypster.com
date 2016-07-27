@@ -24,15 +24,15 @@
             <table id="addUserTbl" style="width:100%;">
                 <tr>
                     <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.username, "Username: ")</td>
-                    <td style="width:30%">@Html.TextBoxFor(m => m.username, new { @id = "username", @class = "newUser_fields" })</td>
+                    <td style="width:30%">@Html.TextBoxFor(m => m.username, new { @id = "username", @class = "newUser_fields", autocomplete = "off" })</td>
                     <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.password, "Password: ")</td>
-                    <td style="width:30%">@Html.PasswordFor(m => m.password, new { @id = "password", @class = "newUser_fields" })</td>
+                    <td style="width:30%">@Html.PasswordFor(m => m.password, new { @id = "password", @class = "newUser_fields", autocomplete = "off" })</td>
                 </tr>
                 <tr>
                     <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.name, "Name: ")</td>
-                    <td style="width:30%">@Html.TextBoxFor(m => m.name, new { @id = "name", @class = "newUser_fields" })</td>
+                    <td style="width:30%">@Html.TextBoxFor(m => m.name, new { @id = "name", @class = "newUser_fields", autocomplete = "off" })</td>
                     <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.email, "Email Address: ")</td>
-                    <td style="width:30%">@Html.TextBoxFor(m => m.email, new { @id = "email", @class = "newUser_fields" })</td>
+                    <td style="width:30%">@Html.TextBoxFor(m => m.email, new { @id = "email", @class = "newUser_fields", autocomplete = "off" })</td>
                 </tr>
                 <tr>
                     <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.adminLevel, "Admin Level: ")</td>

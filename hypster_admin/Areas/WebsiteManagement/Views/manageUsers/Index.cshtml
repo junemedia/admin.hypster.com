@@ -6,9 +6,10 @@
 
 <div style="float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
     <div style="float:left; width:100%;">
-        <h2 style="margin-bottom:5px;">Find Users</h2>
+        <h2 style="margin-bottom:5px;">User Management</h2>
     </div>
-    <div style="float:left; width:99%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px 0 0 0; padding:2px; cursor:pointer;" onclick="window.location = '/WebsiteManagement/manageUsers/AddNewUser';">Add New User</div>
+    <div style="float:left; width:100%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px; padding:3px; cursor:pointer;" onclick="window.location = '/WebsiteManagement/manageUsers/AddNewUser';">Add New User</div>
+    <div style="float:left; width:100%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px; padding:3px;">Find Users</div>
     <div style="float:left; width:100%; text-align:right; line-height:27px;">
         @using(Html.BeginForm("Index", "manageUsers", FormMethod.Post, new { onsubmit = "return SearchUser();" }))
         {
@@ -22,7 +23,7 @@
         }
     </div>
 
-    <div style="float:left; width:100%; height:470px; overflow:scroll; overflow-x:hidden; margin-top:15px;">
+    <div style="float:left; width:100%; height:400px; overflow:scroll; overflow-x:hidden; margin-top:15px;">
     @if (Model != null)
     {
         foreach (var item in Model)

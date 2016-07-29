@@ -167,7 +167,6 @@ a:visited
 	width:250px;
 	height:20px;
 	border:1px solid #454545;
-	
 }
 
 
@@ -542,9 +541,16 @@ a:visited
     float:right;width:220px;text-align:right
 }
 
+#AddPlaylist_Save,
+#AddPlaylist_Cancel,
 .AddNew_Container input
 {
     margin:5px; border-radius:5px;
+}
+
+#AddNewPlstItm div
+{
+    margin-bottom:5px;
 }
 
 #tagsEditBtn
@@ -643,4 +649,10 @@ addUserTbl2 .single-line
     color:#d4ae52; 
     border:1px solid #d4ae52; 
     cursor:pointer; 
+}
+
+#cPLCont {
+    border: solid 2px #808080;
+    height: 35px;
+    width: 280px;
 }

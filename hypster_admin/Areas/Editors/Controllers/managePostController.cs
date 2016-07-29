@@ -28,12 +28,20 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult AddNewPost(hypster_tv_DAL.newsPost p_newPost)
+        public ActionResult AddNewPost(hypster_tv_DAL.newsPost p_newPost, HttpPostedFileBase file)
         {
             hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             if (p_newPost.post_title != null && p_newPost.post_title != "")
             {
+                if (p_newPost.post_content == null || p_newPost.post_content == "")
+                {
+                    ModelState.AddModelError("", "Please Enter the Post Content; it is REQUIRED!!");
+                }
+                if (p_newPost.post_short_content == null || p_newPost.post_short_content == "")
+                {
+                    ModelState.AddModelError("", "Please Enter the Short Post Content; it is REQUIRED!!");
+                }
 
                 p_newPost.post_date = DateTime.Now;
                 p_newPost.post_guid = p_newPost.post_title.Replace("/", "").Replace("\\", "").Replace("&", "").Replace("+", "").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace("*", "").Replace("$", "").Replace("\"", "").Replace("'", "").Replace("{", "").Replace("}", "").Replace(")", "").Replace("(", "").Replace("[", "").Replace("]", "").Replace("|", "").Replace(".", "").Replace(",", "").Replace(":", "").Replace(";", "");
@@ -41,7 +49,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 //
                 //check if post guid is exist in database
                 hypster_tv_DAL.newsPost post_check = newsManager.GetPostByGUID(p_newPost.post_guid);
-                if (post_check.post_id != 0 && post_check.post_guid != "")
+                if (post_check.post_id != 0 && newsManager.GetPostByGUID(post_check.post_guid).post_guid != "")
                 {
                     ModelState.AddModelError("", "NOT ABLE TO GENERATE POST GUID.Please choose modify title. Post with following title already exist.");
                 }
@@ -49,6 +57,8 @@ namespace hypster_admin.Areas.Editors.Controllers
                 {
                     hyDB.newsPosts.AddObject(p_newPost);
                     hyDB.SaveChanges();
+                    int id = p_newPost.post_id;
+                    UploadImage(file, id);
                     return RedirectToAction("Index", "managePost");
                 }
             }
@@ -56,6 +66,7 @@ namespace hypster_admin.Areas.Editors.Controllers
             {
                 ModelState.AddModelError("", "Please enter post title. It must be unique from previous posts!!!");
             }
+
             // if no success
             return View(new hypster_tv_DAL.newsPost());
         }
@@ -71,11 +82,11 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post)
+        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post, HttpPostedFileBase file)
         {
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             newsManager.EditPost(p_Post);
-
+            UploadImage(file, p_Post.post_id);
             //update sitemaps date and ping google and bing
             //
             int sitemapNewsID = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["sitemap_newsID"]);
@@ -115,50 +126,7 @@ namespace hypster_admin.Areas.Editors.Controllers
         [HttpPost]
         public ActionResult UploadPostImageEdit(HttpPostedFileBase file, int post_id)
         {
-            if (file != null && file.ContentLength > 0)
-            {
-                hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
-                hypster_tv_DAL.Image_Resize_Manager image_resizer = new hypster_tv_DAL.Image_Resize_Manager();
-
-                hypster_tv_DAL.newsPost p_Post = new hypster_tv_DAL.newsPost();
-                p_Post = newsManager.GetPostByID(post_id);
-
-                var extension = System.IO.Path.GetExtension(file.FileName);
-                var path = System.IO.Path.Combine(Server.MapPath("~/uploads"), "new_post" + extension);
-                file.SaveAs(path);
-
-                //save post image
-                System.IO.FileInfo fileInf = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
-                fileInf.CopyTo(System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\" + p_Post.post_guid + fileInf.Extension, true);
-                //
-                // resize image old
-                int video_width = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["postImage_maxWidth"]);
-                image_resizer.Resize_Image(System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\" + p_Post.post_guid + fileInf.Extension, video_width, -1, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                //save thumbnail
-                System.IO.FileInfo thumb_file = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
-                string new_thumb_path = System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\thumb_" + p_Post.post_guid + thumb_file.Extension;
-                thumb_file.CopyTo(new_thumb_path, true);
-
-                int thumb_width = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["postThumb_maxWidth"]);
-                image_resizer.Resize_Image(new_thumb_path, thumb_width, -1, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                //save new image
-                System.IO.FileInfo newim_file = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
-                string newim_path = System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\img_" + p_Post.post_guid + newim_file.Extension;
-                newim_file.CopyTo(newim_path, true);
-
-                int newim_width = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["newPostImage_maxWidth"]);
-                image_resizer.Resize_Image(newim_path, newim_width, -1, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                //delete file
-                System.IO.FileInfo del_file = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
-                del_file.Delete();
-                p_Post.post_image = p_Post.post_guid + fileInf.Extension;
-                //
-                // save post after image is done
-                newsManager.EditPost(p_Post);
-            }
+            UploadImage(file, post_id);
             return RedirectToAction("Edit", new { id = post_id });
         }
         //------------------------------------------------------------------------------------------
@@ -288,7 +256,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                     }
                 }
                 catch (Exception e)
-                {                    
+                {
                     return "Error: No such Playlist. " + e.Message + "\n" + e.StackTrace;
                 }
                 return playlistname;
@@ -296,6 +264,55 @@ namespace hypster_admin.Areas.Editors.Controllers
             else
             {
                 return "Error: The ID is null.";
+            }
+        }
+
+        public void UploadImage(HttpPostedFileBase file, int id)
+        {            
+            if (file != null && file.ContentLength > 0)
+            {
+                hypster_tv_DAL.newsPost p_Post = new hypster_tv_DAL.newsPost();
+                hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+                hypster_tv_DAL.Image_Resize_Manager image_resizer = new hypster_tv_DAL.Image_Resize_Manager();
+                p_Post = newsManager.GetPostByID(id);
+                var extension = System.IO.Path.GetExtension(file.FileName);
+                if (file.FileName != "")
+                {
+                    var path = System.IO.Path.Combine(Server.MapPath("~/uploads"), "new_post" + extension);
+                    file.SaveAs(path);
+
+                    //save post image
+                    System.IO.FileInfo fileInf = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
+                    fileInf.CopyTo(System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\" + p_Post.post_guid + fileInf.Extension, true);
+                    //
+                    // resize image old
+                    int video_width = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["postImage_maxWidth"]);
+                    image_resizer.Resize_Image(System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\" + p_Post.post_guid + fileInf.Extension, video_width, -1, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                    //save thumbnail
+                    System.IO.FileInfo thumb_file = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
+                    string new_thumb_path = System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\thumb_" + p_Post.post_guid + thumb_file.Extension;
+                    thumb_file.CopyTo(new_thumb_path, true);
+
+                    int thumb_width = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["postThumb_maxWidth"]);
+                    image_resizer.Resize_Image(new_thumb_path, thumb_width, -1, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                    //save new image
+                    System.IO.FileInfo newim_file = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
+                    string newim_path = System.Configuration.ConfigurationManager.AppSettings["newsImageStorage_Path"] + "\\img_" + p_Post.post_guid + newim_file.Extension;
+                    newim_file.CopyTo(newim_path, true);
+
+                    int newim_width = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["newPostImage_maxWidth"]);
+                    image_resizer.Resize_Image(newim_path, newim_width, -1, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                    //delete file
+                    System.IO.FileInfo del_file = new System.IO.FileInfo(Server.MapPath("~/uploads") + "\\" + "new_post" + extension);
+                    del_file.Delete();
+                    p_Post.post_image = p_Post.post_guid + fileInf.Extension;
+                    //
+                    // save post after image is done
+                    newsManager.EditPost(p_Post);
+                }
             }
         }
     }

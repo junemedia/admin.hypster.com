@@ -10,52 +10,55 @@
         <h2>Playlist Management</h2>
     </div>
     <div style="float:left; width:100%; height:600px; overflow:scroll; overflow-x:hidden;">
-        <div id="AddNewPlstItm" class="AddNewPlstItm" onclick="$('#AddNewPlaylist_Container').css('display','block'); $('.AddNewPlstItm').css('display','none');">
-            <div style="cursor:pointer;">+ ADD NEW PLAYLIST</div>            
-        </div>        
-        @using (Html.BeginForm("AddNewPlaylist", "managePlaylist", FormMethod.Post))
-        {
-            <div id="AddNewPlaylist_Container" style="display:none">
-                <input id="AddPlaylist_Name" name="AddPlaylist_Name" type="text" maxlength="60" style="width:120px;" />
+        <div id="AddNewPlstItm" class="AddNewPlstItm" style="margin-bottom:20px;" onclick="$('#AddNewPlaylist_Container').css('display','block'); $('.AddNewPlstItm').css('display','none');">
+            <div style="cursor:pointer;">+ ADD NEW PLAYLIST</div>
+        </div>
+        <div style="float:left; width:100%; height:25px; color:#FCF088; font-weight:bold; margin:4px;">@Model.member.username's Playlists</div>
+        <div style="float:left; width:100%; margin:0 5px;">
+            @using (Html.BeginForm("AddNewPlaylist", "managePlaylist", FormMethod.Post))
+            { <div id="AddNewPlaylist_Container" style="display:none">
+                <input id="AddPlaylist_Name" name="AddPlaylist_Name" type="text" maxlength="60" style="width:250px;" />
                 <input id="AddPlaylist_Save" type="submit" value="Add new playlist" />
                 <input id="AddPlaylist_Cancel" type="button" value="Cancel" onclick="$('#AddNewPlaylist_Container').css('display','none'); $('.AddNewPlstItm').css('display','block');" />
             </div>
-        }
+            }
 
-        @foreach (var item in Model.playlist)
-        {
-            <div id='textName_cont_@item.id' class='selection'>
-                <a href="/Editors/managePlaylist/?playlist_id=@item.id">@item.name</a>
-                <div class="PlstItm_Del" title="Delete Playlist" onclick="Pl_DelPlaylist(@item.id);">Delete List</div>
+            @foreach (var item in Model.playlist)
+            {
+                <div id='textName_cont_@item.id' class='selection'>
+                    <a href="/Editors/managePlaylist/?playlist_id=@item.id">@item.name</a>
+                    <div class="PlstItm_Del" title="Delete Playlist" onclick="Pl_DelPlaylist(@item.id);">Delete List</div>
+                </div>
+            }
+        </div> 
+        <br /><br /><hr />
+        <div id="cPLCont">
+            <div id="CloneNewPlstItm" class="CloneNewPlstItm" onclick="toggleClonePL();">
+                <div style="margin:10px 5px; cursor:pointer;">+ CLONE A PLAYLIST</div>
             </div>
-        }
-        <br /><br />
-        <div id="CloneNewPlstItm" class="CloneNewPlstItm" onclick="$('#CloneNewPlaylist_Container').css('display', 'block'); $('.CloneNewPlstItm').css('display', 'none');">
-            <div style="cursor:pointer;">CLONE A PLAYLIST</div>
-        </div>
-        <div id="CloneNewPlaylist_Container" style="display:none; float:left; text-align:left;">
-            <input type="radio" name="choice" value="Search Playlist" onclick="reset(); $('#searchByUser').css('display', 'block'); $('#searchByID').css('display', 'none');" checked>Search Playlist
-            <input type="radio" name="choice" value="Input Playlist ID" onclick="reset(); $('#searchByUser').css('display', 'none'); $('#searchByID').css('display', 'block');">Input Playlist ID
-            <div id="searchByUser" style="height:100px">
-                Username:<br />
-                <div class="wrapper" style="width:270px;">
-                    <input id="Music_User_ID" type="text" style="width:83%;" class="input_field" /><button onclick="getPlaylists()">GO</button>
-                </div><br />
-                Choose a Playlist:<br />
-                <select id="Music_Playlist_ID" class="input_field" style="width:270px;height:24px;line-height:24px;background:#eee;" onchange="playlistName('')">
-                    <option value=""></option>
-                </select><br />
+            <div id="CloneNewPlaylist_Container" style="display:none; float:left; text-align:left;">
+                <input type="radio" name="choice" value="Search Playlist" onclick="reset(); $('#searchByUser').css('display', 'block'); $('#searchByID').css('display', 'none');" checked>Search Playlist
+                <input type="radio" name="choice" value="Input Playlist ID" onclick="reset(); $('#searchByUser').css('display', 'none'); $('#searchByID').css('display', 'block');">Input Playlist ID
+                <div id="searchByUser" style="height:100px">
+                    Username:<br />
+                    <div class="wrapper" style="width:270px;">
+                        <input id="Music_User_ID" type="text" style="width:83%;" class="input_field" /><button onclick="getPlaylists()">GO</button>
+                    </div><br />
+                    Choose a Playlist:<br />
+                    <select id="Music_Playlist_ID" class="input_field" style="width:270px;height:24px;line-height:24px;background:#eee;" onchange="playlistName('')">
+                        <option value=""></option>
+                    </select><br />
+                </div>
+                <div id="searchByID" style="display:none;height:100px">
+                    Playlist ID:<br />
+                    <div class="wrapper" style="width:270px;">
+                        <input id="Playlist_ID" type="text" style="width:97%;" class="input_field" onblur="playlistName('id')" />
+                    </div><br />
+                </div>
+                Playlist Name:<input id="Playlist_Name" type="text" class="input_field" style="width:90%;" />
+                @*Owner:<input id="Clone_To" type="text" value="" class="input_field" style="width:90%;" />*@
+                <input type="button" class="submit_btn" value="Clone" onclick="var plid = (($('#Music_Playlist_ID').val() != null) ? $('#Music_Playlist_ID').val() : $('#Playlist_ID').val()); validateCloneList(plid, $('#Playlist_Name').val(), '')" />@*$('#Clone_To').val()*@
             </div>
-            <div id="searchByID" style="display:none;height:100px">
-                Playlist ID:<br />
-                <div class="wrapper" style="width:270px;">
-                    <input id="Playlist_ID" type="text" style="width:97%;" class="input_field" onblur="playlistName('id')" />
-                </div><br />
-            </div>
-            Playlist Name:<input id="Playlist_Name" type="text" class="input_field" style="width:90%;" />
-            @*Owner:<input id="Clone_To" type="text" value="" class="input_field" style="width:90%;" />*@
-            <input type="button" class="submit_btn" value="Clone" onclick="var plid = (($('#Music_Playlist_ID').val() != null) ? $('#Music_Playlist_ID').val() : $('#Playlist_ID').val()); validateCloneList(plid, $('#Playlist_Name').val(), '')" />@*$('#Clone_To').val()*@
-            <input type="button" class="submit_btn" value="Cancel" onclick="reset(); $('#CloneNewPlaylist_Container').css('display', 'none'); $('.CloneNewPlstItm').css('display', 'block');" />
         </div>
     </div>    
 </div>
@@ -121,6 +124,7 @@
     }    
     <input type="text" id="showPage" value="" style="display:none" />
     <script type="text/javascript">
+        var ClonePLShow = 0;
         $("#textName_cont_@ViewBag.ActivePlaylistID").addClass("selectedPlaylist");
         $("#page_0").css("display", "");
         $("#showPage").val("0");
@@ -206,5 +210,25 @@
             $("#sortablePlaylist").disableSelection();
         });
 
+        function toggleClonePL()
+        {
+            if (ClonePLShow == 0)
+            {
+                $("#cPLCont").animate({ height: 250 }, 1000, function () {
+                    $("#CloneNewPlaylist_Container").css("display", "");
+                    $("#CloneNewPlstItm div").text("- CLONE A PLAYLIST");
+                    ClonePLShow = 1;
+                });
+            }
+            else
+            {
+                $("#cPLCont").animate({ height: 35 }, 1000, function () {
+                    reset();
+                    $("#CloneNewPlaylist_Container").css("display", "none");
+                    $("#CloneNewPlstItm div").text("+ CLONE A PLAYLIST");
+                    ClonePLShow = 0;
+                });
+            }
+        }
     </script>
 </div>

@@ -5,24 +5,18 @@
     Layout = "~/Views/Shared/_Layout_NewsManagement.cshtml";
 }
 
+<div style="float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
 
-<div style=" float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
-
-    <div style=" float:left; width:100%;">   
+    <div style="float:left; width:100%;">   
         <h2>Edit Post @ViewBag.ID</h2>
     </div>
 
-
-    <div style=" float:left; width:100%; ">
-    
-
-
+    <div style="float:left; width:100%;">
         <!-- POST IMAGE -->
-        <div style=" float:left; width:100%; height:22px; margin-top:3px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostImages();">
-            <span style=" font-size:17px; font-weight:bold;">&nbsp;IMAGES</span>
+        <div style="float:left; width:100%; height:22px; margin-top:3px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostImages();">
+            <span style="font-size:17px; font-weight:bold;">&nbsp;IMAGES</span>
         </div>
-        <div id="PostImage_cont" style=" display:none; float:left; width:100%; text-align:right;">
-            
+        <div id="PostImage_cont" style="display:none; float:left; width:100%; text-align:right;">            
             @using (Html.BeginForm("UploadPostImageEdit", "homeNews", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.HiddenFor(m => m.post_id)
@@ -30,19 +24,18 @@
                 <input id="fileUpload_Btn" type="submit" value="Upload" style=" display:none; width:315px; height:22px;" />
             }
 
-
             @if (Model.post_image != null)
             {   
-                <div style=" float:left;  width:98%; margin:1%; overflow:hidden; text-align:center;">
+                <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
                     <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image?@(new Random().Next(1000, 100000))" />
                 </div>
                 
-                <div style=" float:left;  width:98%; margin:1%; overflow:hidden; text-align:center;">
+                <div style="float:left;  width:98%; margin:1%; overflow:hidden; text-align:center;">
                     <input type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" style=" width:100%;" />
                 </div>
                 
                 
-                <div style=" float:left;  width:98%; margin:1%; overflow:hidden; text-align:left;">
+                <div style="float:left;  width:98%; margin:1%; overflow:hidden; text-align:left;">
                     <input type="radio" name="group1" value="PostImgSt_Left" onclick="setImageOrientation(this.value);" /> <text>Left Side</text>
                     <input type="radio" name="group1" value="PostImgSt_Right" onclick="setImageOrientation(this.value);" > <text>Right Side</text>
                     <script type="text/javascript">
@@ -56,50 +49,40 @@
                 <textarea id="PostImage_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
                 
                 
-                <div style=" width:100%; text-align:left; color:#FCF088;">New Image Code</div>
-                <textarea id="PostImage_EditTextArea2" style=" width:98%; height:30px;">
+                <div style="width:100%; text-align:left; color:#FCF088;">New Image Code</div>
+                <textarea id="PostImage_EditTextArea2" style="width:98%; height:30px;">
                     <img alt="@Model.post_title" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/img_@Model.post_image" class="nPostImg" />
                 </textarea>
             }
         </div>
         <!-- POST IMAGE -->
-
-
-
-
-
-
-
-
         <!-- POST VIDEO -->
-        <div style=" float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostVideo();">
-            <span style=" font-size:17px; font-weight:bold;">&nbsp;YOUTUBE VIDEO</span>
-
-            
+        <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostVideo();">
+            <span style="font-size:17px; font-weight:bold;">&nbsp;YOUTUBE VIDEO</span>            
         </div>
-        <div id="PostVideo_cont" style=" display:none; float:left; width:100%; text-align:left; line-height:25px;">
-            
+        <div id="PostVideo_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
             YouTube video URL:<br />
             <input id="YouTube_ID" type="text" value="" style=" width:98%;" /><br />
             Width:<input id="YouTube_Width" type="text" value="420" style=" width:30px;" />
             Height:<input id="YouTube_Height" type="text" value="250" style=" width:30px;" />
             <input type="button" value="generate code" onclick="setEmbedVideo($('#YouTube_ID').val(), $('#YouTube_Width').val(), $('#YouTube_Height').val());" style=" width:155px;" />
             <br /><br />
-
-
-            <textarea id="PostVideo_EditTextArea1" style=" display:none; width:98%; height:30px;"></textarea>
-
+            <textarea id="PostVideo_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
             <script type="text/javascript">
-                function setEmbedVideo(val, p_w, p_h) {
-                    if (val == "") {
+                function setEmbedVideo(val, p_w, p_h) 
+                {
+                    if (val == "") 
+                    {
                         alert("Plase Enter video GUID");
                         return;
                     }
-                    if (p_w == "") {
+                    if (p_w == "") 
+                    {
                         alert("Plase Enter video width");
                         return;
                     }
-                    if (p_h == "") {
+                    if (p_h == "") 
+                    {
                         alert("Plase Enter video height");
                         return;
                     }
@@ -114,7 +97,6 @@
                     $("#PostVideo_EditTextArea1").val("<span class=\"PostVideoCont\" style=\"width:" + p_w + "px; height:" + p_h + "px; margin-top:5px;\"><iframe width=\"" + p_w + "\" height=\"" + p_h + "\" src=\"http://www.youtube.com/embed/" + youtube_guid + "\" frameborder=\"0\" allowfullscreen></iframe></span>");
                 }
             </script>
-
         </div>
         <!-- POST VIDEO -->
 
@@ -137,16 +119,17 @@
             <input id="BaronsImage_URL" type="text" value="" style=" width:98%;" /><br />
 
 
-            Width:<input id="BaronsVideo_Width" type="text" value="300" style=" width:30px;" />
-            Height:<input id="BaronsVideo_Height" type="text" value="230" style=" width:30px;" />
-            <input type="button" value="generate code" onclick="setEmbedBaronsVideo($('#BaronsVideo_URL').val(), $('#BaronsImage_URL').val(), $('#BaronsVideo_Width').val(), $('#BaronsVideo_Height').val());" style=" width:155px;" />
+            Width:<input id="BaronsVideo_Width" type="text" value="300" style="width:30px;" />
+            Height:<input id="BaronsVideo_Height" type="text" value="230" style="width:30px;" />
+            <input type="button" value="generate code" onclick="setEmbedBaronsVideo($('#BaronsVideo_URL').val(), $('#BaronsImage_URL').val(), $('#BaronsVideo_Width').val(), $('#BaronsVideo_Height').val());" style="width:155px;" />
             <br /><br />
 
 
-            <textarea id="PostBaronsVideo_EditTextArea1" style=" display:none; width:98%; height:30px;"></textarea>
+            <textarea id="PostBaronsVideo_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
 
             <script type="text/javascript">
-                function setEmbedBaronsVideo(val, image_url, p_w, p_h) {
+                function setEmbedBaronsVideo(val, image_url, p_w, p_h) 
+                {
                     if (val == "") {
                         alert("Plase Enter video URL");
                         return;
@@ -165,10 +148,6 @@
                     }
 
                     var player_id = Math.floor(Math.random()*11111);
-
-
-
-
                     var player_code1 = "script type='text/javascript' src='http://cdn2.baronsmedia.com/adplayer/jwplayer.js'></script";
                     var player_code2 = "";
                     player_code2 += "<div id='ova-jwplayer-container'></div>";
@@ -209,46 +188,26 @@
                     player_code5 += "/script";
                     var player_code6 = "";
                     player_code6 += "</div>";
-
-
-
                     $("#PostBaronsVideo_EditTextArea1").css("display", "block");
                     $("#PostBaronsVideo_EditTextArea1").val("<" + player_code1 + ">" + player_code2 + "<" + player_code3 + ">" + player_code4 + "<" + player_code5 + ">" + player_code6 );
                 }
             </script>
-
         </div>
         <!-- POST BARONS VIDEO -->
-
-
-
-
-
-
         <!-- POST MUSIC PLAYER -->
-        <div style=" float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostMusicPlayer();">
-            <span style=" font-size:17px; font-weight:bold;">&nbsp;MUSIC PLAYER</span>
+        <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostMusicPlayer();">
+            <span style="font-size:17px; font-weight:bold;">&nbsp;MUSIC PLAYER</span>
         </div>
-
-
-        <div id="PostMusicPlayer_cont" style=" display:none; float:left; width:100%; text-align:left; line-height:25px;">
-            
-
+        <div id="PostMusicPlayer_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">
             Username:<br />
-            <input id="Music_User_ID" type="text" value="" style=" width:98%;" /><br />
+            <input id="Music_User_ID" type="text" value="" style="width:98%;" /><br />
             Playlist ID:<br />
-            <input id="Music_Playlist_ID" type="text" value="" style=" width:98%;" /><br />
-
-
+            <input id="Music_Playlist_ID" type="text" value="" style="width:98%;" /><br />
             <input type="button" value="generate code" onclick="setEmbedMusicPlayer($('#Music_User_ID').val(), $('#Music_Playlist_ID').val());" style=" width:155px;" />
             <br /><br />
-
-
-            <textarea id="PostMusicPlayer_EditTextArea1" style=" display:none; width:98%; height:30px;"></textarea>
-
+            <textarea id="PostMusicPlayer_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
             <script type="text/javascript">
                 function setEmbedMusicPlayer(user_name, playlist_id) {
-
                     $.ajax({
                         type: "POST",
                         url: "/NewsManagement/homeNews/getUserIdByName?username=" + user_name,
@@ -258,40 +217,24 @@
                             $("#PostMusicPlayer_EditTextArea1").val("<iframe src=\"http://hypster.com/hypsterPlayer/MPL_News?media_type=playlist&playlist_id=" + playlist_id + "&us_id=" + data + "\" style=\"width:320px; height:550px; border:none;\"></iframe>");
                         }
                     });
-
                 }
             </script>
-
         </div>
         <!-- POST MUSIC PLAYER -->
-
-
-
-
-
         <!-- POST Wotchit VIDEO -->
-        <div style=" float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostWotchitVideo();">
-            <span style=" font-size:17px; font-weight:bold;">&nbsp;Wotchit VIDEO</span>
+        <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostWotchitVideo();">
+            <span style="font-size:17px; font-weight:bold;">&nbsp;Wotchit VIDEO</span>
         </div>
-
-
-        <div id="PostWotchitVideo_cont" style=" display:none; float:left; width:100%; text-align:left; line-height:25px;">
-            
-
+        <div id="PostWotchitVideo_cont" style="display:none; float:left; width:100%; text-align:left; line-height:25px;">          
             Video URL:<br />
-            <input id="WotchitVideo_URL" type="text" value="" style=" width:98%;" /><br />
+            <input id="WotchitVideo_URL" type="text" value="" style="width:98%;" /><br />
             Image URL:<br />
-            <input id="WotchitImage_URL" type="text" value="" style=" width:98%;" /><br />
-
-
-            Width:<input id="WotchitVideo_Width" type="text" value="686" style=" width:30px;" />
-            Height:<input id="WotchitVideo_Height" type="text" value="386" style=" width:30px;" />
+            <input id="WotchitImage_URL" type="text" value="" style="width:98%;" /><br />
+            Width:<input id="WotchitVideo_Width" type="text" value="686" style="width:30px;" />
+            Height:<input id="WotchitVideo_Height" type="text" value="386" style="width:30px;" />
             <input type="button" value="generate code" onclick="setEmbedWotchitVideo($('#WotchitVideo_URL').val(), $('#WotchitImage_URL').val(), $('#WotchitVideo_Width').val(), $('#WotchitVideo_Height').val());" style=" width:155px;" />
             <br /><br />
-
-
-            <textarea id="Wotchit_EditTextArea1" style=" display:none; width:98%; height:30px;"></textarea>
-
+            <textarea id="Wotchit_EditTextArea1" style="display:none; width:98%; height:30px;"></textarea>
             <script type="text/javascript">
                 function setEmbedWotchitVideo(val, image_url, p_w, p_h) {
                     if (val == "") {
@@ -312,8 +255,6 @@
                     }
 
                     var player_id = Math.floor(Math.random() * 11111);
-
-
                     var player_ss = "";
                     player_ss += "<" + "script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js'><" + "/script>";
                     player_ss += "<" + "script src='http://cdn2.baronsmedia.com/adplayer/jwplayer.js'><"+"/script>";
@@ -334,51 +275,17 @@
 
                     $("#Wotchit_EditTextArea1").css("display", "block");
                     $("#Wotchit_EditTextArea1").val(player_ss);
-
-
-
-
-                   
                 }
             </script>
-
         </div>
         <!-- POST Wotchit VIDEO -->
-
-
-
-
-
-
-
-
     </div>
-
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div style=" float:left; width:60%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1.5%; margin-left:1%; text-align:left; ">
-
-    <div style=" float:left; width:100%; line-height:30px;  ">
-        
+<div style="float:left; width:60%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1.5%; margin-left:1%; text-align:left;">
+    <div style="float:left; width:100%; line-height:30px;">        
         Post Url:
         <input class="newsPost_Title" type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid" disabled="disabled" />
-
         @using (Html.BeginForm())
         {
             @Html.HiddenFor(m => m.post_guid)
@@ -397,159 +304,144 @@
             <text>Music Player:</text>
             @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent" })<br />
             
-            
             <div  style="float:left; width:100%;">
                 <div class="Post_mainCont" id="PreviewContHolder" style="display:none; float:left; width:625px; min-height:345px; padding:2% 2.5% 2.5% 2.5%; background-color:#111111; border-radius:2px; text-align:left; ">
                 </div>
             </div>
             
-            
             <text>Status:</text><br />
-            <select name="post_status" id="post_status" style=" width:250px; height:25px;"> 
-                <option value="@((int)hypster_tv_DAL.postStatus.NoActive)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.NoActive)
-                                                                           {<text>selected="selected"</text>}>No Active</option>
-                <option value="@((int)hypster_tv_DAL.postStatus.Active)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.Active)
-                                                                         {<text>selected="selected"</text>}>Active</option>
+            <select name="post_status" id="post_status" style="width:250px; height:25px;"> 
+                <option value="@((int)hypster_tv_DAL.postStatus.NoActive)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.NoActive){<text>selected="selected"</text>}>No Active</option>
+                <option value="@((int)hypster_tv_DAL.postStatus.Active)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.Active){<text>selected="selected"</text>}>Active</option>
             </select> 
             <br />
-            
             
             <text>Date Create:</text><br />
             <input type="text" name="post_date" id="post_date" value="@Model.post_date" />
             <br />
             
-            
-            
             <text>Companion ad (1 - if yes)</text><input type="text" name="ad_id" id="ad_id" value="@Model.ad_id" />
             <br />
             
-            
-            
-            <input type="checkbox" id="splashArt" name="splashArt" /> <text>is splash article?</text>
-            
+            <input type="checkbox" id="splashArt" name="splashArt" /> <text>is splash article?</text>            
             
             <br />
             <br />
             <text>Tags:</text>
-            <div style=" float:left; width:100%;">
+            <div style="float:left; width:100%;">
                 <input type="hidden" name="newTagArticle" id="newTagArticle" value="@Model.post_id" />
                 <input type="text" id="newTagName" name="newTagName" value="" /> <input type="button" value="Add Tag" onclick="addNewTag_click();" />
             </div>
-            <div id="tagsHolder1" style=" float:left; width:100%; min-height:55px; margin-top:10px; ">
+            <div id="tagsHolder1" style="float:left; width:100%; min-height:55px; margin-top:10px; ">
                 @Html.Action("getNewsTags", "homeNews")
-            </div>
+            </div>                       
             
-            
-            
-            <div style=" float:left; margin-top:20px; width:100%; text-align:right;">
+            <div style="float:left; margin-top:20px; width:100%; text-align:right;">
                 <input id="previewBtn" type="button" value="Preview" style=" width:200px;" onclick="PreviewPost();" />
                 <input type="submit" value="Edit Post" />
                 <input type="button" value="Cancel" onclick="window.location='/NewsManagement/homeNews';" />
             </div>
-            
-            
+                        
             <script type="text/javascript">
                 var isPreview = false;
-
-                function PreviewPost() {
-
-                    if (isPreview == false) {
+                function PreviewPost() 
+                {
+                    if (isPreview == false) 
+                    {
                         $("#PreviewContHolder").css("display", "block");
-
                         var prepare_title = "<h2>" + $("#post_title").val() + "</h2>";
                         $("#PreviewContHolder").html(prepare_title + $("#post_content").val());
-
-
                         $("#post_content").css("display", "none");
                         $("#previewBtn").val("Editor");
-
                         isPreview = true;
-                    } else {
+                    } 
+                    else 
+                    {
                         $("#PreviewContHolder").css("display", "none");
                         $("#PreviewContHolder").html("");
-
                         $("#post_content").css("display", "block");
-
                         $("#previewBtn").val("Preview");
-
                         isPreview = false;
                     }
                 }
-            </script>
-    
+            </script>    
         }
     </div>
-
 </div>
 
-
-
-
 <script type="text/javascript">
-
-    function showHide_PostImages() {
-        if ($("#PostImage_cont").css("display") == "none") {
+    function showHide_PostImages() 
+    {
+        if ($("#PostImage_cont").css("display") == "none") 
+        {
             $("#PostImage_cont").css("display", "block");
         }
-        else {
+        else 
+        {
             $("#PostImage_cont").css("display", "none");
         }
     }
 
-    function showHide_PostVideo() {
-        if ($("#PostVideo_cont").css("display") == "none") {
+    function showHide_PostVideo() 
+    {
+        if ($("#PostVideo_cont").css("display") == "none") 
+        {
             $("#PostVideo_cont").css("display", "block");
         }
-        else {
+        else 
+        {
             $("#PostVideo_cont").css("display", "none");
         }
     }
 
-    function showHide_PostBaronsVideo() {
-        if ($("#PostBaronsVideo_cont").css("display") == "none") {
+    function showHide_PostBaronsVideo() 
+    {
+        if ($("#PostBaronsVideo_cont").css("display") == "none") 
+        {
             $("#PostBaronsVideo_cont").css("display", "block");
         }
-        else {
+        else 
+        {
             $("#PostBaronsVideo_cont").css("display", "none");
         }
     }
 
-    function showHide_PostMusicPlayer() {
-        if ($("#PostMusicPlayer_cont").css("display") == "none") {
+    function showHide_PostMusicPlayer() 
+    {
+        if ($("#PostMusicPlayer_cont").css("display") == "none") 
+        {
             $("#PostMusicPlayer_cont").css("display", "block");
         }
-        else {
+        else 
+        {
             $("#PostMusicPlayer_cont").css("display", "none");
         }
     }
 
-    function showHide_PostWotchitVideo() {
-        if ($("#PostWotchitVideo_cont").css("display") == "none") {
+    function showHide_PostWotchitVideo() 
+    {
+        if ($("#PostWotchitVideo_cont").css("display") == "none") 
+        {
             $("#PostWotchitVideo_cont").css("display", "block");
         }
-        else {
+        else 
+        {
             $("#PostWotchitVideo_cont").css("display", "none");
         }
     }
 
-
-
-
-
-
-    function addNewTag_click() {
-
-        if ($('#newTagName').val() == "") {
+    function addNewTag_click() 
+    {
+        if ($('#newTagName').val() == "") 
+        {
             alert("Tag is empty");
             return;
         }
-
 
         var res_str = $('#newTagName').val();
         res_str = res_str.replace("http://", "");
         res_str = res_str.replace("https://", "");
         res_str = res_str.replace("http", "");
-
 
         $.ajax({
             type: "POST",
@@ -562,12 +454,10 @@
         });
     }
 
-
-
-    function del_news_tag(tag_plst_id) {
-
-        if (confirm('Are you sure?') == true) {
-
+    function del_news_tag(tag_plst_id) 
+    {
+        if (confirm('Are you sure?') == true) 
+        {
             $.ajax({
                 type: "POST",
                 url: "/NewsManagement/homeNews/deletetag?tag_plst_id=" + tag_plst_id + "&article_id=" + $('#newTagArticle').val(),
@@ -576,9 +466,6 @@
                     $("#tgn" + tag_plst_id).css("display", "none");
                 }
             });
-
         }
     }
-
-
 </script>

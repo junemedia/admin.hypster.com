@@ -195,7 +195,8 @@ function showHide_PostVideo() {
     }
 }
 
-function showHide_PostMusicPlayer() {
+function showHide_PostMusicPlayer()
+{
     if ($("#PostMusicPlayer_cont").css("display") == "none")
         $("#PostMusicPlayer_cont").css("display", "block");
     else

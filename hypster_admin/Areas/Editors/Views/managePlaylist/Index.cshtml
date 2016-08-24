@@ -85,14 +85,14 @@
         <a class="AddNew_Container" href="#" onclick="window.location = '/Editors/managePlaylist/addNewSongs?playlist=' + $('#newTagPlst').val(); return false;"><input type="button" value="Add New Song" /></a>
         @{ 
             int page_size = 20;
-            int total_pages = ViewBag.TotalResults / page_size;
+            int? total_pages = @ViewBag.TotalResults / page_size;
         }
-        @if ((ViewBag.TotalResults % page_size) > 0) { total_pages += 1; }
+        @if ((@ViewBag.TotalResults % page_size) > 0) { total_pages += 1; }
         @for (int i = 0; i < total_pages; i++)
         {
             int count = i * page_size;
             int count2 = (i + 1) * page_size;
-            if (total_pages * page_size == count2) { count2 = count + (ViewBag.TotalResults % page_size); }
+            if (total_pages * page_size == count2) { count2 = count + (@ViewBag.TotalResults % page_size); }
             <div id="page_@i" style="display:none;">
                 @for (int j = count; j < count2; j++)
                 {
@@ -108,7 +108,7 @@
                 }
             </div>
         }        
-        @if (ViewBag.TotalResults > page_size)
+        @if (@ViewBag.TotalResults > page_size)
         {
             <div id="PrevBtn" class="pageButton" onclick="pageClick(-1, @total_pages)">PREVIOUS</div>
             <div id="NextBtn" class="pageButton" onclick="pageClick(1, @total_pages)">NEXT</div>

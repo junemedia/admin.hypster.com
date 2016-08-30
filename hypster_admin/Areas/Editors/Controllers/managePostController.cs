@@ -28,7 +28,7 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult AddNewPost(hypster_tv_DAL.newsPost p_newPost, HttpPostedFileBase file)
+        public ActionResult AddNewPost(hypster_tv_DAL.newsPost p_newPost, HttpPostedFileBase file, string scheduled, string datetimepicker)
         {
             hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
@@ -59,6 +59,15 @@ namespace hypster_admin.Areas.Editors.Controllers
                     hyDB.SaveChanges();
                     int id = p_newPost.post_id;
                     UploadImage(file, id);
+                    if (scheduled == "Yes")
+                    {
+                        hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
+                        sPost.post_id = id;
+                        sPost.scheduled_date = DateTime.Parse(datetimepicker);
+                        sPost.activated = 0;
+                        hyDB.ScheduledPost.AddObject(sPost);
+                        hyDB.SaveChanges();
+                    }
                     return RedirectToAction("Index", "managePost");
                 }
             }
@@ -82,11 +91,38 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post, HttpPostedFileBase file)
+        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post, HttpPostedFileBase file, string scheduled, string datetimepicker)
         {
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+            hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
+            if (scheduled == "Yes")
+                p_Post.post_status = 0;
             newsManager.EditPost(p_Post);
             UploadImage(file, p_Post.post_id);
+            if (scheduled == "Yes")
+            {
+                hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
+                try
+                {
+                    // newsManager.GetSchedulePostByID(p_Post.post_id) may throw ArgumentOutOfRangeException error
+                    sPost = newsManager.GetSchedulePostByID(p_Post.post_id);
+                    sPost.scheduled_date = DateTime.Parse(datetimepicker);
+                    sPost.activated = 0;
+                    newsManager.EditSPost(sPost);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    // newsManager.GetSchedulePostByID(p_Post.post_id) throws ArgumentOutOfRangeException error which was occurred because the post is not having any records in the schedule post table.
+                    // Therefore, one must be created.
+                    Console.WriteLine(e.Message + " Scheduled Post does not exist previously for this post. Therefore, one must be created.\n\n" + e.StackTrace.ToString());
+                    sPost.post_id = p_Post.post_id;
+                    sPost.scheduled_date = DateTime.Parse(datetimepicker);
+                    sPost.activated = 0;
+                    hyDB.ScheduledPost.AddObject(sPost);
+                    
+                }
+                hyDB.SaveChanges();
+            }            
             //update sitemaps date and ping google and bing
             //
             int sitemapNewsID = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["sitemap_newsID"]);
@@ -265,6 +301,23 @@ namespace hypster_admin.Areas.Editors.Controllers
             {
                 return "Error: The ID is null.";
             }
+        }
+
+        public string getScheduledPostInfo()
+        {
+            string post_id = "";
+            hypster_tv_DAL.ScheduledPost s_post = new hypster_tv_DAL.ScheduledPost();
+            if (Request.QueryString["post_id"] != null)
+            {
+                post_id = Request.QueryString["post_id"];                
+                hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+                s_post = newsManager.GetSchedulePostByID(Convert.ToInt32(post_id));
+            }
+            else
+            {
+                return "Error: The Post ID is null.";
+            }
+            return s_post.id + ", " + s_post.post_id + ", " + s_post.scheduled_date + ", " + s_post.activated;
         }
 
         public void UploadImage(HttpPostedFileBase file, int id)

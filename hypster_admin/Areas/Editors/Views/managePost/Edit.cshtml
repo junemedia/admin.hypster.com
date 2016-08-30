@@ -3,36 +3,15 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout_Editors.cshtml";
 }
-
+<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/jquery.datetimepicker.full.js"></script>
 <div style="float:left; width:28%; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
     <div style="float:left; width:100%;">
         <h2>Edit Post @ViewBag.ID</h2>
     </div>
 
     <div style="float:left; width:100%; ">
-        <!-- POST IMAGE -->
-        @*<div style="float:left; width:100%; height:22px; margin-top:3px; margin-bottom:2px; background-color:#222222; color:#FFFFFF;">
-            <span style="font-size:17px; font-weight:bold;">&nbsp;IMAGES</span> (670 x 375 px)
-        </div>
-        <div id="PostImage_cont" style="float:left; width:100%; text-align:right;">
-            @using (Html.BeginForm("UploadPostImageEdit", "managePost", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.HiddenFor(m => m.post_id)
-                <input type="file" name="file" id="file" style="width:315px; height:22px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" onchange="$('#fileUpload_Btn').css('display','block');" />
-                <input id="fileUpload_Btn" type="submit" value="Upload" style="display:none; width:315px; height:22px;" />
-            }
-            @if (Model.post_image != null)
-            {
-                <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
-                    <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image?@(new Random().Next(1000, 100000))" />
-                </div>
-
-                <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
-                    <input type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" style="width:100%;" />
-                </div>
-            }
-        </div>*@
-        <!-- POST IMAGE -->
         <!-- POST VIDEO -->
         <div style="float:left; width:100%; margin-top:15px; background-color:#222222; color:#FFFFFF; cursor:pointer;" onclick="showHide_PostVideo();">
             <span style="font-size:17px; font-weight:bold;">&nbsp;YOUTUBE VIDEO</span>
@@ -114,7 +93,6 @@
     <div style="float:left; width:100%; line-height:30px;">
         Post Url:
         <a href="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid" target="_blank">http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid</a>
-        @*<input class="newsPost_Title" type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid" disabled="disabled" />*@
         @using (Html.BeginForm("Edit", "managePost", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.HiddenFor(m => m.post_guid)
@@ -149,11 +127,17 @@
                 <option value="@((int)hypster_tv_DAL.postStatus.Active)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.Active) { <text> selected="selected" </text>  }>Active</option>
             </select>
             <br />
-
             <text>Date Create: </text>
             <text><i>@Model.post_date</i></text><input type="hidden" name="post_date" id="post_date" value="@Model.post_date" />
-            <br />
-
+            <br /><br />
+            <div id="SchedulePo">
+                <text>Scheduled Publish: </text>
+                <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
+                <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text><br />
+                <text>Activate Date Time: </text> <input type="text" value="" id="datetimepicker" name="datetimepicker" disabled /><br />
+                <span id="scheduleTime" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:16px;font-weight:bold;color:#F00"></span>
+                <br />
+            </div>
             <text>Tags:</text>
             <div style="float:left; width:100%;">
                 <input type="hidden" name="newTagArticle" id="newTagArticle" value="@Model.post_id" />
@@ -171,6 +155,7 @@
 
             <script type="text/javascript">
                 var isPreview = false;
+                var d = new Date();
                 function PreviewPost()
                 {
                     if (isPreview == false)
@@ -191,16 +176,55 @@
                         isPreview = false;
                     }
                 }
+
+                function scheduledValue(val)
+                {
+                    if (val == "No") {
+                        $("#datetimepicker").val("");
+                        $("#datetimepicker").prop("disabled", true);
+                    }
+                    else
+                        $("#datetimepicker").prop("disabled", false);
+                }
+
                 tinymce.init({
                     selector: 'textarea#post_content.newsPost_Content',
                     height: 550,
                     plugins: [
                         "advlist autolink autosave link image lists preview hr anchor pagebreak spellchecker",
                         "searchreplace wordcount code media nonbreaking"
-                    ],                    
+                    ],
                     toolbar: "bold italic underline strikethrough | cut copy paste | searchreplace | bullist numlist | undo redo preview | link unlink image media code",
                     menubar: false,
                     toolbar_items_size: 'medium',
+                });
+
+                $.datetimepicker.setLocale("en");
+                $("#datetimepicker").datetimepicker({
+                    format:'Y/m/d H:i',
+                    dayOfWeekStart: 0,
+                    lang: "en",
+                    stepping: 15,
+                    minDate: d,
+                    startDate: d
+                });
+
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Editors/managePost/getScheduledPostInfo?post_id=" + @ViewBag.ID,
+                        async: true,
+                        success: function (data) {
+                            if (data != null || data != "")
+                            {
+                                var s_info = data.split(',');
+                                if (s_info[3] == 0)
+                                    $("#scheduleTime").text("This Post is scheduled to be published at " + s_info[2] + ".");
+                            }
+                        }
+                    });
+                    if (@Model.post_status != 0)
+                        $("#SchedulePo").css("display","none");
                 });
             </script>
         }

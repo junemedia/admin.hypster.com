@@ -3,7 +3,9 @@
     ViewBag.Title = "AddNewPost";
     Layout = "~/Views/Shared/_Layout_Editors.cshtml";
 }
-
+<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/jquery.datetimepicker.full.js"></script>
 <div style="float:left; width:28%; min-height:100px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
     <div style="float:left; width:100%;">
         <h2>Add New Post</h2>
@@ -101,13 +103,18 @@
             <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
                 <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image?@(new Random().Next(1000, 100000))" />
             </div>
+
             <text>Content:</text><br />
             @Html.TextAreaFor(m => m.post_content, new { @id = "newsPost_Content", @class = "newsPost_Content" })<br />
             <text>Short Content:</text>
             @Html.TextAreaFor(m => m.post_short_content, new { @id = "newsPost_ShortContent", @class = "newsPost_ShortContent", @style = "height:60px" })<br />
             <text>Music Player:</text>
-            @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br />
-
+            @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br /><br />
+            <text>Scheduled Publish:</text> 
+            <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
+            <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text>
+            <br /><br />
+            <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" disabled="disabled" /><br />
 
             <div style="margin-top:20px; width:100%; text-align:right;">
                 <input type="submit" value="Add New Post" />
@@ -121,6 +128,7 @@
 
 <script type="text/javascript">
     var isPreview = false;
+    var d = new Date();
     function validatePost()
     {
         var errMsg = "";
@@ -162,8 +170,19 @@
             isPreview = false;
         }
     }
+
+    function scheduledValue(val)
+    {
+        if (val == "No") {
+            $("#datetimepicker").val("");
+            $("#datetimepicker").prop("disabled", true);
+        }
+        else
+            $("#datetimepicker").prop("disabled", false);
+    }
+
     tinymce.init({
-        selector: 'textarea#newsPost_Content',
+        selector: "textarea#newsPost_Content",
         height: 550,
         plugins: [
             "advlist autolink autosave link image lists preview hr anchor pagebreak spellchecker",
@@ -172,5 +191,14 @@
         toolbar: "bold italic underline strikethrough | cut copy paste | searchreplace | bullist numlist | undo redo preview | link unlink image media code",
         menubar: false,
         toolbar_items_size: 'medium',
+    });
+    $.datetimepicker.setLocale("en");
+    $("#datetimepicker").datetimepicker({
+        format: 'Y/m/d h:i a',
+        dayOfWeekStart: 0,
+        lang: "en",
+        minDate: d,
+        stepping: 15,
+        startDate: d
     });
 </script>

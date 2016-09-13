@@ -34,6 +34,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <ExcludeFilesFromDeployment>.gitignore;hypster_admin.csproj;hypster_admin.csproj.user;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
+    <ExcludeFoldersFromDeployment>Controllers;obj;Properties</ExcludeFoldersFromDeployment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +46,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <ExcludeFilesFromDeployment>.gitignore;hypster_admin.csproj;hypster_admin.csproj.user;Web.config;Web.Debug.config;Web.Release.config</ExcludeFilesFromDeployment>
+    <ExcludeFoldersFromDeployment>Controllers;obj;Properties</ExcludeFoldersFromDeployment>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -385,6 +392,8 @@
     <Content Include="Areas\Editors\Views\manageSlideshow\Index.cshtml" />
     <Content Include="Areas\Editors\Views\Web.config" />
     <Content Include="Areas\WebsiteManagement\Views\manageUsers\AddNewUser.cshtml" />
+    <None Include="Properties\PublishProfiles\adminBase.pubxml" />
+    <None Include="Properties\PublishProfiles\adminHypster.pubxml" />
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -406,7 +415,6 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\scripts.js" />
-    <Content Include="uploads\new_post.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

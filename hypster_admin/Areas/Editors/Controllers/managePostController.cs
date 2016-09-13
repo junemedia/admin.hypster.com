@@ -63,7 +63,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                     {
                         hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
                         sPost.post_id = id;
-                        sPost.scheduled_date = DateTime.Parse(datetimepicker);
+                        sPost.scheduled_date = convertDateTime(datetimepicker, "ToServer");
                         sPost.activated = 0;
                         hyDB.ScheduledPost.AddObject(sPost);
                         hyDB.SaveChanges();
@@ -106,7 +106,8 @@ namespace hypster_admin.Areas.Editors.Controllers
                 {
                     // newsManager.GetSchedulePostByID(p_Post.post_id) may throw ArgumentOutOfRangeException error
                     sPost = newsManager.GetSchedulePostByID(p_Post.post_id);
-                    sPost.scheduled_date = DateTime.Parse(datetimepicker);
+                    //sPost.scheduled_date = DateTime.Parse(datetimepicker);
+                    sPost.scheduled_date = convertDateTime(datetimepicker, "ToServer");
                     sPost.activated = 0;
                     newsManager.EditSPost(sPost);
                 }
@@ -116,7 +117,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                     // Therefore, one must be created.
                     Console.WriteLine(e.Message + " Scheduled Post does not exist previously for this post. Therefore, one must be created.\n\n" + e.StackTrace.ToString());
                     sPost.post_id = p_Post.post_id;
-                    sPost.scheduled_date = DateTime.Parse(datetimepicker);
+                    sPost.scheduled_date = convertDateTime(datetimepicker, "ToServer");
                     sPost.activated = 0;
                     hyDB.ScheduledPost.AddObject(sPost);
                     
@@ -367,6 +368,16 @@ namespace hypster_admin.Areas.Editors.Controllers
                     newsManager.EditPost(p_Post);
                 }
             }
+        }
+
+        public DateTime convertDateTime(string datetime, string direction)
+        {
+            string timeZone = "";
+            if (direction == "ToServer")
+                timeZone = "Pacific Standard Time";
+            else
+                timeZone = TimeZoneInfo.Local.StandardName;
+            return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Parse(datetime), timeZone);
         }
     }
 }

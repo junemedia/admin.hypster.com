@@ -2,30 +2,49 @@
     ViewBag.Title = "Index";
     hypster_tv_DAL.Member member = new hypster_tv_DAL.Member();
 }
+<style type="text/css">
+    .selectTabs 
+    {
+        display: block;
+        float: left;
+        height: 50px;
+        line-height: 50px;
+        background-color: #787878;
+        border-radius: 2px;
+        color: #FFFFFF;
+        font-size: 22px;
+        margin-left: 10px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+</style>
 <h1>Hypster Admin website</h1>
 
 <p>
 @if (User.Identity.IsAuthenticated)
 {
-    <a href="/home" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:0px;cursor:pointer;text-decoration:none;">
+    <a href="/home" class="selectTabs" style="width:170px;">
         HOME
     </a>
     if (Session["Roles"] != null && (Session["Roles"].Equals("Editor") || Session["Roles"].Equals("Admin")))
     {
-        <a href="/Editors/editor" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px; color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
-            Editor Pages
+        <a href="/Editors/editor" class="selectTabs" style="width:170px;">
+            Editor
         </a>
         if (Session["Roles"].Equals("Admin"))
         {
-            <a href="/WebsiteManagement/homeWebsite" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
+            <a href="/Administrators/manageUsers" class="selectTabs" style="width:170px;">
+                Administrator
+            </a>
+            <a href="/WebsiteManagement/homeWebsite" class="selectTabs" style="width:170px;">
                 Hypster Website
             </a>
 
-            <a href="/VideoManagement/homeVideo" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
+            <a href="/VideoManagement/homeVideo" class="selectTabs" style="width:170px;">
                 Hypster Video
             </a>
 
-            <a href="/NewsManagement/homeCelebs" style="display:block;float:left;width:200px;height:50px;line-height:50px;background-color:#787878;border-radius:2px;color:#FFFFFF;font-size:23px;margin-left:10px;cursor:pointer;text-decoration:none;">
+            <a href="/NewsManagement/homeCelebs" class="selectTabs" style="width:170px;">
                 Hypster News
             </a>
         }

@@ -224,6 +224,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Administrators\AdministratorsAreaRegistration.cs" />
+    <Compile Include="Areas\Administrators\Controllers\manageUsersController.cs" />
     <Compile Include="Areas\Editors\Controllers\editorController.cs" />
     <Compile Include="Areas\Editors\Controllers\managePlaylistController.cs" />
     <Compile Include="Areas\Editors\Controllers\managePostController.cs" />
@@ -392,6 +394,11 @@
     <Content Include="Areas\Editors\Views\manageSlideshow\Index.cshtml" />
     <Content Include="Areas\Editors\Views\Web.config" />
     <Content Include="Areas\WebsiteManagement\Views\manageUsers\AddNewUser.cshtml" />
+    <Content Include="Areas\Administrators\Views\manageUsers\AddNewUser.cshtml" />
+    <Content Include="Areas\Administrators\Views\manageUsers\Index.cshtml" />
+    <Content Include="Areas\Administrators\Views\manageUsers\manageUsernames.cshtml" />
+    <Content Include="Areas\Administrators\Views\manageUsers\user.cshtml" />
+    <Content Include="Areas\Administrators\Views\Web.config" />
     <None Include="Properties\PublishProfiles\adminBase.pubxml" />
     <None Include="Properties\PublishProfiles\adminHypster.pubxml" />
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
@@ -438,6 +445,7 @@
     <Content Include="Views\account\_LoginStatus.cshtml" />
     <Content Include="Views\search\Music.cshtml" />
     <Content Include="Views\Shared\_Layout_Editors.cshtml" />
+    <Content Include="Views\Shared\_Layout_Administrators.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

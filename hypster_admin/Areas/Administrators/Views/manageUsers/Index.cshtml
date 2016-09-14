@@ -1,0 +1,47 @@
+﻿@model List<hypster_tv_DAL.Member>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Administrators.cshtml";
+}
+
+<div style="float:left; width:28%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">
+    <div style="float:left; width:100%;">
+        <h2 style="margin-bottom:5px;">User Management</h2>
+    </div>
+    <div style="float:left; width:100%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px; padding:3px; cursor:pointer;" onclick="window.location = '/WebsiteManagement/manageUsers/AddNewUser';">Add New User</div>
+    <div style="float:left; width:100%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px; padding:3px;">Find Users</div>
+    <div style="float:left; width:100%; text-align:right; line-height:27px;">
+        @using(Html.BeginForm("Index", "manageUsers", FormMethod.Post, new { onsubmit = "return SearchUser();" }))
+        {
+            <select id="SearchFor" name="SearchFor" style="width:274px;height:24px;line-height:24px;background:#eee;">
+                <option value="serUserName">User Name</option>
+                <option value="serUserEmail">Email</option>
+                <option value="serUserID">User ID</option>
+            </select>
+            <input type="text" id="serUserPar" name="serUserPar" style="width:270px;" /><br />
+            <input type="submit" value="Search" class="submit_btn" />
+        }
+    </div>
+
+    <div style="float:left; width:100%; height:400px; overflow:scroll; overflow-x:hidden; margin-top:15px;">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div onclick="renderUser('@item.id')" style="float:left; width:100%; min-height:25px; line-height:25px; background-color:#656565; cursor:pointer;">
+                <span>&nbsp;@item.id &nbsp;&nbsp;@item.email</span>
+            </div>
+        }                                                          
+    }
+    </div>
+</div>
+
+<div id="userInfo" style="float:left; width:67%; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left;">
+</div>
+
+<script type="text/javascript">
+    function renderUser(id)
+    {
+        $.get("/WebsiteManagement/manageUsers/user/" + id, function (data) { $("#userInfo").html(data); });
+    }
+</script>

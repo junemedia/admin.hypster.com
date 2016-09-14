@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Web.Mvc;
 
-namespace hypster_admin.Areas.WebsiteManagement.Controllers
+namespace hypster_admin.Areas.Administrators.Controllers
 {
     [Authorize]
     public class manageUsersController : Controller
     {
         //
-        // GET: /Administrators/manageUsers/
+        // GET: /WebsiteManagement/manageUsers/
         public ActionResult Index()
         {
             if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))

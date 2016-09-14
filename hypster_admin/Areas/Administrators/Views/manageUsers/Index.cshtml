@@ -8,7 +8,7 @@
     <div style="float:left; width:100%;">
         <h2 style="margin-bottom:5px;">User Management</h2>
     </div>
-    <div style="float:left; width:100%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px; padding:3px; cursor:pointer;" onclick="window.location = '/WebsiteManagement/manageUsers/AddNewUser';">Add New User</div>
+    <div style="float:left; width:100%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px; padding:3px; cursor:pointer;" onclick="window.location = '/Administrators/manageUsers/AddNewUser';">Add New User</div>
     <div style="float:left; width:100%; min-height:23px; background-color:#656565; color:#FCF088; font-weight:bold; margin:2px; padding:3px;">Find Users</div>
     <div style="float:left; width:100%; text-align:right; line-height:27px;">
         @using(Html.BeginForm("Index", "manageUsers", FormMethod.Post, new { onsubmit = "return SearchUser();" }))

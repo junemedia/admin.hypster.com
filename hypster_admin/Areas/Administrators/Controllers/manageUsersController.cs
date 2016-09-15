@@ -9,7 +9,7 @@ namespace hypster_admin.Areas.Administrators.Controllers
     public class manageUsersController : Controller
     {
         //
-        // GET: /WebsiteManagement/manageUsers/
+        // GET: /Administrators/manageUsers/
         public ActionResult Index()
         {
             if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))

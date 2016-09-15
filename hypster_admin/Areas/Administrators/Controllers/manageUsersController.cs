@@ -62,7 +62,7 @@ namespace hypster_admin.Areas.Administrators.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult AddNewUser(hypster_tv_DAL.Member member, int DOB_YYYY, int DOB_MM, int DOB_DD)
+        public ActionResult AddNewUser(hypster_tv_DAL.Member member)//, int DOB_YYYY, int DOB_MM, int DOB_DD
         {
             if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
             {
@@ -75,11 +75,11 @@ namespace hypster_admin.Areas.Administrators.Controllers
                 memberAdd.name = member.name;
                 memberAdd.email = member.email;
                 memberAdd.adminLevel = member.adminLevel;
-                memberAdd.country = member.country;
-                memberAdd.city = member.city;
-                memberAdd.zipcode = member.zipcode;
-                memberAdd.birth = new DateTime(DOB_YYYY, DOB_MM, DOB_DD);
-                memberAdd.sex = Convert.ToByte(member.sex);
+                //memberAdd.country = member.country;
+                //memberAdd.city = member.city;
+                //memberAdd.zipcode = member.zipcode;
+                //memberAdd.birth = new DateTime(DOB_YYYY, DOB_MM, DOB_DD);
+                //memberAdd.sex = Convert.ToByte(member.sex);
                 string IP_Address;
                 IP_Address = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
                 if (IP_Address == null)

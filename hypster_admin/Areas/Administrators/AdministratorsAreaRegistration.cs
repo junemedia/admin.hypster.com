@@ -19,6 +19,12 @@ namespace hypster_admin.Areas.Administrators
                 "Administrators/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "Administrators_user",
+                "Administrators/{controller}/user/{id}",
+                new { action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

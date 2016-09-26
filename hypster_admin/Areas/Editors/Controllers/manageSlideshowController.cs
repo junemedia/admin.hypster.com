@@ -85,13 +85,14 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditSlideshow(HttpPostedFileBase file, string ImgSrc, string href)
+        public ActionResult EditSlideshow(HttpPostedFileBase file, int id, string ImgSrc, string href)
         {
-            string[] s = Request.AppRelativeCurrentExecutionFilePath.Split('/');
+            //string[] s = Request.AppRelativeCurrentExecutionFilePath.Split('/');
             hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
             hypster_tv_DAL.homeSlideshowManager homeSlideshowManager = new hypster_tv_DAL.homeSlideshowManager();
             hypster_tv_DAL.homeSlideshow slide = new hypster_tv_DAL.homeSlideshow();
-            slide = homeSlideshowManager.homeSlideshowByID(Convert.ToInt32(s[s.Length - 1]));
+            //slide = homeSlideshowManager.homeSlideshowByID(Convert.ToInt32(s[s.Length - 1]));
+            slide = homeSlideshowManager.homeSlideshowByID(id);
             string image_guid = "";
             if (file != null && file.ContentLength > 0)
             {
@@ -119,7 +120,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 slide.ImageSrc = ImgSrc;
             }
             slide.href = href;
-            //hyDB.sp_homeSlideshow_UpdateHomeSlideshow(slide.homeSlideshow_ID, slide.href, slide.ImageSrc);
+            hyDB.sp_homeSlideshow_UpdateHomeSlideshow(slide.homeSlideshow_ID, slide.href, slide.ImageSrc);
             hyDB.SaveChanges();
             return RedirectToAction("Index");
         }

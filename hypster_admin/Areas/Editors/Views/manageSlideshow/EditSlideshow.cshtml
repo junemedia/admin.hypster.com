@@ -16,6 +16,7 @@
 
     @using (Html.BeginForm("EditSlideshow", "manageSlideshow", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        <input type="text" name="id" value="@ViewBag.ID" style="display:none" />
         <input type="text" name="href" id="href" value="@Model.href" class="txtFeaturedGUID" />
         <br /><br />
         <div style="float:left; background:#565656; padding:5px; margin:10px; text-align:left; line-height:23px;">

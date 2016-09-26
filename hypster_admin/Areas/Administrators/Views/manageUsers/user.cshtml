@@ -1,8 +1,8 @@
 ﻿@model hypster_tv_DAL.Member
 
 <div style="float:left; min-height:630px; background-color:#353535; border-radius:3px; padding:1%; text-align:left;">    
-    @using (Html.BeginForm("user", "manageUsers", FormMethod.Post, new { onsubmit = "return validateUserInfo();" }))
-    {
+    @*@using (Html.BeginForm("user", "manageUsers", FormMethod.Post, new { onsubmit = "return validateUserInfo();" }))
+    {*@
         <div style="float:left; width:100%; color:#FCF088;">
             <h2>&nbsp;@Model.name<br /></h2>
             <input name="MEM_ID" id="MEM_ID" type="hidden" value="@Model.id" />
@@ -12,7 +12,7 @@
             <table id="manageUserTbl" style="width:100%;">
                 <tr>
                     <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.username, "Username: ")</td><td style="width:30%">@Html.TextBoxFor(m => m.username, new { @id = "username", @class = "newUser_fields" })</td>
-                    <td style="width:20%;text-align:right;font-weight:bold;">@Html.LabelFor(m => m.password, "Password: ")</td>
+                    <td style="width:20%;text-align:right;font-weight:bold;" title="">@Html.LabelFor(m => m.password, "Password: ")</td>
                     <td style="width:30%">
                         <input type="password" id="password" class="newUser_fields" value="@Model.password" style="margin-left:2px;" onblur="$('#userPasswordHdn').val($('#password').val());" />
                         @Html.TextBoxFor(model => model.password, new { @id = "userPasswordHdn", style = "display:none" })
@@ -39,7 +39,8 @@
             </table>
         </div>
         <div style="float:left; width:100%; text-align:right; margin-top:30px;">
-            <input type="submit" value="SAVE CHANGES" class="submit_btn" style="width:150px;" />
+            <input type="submit" value="SAVE CHANGES" class="submit_btn" onclick="validateUserInfo($('#MEM_ID').val())" style="width:150px;" />
         </div>
-    }
+    @*}*@
+    <div id="modifyRslt"></div>
 </div>

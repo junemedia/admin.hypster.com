@@ -133,27 +133,46 @@ namespace hypster_admin.Areas.Administrators.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult user(int MEM_ID, hypster_tv_DAL.Member member)
+        //[HttpPost]
+        //public ActionResult user(int MEM_ID, hypster_tv_DAL.Member member)
+        //{
+        //    if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
+        //    {
+        //        hypster_tv_DAL.Member memberEdit = new hypster_tv_DAL.Member();
+        //        hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
+        //        memberEdit = memberManager.getMemberByID(MEM_ID);
+        //        memberEdit.id = MEM_ID;
+        //        memberEdit.username = member.username;
+        //        memberEdit.password = member.password.ToString();
+        //        memberEdit.name = member.name;
+        //        memberEdit.email = member.email;
+        //        memberEdit.adminLevel = member.adminLevel;
+        //        memberManager.UpdateMemberUsername(memberEdit.username, memberEdit.id);
+        //        memberManager.UpdateMemberPassword(memberEdit.username, memberEdit.id, memberEdit.password);
+        //        memberManager.UpdateMemberProfileDetailsNameEmailAdminLevel(memberEdit.username, MEM_ID, memberEdit.name, memberEdit.email, memberEdit.adminLevel);
+        //        return RedirectToAction("/Administrators/manageUsers/");
+        //    }
+        //    else
+        //        return RedirectPermanent("/home/");
+        //}
+
+        public string updateUser()
         {
-            if (Session["Roles"] != null && Session["Roles"].Equals("Admin"))
-            {
-                hypster_tv_DAL.Member memberEdit = new hypster_tv_DAL.Member();
-                hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
-                memberEdit = memberManager.getMemberByID(MEM_ID);
-                memberEdit.id = MEM_ID;
-                memberEdit.username = member.username;
-                memberEdit.password = member.password.ToString();
-                memberEdit.name = member.name;
-                memberEdit.email = member.email;
-                memberEdit.adminLevel = member.adminLevel;
-                memberManager.UpdateMemberUsername(memberEdit.username, memberEdit.id);
-                memberManager.UpdateMemberPassword(memberEdit.username, memberEdit.id, memberEdit.password);
-                memberManager.UpdateMemberProfileDetailsNameEmailAdminLevel(memberEdit.username, MEM_ID, memberEdit.name, memberEdit.email, memberEdit.adminLevel);
-                return RedirectToAction("/");
-            }
-            else
-                return RedirectPermanent("/home/");
+            int user_id = Convert.ToInt32(Request.QueryString["user_id"]);
+            hypster_tv_DAL.Member memberEdit = new hypster_tv_DAL.Member();
+            hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
+            memberEdit = memberManager.getMemberByID(user_id);
+            memberEdit.id = user_id;
+            string[] user_info = Request.QueryString["user_info"].Split(',');
+            memberEdit.username = user_info[0];
+            memberEdit.password = user_info[1];
+            memberEdit.name = user_info[2];
+            memberEdit.email = user_info[3];
+            memberEdit.adminLevel = Convert.ToInt16(user_info[4]);
+            memberManager.UpdateMemberUsername(memberEdit.username, memberEdit.id);
+            memberManager.UpdateMemberPassword(memberEdit.username, memberEdit.id, memberEdit.password);
+            memberManager.UpdateMemberProfileDetailsNameEmailAdminLevel(memberEdit.username, user_id, memberEdit.name, memberEdit.email, memberEdit.adminLevel);
+            return "<b style='color:#F00'>The change has been made:<br />Username: " + user_info[0] + "; Password: " + user_info[1] + "; Name: " + user_info[2] + "; Email: " + user_info[3] + "; Admin Level: " + user_info[4] + "</b>";
         }
         
 

@@ -79,7 +79,7 @@ namespace hypster_admin.Areas.Editors.Controllers
             hypster_tv_DAL.homeSlideshowManager homeSlideshowManager = new hypster_tv_DAL.homeSlideshowManager();
             hypster_tv_DAL.homeSlideshow slide = new hypster_tv_DAL.homeSlideshow();
             //hypster_tv_DAL.homeslideImageTracking tracking = new hypster_tv_DAL.homeslideImageTracking();
-            //slide = homeSlideshowManager.homeSlideshowByID(id);
+            slide = homeSlideshowManager.homeSlideshowByID(id);
             ViewBag.ID = id;
             return View(slide);
         }

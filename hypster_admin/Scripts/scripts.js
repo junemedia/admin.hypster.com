@@ -372,12 +372,12 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-    var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*?[0-9_\W])[a-zA-Z\d]{8,}$/;
     return re.test(password);
 }
 
-function validateUserInfo() {
-    var errMsg = "";
+function validateUserInfo(user_id) {
+    var errMsg = "", errMsg2 = "";
     $(".newUser_fields").removeClass("error");
     if ($("#username").val() == "") {
         $("#username").addClass("error");
@@ -387,6 +387,12 @@ function validateUserInfo() {
         $("#password").addClass("error");
         errMsg += "Password\n";
     }
+    else {
+        if ($("#password").val().length < 8 || !validatePassword($("#password").val())) {
+            $("#password").addClass("error");
+            errMsg2 += "Password must be at least 8 characters long AND must have at least 1 Upper Case, 1 Lower Case characters, and 1 Number.\n";
+        }
+    }
     if ($("#name").val() == "") {
         $("#name").addClass("error");
         errMsg += "Name\n";
@@ -395,25 +401,33 @@ function validateUserInfo() {
         $("#email").addClass("error");
         errMsg += "Email Address\n";
     }
-
-    if (errMsg != "") {
-        alert("Please Fill Up the following fields:\n" + errMsg);
-        return false;
-    }
     else {
-        if ($("#password").val().length < 8 || !validatePassword($("#password").val()))
-        {
-            $("#password").addClass("error");
-            alert("Password must be at least 8 characters long AND must have at least 1 Upper Case, 1 Lower Case characters, and 1 Number.");
-            return false;
-        }
         if (!validateEmail($("#email").val())) {
             $("#email").addClass("error");
-            alert("Please make sure the email address is in correct format.");
-            return false;
-        }        
-        else
-            return true;
+            errMsg2 += "Please make sure the email address is in correct format.\n";
+        }
+    }
+
+    if (errMsg != "")
+    {
+        alert("Please Fill Up the following fields:\n" + errMsg);
+    }
+    else if (errMsg2 != "") {
+        alert("Please Correct the following Errors:\n" + errMsg2);
+    }
+    else
+    {
+        var user_info = $("#username").val() + "," + $("#password").val() + "," + $("#name").val() + "," + $("#email").val() + "," + $("#adminLevel").val();
+        $.ajax({
+            type: "POST",
+            url: "/Administrators/manageUsers/updateUser?user_id=" + user_id + "&user_info=" + user_info,
+            async: true,
+            success: function (data) {
+                $("#modifyRslt").html(data);
+                $("#modifyRslt").fadeIn(1000);
+                $("#modifyRslt").fadeOut(3000);
+            }
+        });
     }
 }
 

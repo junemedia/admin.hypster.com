@@ -88,7 +88,7 @@
 
 <div style="float:left; width:60%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
     <div style="float:left; width:100%; text-align:left; ">
-        @using (Html.BeginForm("AddNewPost", "managePost", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("AddNewPost", "managePost", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validatePost();" }))
         {
             <text>Title:</text><br />
             @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title" })<br />
@@ -100,9 +100,9 @@
                 <div class="Post_mainCont" id="PreviewContHolder" style="display:none; float:left; width:625px; min-height:345px; padding:2% 2.5% 2.5% 2.5%; background-color:#111111; border-radius:2px; text-align:left; ">
                 </div>
             </div>
-            <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
+            @*<div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
                 <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image?@(new Random().Next(1000, 100000))" />
-            </div>
+            </div>*@
 
             <text>Content:</text><br />
             @Html.TextAreaFor(m => m.post_content, new { @id = "newsPost_Content", @class = "newsPost_Content" })<br />

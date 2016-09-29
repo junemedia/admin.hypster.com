@@ -376,6 +376,50 @@ function validatePassword(password) {
     return re.test(password);
 }
 
+function validateUserInfo() {
+    var errMsg = "", errMsg2 = "";
+    $(".newUser_fields").removeClass("error");
+    if ($("#user").val() == "") {
+        $("#user").addClass("error");
+        errMsg += "Username\n";
+    }
+    if ($("#pwd").val() == "") {
+        $("#pwd").addClass("error");
+        errMsg += "Password\n";
+    }
+    else {
+        if ($("#pwd").val().length < 8 || !validatePassword($("#pwd").val())) {
+            $("#pwd").addClass("error");
+            errMsg2 += "Password must be at least 8 characters long AND must have at least 1 Upper Case, 1 Lower Case characters, and 1 Number.\n";
+        }
+    }
+    if ($("#name").val() == "") {
+        $("#name").addClass("error");
+        errMsg += "Name\n";
+    }
+    if ($("#email").val() == "") {
+        $("#email").addClass("error");
+        errMsg += "Email Address\n";
+    }
+    else {
+        if (!validateEmail($("#email").val())) {
+            $("#email").addClass("error");
+            errMsg2 += "Please make sure the email address is in correct format.\n";
+        }
+    }
+
+    if (errMsg != "") {
+        alert("Please Fill Up the following fields:\n" + errMsg);
+        return false;
+    }
+    else if (errMsg2 != "") {
+        alert("Please Correct the following Errors:\n" + errMsg2);
+        return false;
+    }
+    else
+        return true;
+}
+
 function validateUserInfo(user_id) {
     var errMsg = "", errMsg2 = "";
     $(".newUser_fields").removeClass("error");
@@ -438,8 +482,8 @@ function pageClick(num, num2)
     $("#page_" + current).css("display", "none");
     $("#page_" + eval(current + num)).css("display", "");
     $("#showPage").val(eval(current + num));
-    if (eval(current + num) == 0)
+    if (eval(current + num) === 0)
         $("#PrevBtn").css("display", "none");
-    if (eval(current + num) == (num2-1))
+    if (eval(current + num) === (num2-1))
         $("#NextBtn").css("display", "none");
 }

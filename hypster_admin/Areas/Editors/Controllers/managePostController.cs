@@ -63,7 +63,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                     {
                         hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
                         sPost.post_id = id;
-                        sPost.scheduled_date = convertDateTime(datetimepicker, "ToServer");
+                        sPost.scheduled_date = convertDateTime(datetimepicker);
                         sPost.activated = 0;
                         hyDB.ScheduledPost.AddObject(sPost);
                         hyDB.SaveChanges();
@@ -87,6 +87,7 @@ namespace hypster_admin.Areas.Editors.Controllers
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             newsPost = newsManager.GetPostByID(id);
             ViewBag.ID = id;
+            ViewBag.TimeZone = TimeZoneInfo.Local;
             return View(newsPost);
         }
 
@@ -106,8 +107,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 {
                     // newsManager.GetSchedulePostByID(p_Post.post_id) may throw ArgumentOutOfRangeException error
                     sPost = newsManager.GetSchedulePostByID(p_Post.post_id);
-                    //sPost.scheduled_date = DateTime.Parse(datetimepicker);
-                    sPost.scheduled_date = convertDateTime(datetimepicker, "ToServer");
+                    sPost.scheduled_date = convertDateTime(datetimepicker);
                     sPost.activated = 0;
                     newsManager.EditSPost(sPost);
                 }
@@ -117,7 +117,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                     // Therefore, one must be created.
                     Console.WriteLine(e.Message + " Scheduled Post does not exist previously for this post. Therefore, one must be created.\n\n" + e.StackTrace.ToString());
                     sPost.post_id = p_Post.post_id;
-                    sPost.scheduled_date = convertDateTime(datetimepicker, "ToServer");
+                    sPost.scheduled_date = convertDateTime(datetimepicker);
                     sPost.activated = 0;
                     hyDB.ScheduledPost.AddObject(sPost);
                     
@@ -318,7 +318,8 @@ namespace hypster_admin.Areas.Editors.Controllers
             {
                 return "Error: The Post ID is null.";
             }
-            return s_post.id + ", " + s_post.post_id + ", " + s_post.scheduled_date + ", " + s_post.activated;
+            DateTime datetime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse(s_post.scheduled_date.ToString()));
+            return datetime.ToString("yyyy/MM/dd hh:mm tt") + ", " + s_post.activated;
         }
 
         public void UploadImage(HttpPostedFileBase file, int id)
@@ -370,14 +371,9 @@ namespace hypster_admin.Areas.Editors.Controllers
             }
         }
 
-        public DateTime convertDateTime(string datetime, string direction)
+        public DateTime convertDateTime(string datetime)
         {
-            string timeZone = "";
-            if (direction == "ToServer")
-                timeZone = "Pacific Standard Time";
-            else
-                timeZone = TimeZoneInfo.Local.StandardName;
-            return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Parse(datetime), timeZone);
+            return DateTime.Parse(datetime);
         }
     }
 }

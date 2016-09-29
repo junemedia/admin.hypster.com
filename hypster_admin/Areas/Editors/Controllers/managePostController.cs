@@ -24,6 +24,7 @@ namespace hypster_admin.Areas.Editors.Controllers
         public ActionResult AddNewPost()
         {
             hypster_tv_DAL.newsPost newPost = new hypster_tv_DAL.newsPost();
+            ViewBag.TimeZone = TimeZoneInfo.Local;
             return View(newPost);
         }
 

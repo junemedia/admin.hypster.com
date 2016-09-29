@@ -92,7 +92,7 @@
 <div style="float:left; width:60%; min-height:550px; min-height:300px; background-color:#353535; border-radius:3px; padding:1.5%; margin-left:1%; text-align:left;">
     <div style="float:left; width:100%; line-height:30px;">
         Post Url:
-        <a href="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid" target="_blank">http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/breaking/details/@Model.post_guid</a>
+        <a href="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/breaking/details/@Model.post_guid" target="_blank">http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/breaking/details/@Model.post_guid</a>
         @using (Html.BeginForm("Edit", "managePost", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validatePost();" }))
         {
             @Html.HiddenFor(m => m.post_guid)
@@ -100,25 +100,25 @@
             @Html.HiddenFor(m => m.post_image)
 
             <text>Title:</text>
-            @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title" })<br />
-            <text>Image:</text><br />
+            @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title" })<br /><br />
+            <text>Image: (max size - 670px x 375px)</text><br />
             <input type="file" name="file" id="file" style="width:40%; height:22px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" />
-            <input type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" style="width:56%;" />
+            @*<input type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" style="width:56%;" />*@
             <div style="float:left; width:100%;">
                 <div class="Post_mainCont" id="PreviewContHolder" style="display:none; float:left; width:625px; min-height:345px; padding:2% 2.5% 2.5% 2.5%; background-color:#111111; border-radius:2px; text-align:left; ">
                 </div>
-            </div>
+            </div><br /><br />
             <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
             @if (Model.post_image != "" || Model.post_image != null)
             {
-                <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image?@(new Random().Next(1000, 100000))" />
+                <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/imgs/i_posts/@Model.post_image?@(new Random().Next(1000, 100000))" />
             }
             </div>
             <text>Content:</text>
             @Html.TextAreaFor(m => m.post_content, new { @id = "post_content", @class = "newsPost_Content", @style = "width:80%" })<br />
 
             <text>Short Content:</text>
-            @Html.TextAreaFor(m => m.post_short_content, new { @id = "post_ShortContent", @class = "newsPost_ShortContent", @style = "height:60px" })<br />
+            @Html.TextAreaFor(m => m.post_short_content, new { @id = "post_ShortContent", @class = "newsPost_ShortContent", @style = "height:60px" })<br /><br />
 
             <text>Music Player:</text>
             @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br />
@@ -129,7 +129,7 @@
                 <option value="@((int)hypster_tv_DAL.postStatus.NoActive)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.NoActive)
                 { <text> selected="selected" </text>  }>Draft</option>
                 <option value="@((int)hypster_tv_DAL.postStatus.Active)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.Active)
-                { <text> selected="selected" </text>  }>Publish</option>
+                { <text> selected="selected" </text>  }>Published</option>
             </select>
             <br />
             <text>Date Create: </text>
@@ -139,7 +139,7 @@
                 <text>Scheduled Publish: </text>
                 <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
                 <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text><br />
-                <text>Activate Date Time: </text><input type="text" value="" id="datetimepicker" name="datetimepicker" autocomplete="off" disabled /> <text>ON @ViewBag.TimeZone</text><br />                
+                <text>Publish Date Time: </text><input type="text" value="" id="datetimepicker" name="datetimepicker" autocomplete="off" style="width:200px" disabled /> <text>at @ViewBag.TimeZone</text><br />                
                 <span id="scheduleTime" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:16px;font-weight:bold;color:#F00"></span>
                 <br />
             </div>

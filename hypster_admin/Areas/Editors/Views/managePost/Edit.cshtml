@@ -101,9 +101,8 @@
 
             <text>Title:</text>
             @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title" })<br /><br />
-            <text>Image: (max size - 670px x 375px)</text><br />
+            <text>Image: (max size - 585px x 330px)</text><br />
             <input type="file" name="file" id="file" style="width:40%; height:22px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" />
-            @*<input type="text" value="http://@System.Configuration.ConfigurationManager.AppSettings["newsHostName"]/imgs/i_posts/@Model.post_image" style="width:56%;" />*@
             <div style="float:left; width:100%;">
                 <div class="Post_mainCont" id="PreviewContHolder" style="display:none; float:left; width:625px; min-height:345px; padding:2% 2.5% 2.5% 2.5%; background-color:#111111; border-radius:2px; text-align:left; ">
                 </div>
@@ -139,7 +138,7 @@
                 <text>Scheduled Publish: </text>
                 <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
                 <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text><br />
-                <text>Publish Date Time: </text><input type="text" value="" id="datetimepicker" name="datetimepicker" autocomplete="off" style="width:200px" disabled /> <text>at @ViewBag.TimeZone</text><br />                
+                <text>Publish Date Time: </text><input type="text" value="" id="datetimepicker" name="datetimepicker" autocomplete="off" style="width:200px" disabled /><br />                
                 <span id="scheduleTime" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:16px;font-weight:bold;color:#F00"></span>
                 <br />
             </div>
@@ -182,7 +181,9 @@
             alert("Please Fill Up the following REQUIRED fields:\n" + errMsg);
             return false;
         }
-        else {
+        else 
+        {
+            $("#datetimepicker").val(new Date($("#datetimepicker").val()).toGMTString());
             return true;
         }
     }
@@ -193,7 +194,6 @@
             $("#PreviewContHolder").css("display", "block");
             var prepare_title = "<h2>" + $("#post_title").val() + "</h2>";
             $("#PreviewContHolder").html(prepare_title + $("#post_content").val());
-            //$("#post_content").css("display", "none");
             $("#previewBtn").val("Editor");
             isPreview = true;
         }
@@ -201,7 +201,6 @@
         {
             $("#PreviewContHolder").css("display", "none");
             $("#PreviewContHolder").html("");
-            //$("#post_content").css("display", "block");
             $("#previewBtn").val("Preview");
             isPreview = false;
         }
@@ -249,10 +248,8 @@
                 {
                     var s_info = data.split(',');
                     if (s_info[1] == 0) {
-                        //var scheduledUTCDateTime = new Date(s_info[0]);
-                        //var n = d.getTimezoneOffset() / 60;
-                        //var scheduledDateTime = new Date(scheduledUTCDateTime.getFullYear(), scheduledUTCDateTime.getMonth(), scheduledUTCDateTime.getDate(), (scheduledUTCDateTime.getHours() - n), scheduledUTCDateTime.getMinutes(), scheduledUTCDateTime.getSeconds(),0);
-                        $("#scheduleTime").text("This Post is scheduled to be published at " + s_info[0] + " UTC.");
+                        var scheduledUTCDateTime = new Date(s_info[0]);
+                        $("#scheduleTime").text("This Post is scheduled to be published at " + scheduledUTCDateTime);
                     }
                 }
             }

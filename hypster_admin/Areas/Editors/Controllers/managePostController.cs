@@ -24,7 +24,6 @@ namespace hypster_admin.Areas.Editors.Controllers
         public ActionResult AddNewPost()
         {
             hypster_tv_DAL.newsPost newPost = new hypster_tv_DAL.newsPost();
-            ViewBag.TimeZone = TimeZoneInfo.Local;
             return View(newPost);
         }
 
@@ -88,7 +87,6 @@ namespace hypster_admin.Areas.Editors.Controllers
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             newsPost = newsManager.GetPostByID(id);
             ViewBag.ID = id;
-            ViewBag.TimeZone = TimeZoneInfo.Local;
             return View(newsPost);
         }
 
@@ -374,7 +372,8 @@ namespace hypster_admin.Areas.Editors.Controllers
 
         public DateTime convertDateTime(string datetime)
         {
-            return DateTime.Parse(datetime);
+            DateTime standard = TimeZoneInfo.ConvertTime(DateTime.Parse(datetime), TimeZoneInfo.Local);
+            return standard;
         }
     }
 }

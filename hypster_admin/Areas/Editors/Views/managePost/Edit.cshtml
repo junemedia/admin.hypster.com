@@ -101,7 +101,7 @@
             @Html.HiddenFor(m => m.post_image)
 
             <text>Title:</text>
-            @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title" })<br /><br />
+            @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title input_fields" })<br /><br />
             <text>Image: (max size - 585px x 330px)</text><br />
             <input type="file" name="file" id="file" style="width:40%; height:22px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" />
             <div style="float:left; width:100%;">
@@ -115,17 +115,17 @@
             }
             </div>
             <text>Content:</text>
-            @Html.TextAreaFor(m => m.post_content, new { @id = "post_content", @class = "newsPost_Content", @style = "width:80%" })<br />
+            @Html.TextAreaFor(m => m.post_content, new { @id = "post_content", @class = "newsPost_Content input_fields", @style = "width:80%" })<br />
 
             <text>Short Content:</text>
-            @Html.TextAreaFor(m => m.post_short_content, new { @id = "post_ShortContent", @class = "newsPost_ShortContent", @style = "height:60px" })<br /><br />
+            @Html.TextAreaFor(m => m.post_short_content, new { @id = "post_ShortContent", @class = "newsPost_ShortContent input_fields", @style = "height:60px" })<br /><br />
 
             <text>Music Player:</text>
             @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br />
 
 
             <text>Status:</text><br />
-            <select name="post_status" id="post_status" style="width:250px; height:25px;">
+            <select name="post_status" id="post_status" style="width:250px; height:25px;" onchange="changeValue(this.value)">
                 <option value="@((int)hypster_tv_DAL.postStatus.NoActive)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.NoActive)
                 { <text> selected="selected" </text>  }>Draft</option>
                 <option value="@((int)hypster_tv_DAL.postStatus.Active)" @if (Model.post_status == (int)hypster_tv_DAL.postStatus.Active)
@@ -139,7 +139,7 @@
                 <text>Scheduled Publish: </text>
                 <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
                 <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text><br />
-                <text>Publish Date Time: </text><input type="text" value="" id="datetimepicker" name="datetimepicker" autocomplete="off" style="width:200px" disabled />                 
+                <text>Publish Date Time: </text><input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" autocomplete="off" style="width:200px" disabled />                 
                 <span id="timezone" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:16px;font-weight:bold;color:#F00"></span>
                 <br /><br />
             </div>
@@ -168,18 +168,30 @@
     function validatePost()
     {
         var errMsg = "";
+        $(".input_fields").removeClass("error");
         if ($("#post_title").val() == "")
         {
+            $("#post_title").addClass("error");
             errMsg += "Title\n";
         }
-        if ($("#post_content").val() == "") {
+        if ($("#post_content").val() == "") 
+        {
+            $("#post_content").addClass("error");
             errMsg += "Content\n";
         }
-        if ($("#post_ShortContent").val() == "") {
+        if ($("#post_ShortContent").val() == "") 
+        {
+            $("#post_ShortContent").addClass("error");
             errMsg += "Short Content\n";
         }
-        if (errMsg != "") {
-            alert("Please Fill Up the following REQUIRED fields:\n" + errMsg);
+        if ($("#post_status").val() == 0 && $("input[name='scheduled']:checked").val() == "Yes" && $("#datetimepicker").val() == "") 
+        {
+            $("#datetimepicker").addClass("error");
+            errMsg += "The scheduled date and time must be set\n";
+        }
+        if (errMsg != "") 
+        {
+            alert("Please Fill Up OR Correct the following REQUIRED fields:\n" + errMsg);
             return false;
         }
         else 
@@ -215,6 +227,15 @@
         }
         else
             $("#datetimepicker").prop("disabled", false);
+    }
+
+    function changeValue(val)
+    {
+        //alert(val);
+        if (val == 1)
+            $("#SchedulePo").css("display","none");
+        else
+            $("#SchedulePo").css("display","");
     }
 
     function formatLocalTime(localtime)

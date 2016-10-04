@@ -95,13 +95,9 @@ namespace hypster_admin.Areas.Editors.Controllers
         {
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
-            if (scheduled == "Yes")
-                p_Post.post_status = 0;
-            newsManager.EditPost(p_Post);
-            UploadImage(file, p_Post.post_id);
-            if (scheduled == "Yes")
+            hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
+            if (p_Post.post_status == 0 && scheduled == "Yes")
             {
-                hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
                 try
                 {
                     // newsManager.GetSchedulePostByID(p_Post.post_id) may throw ArgumentOutOfRangeException error
@@ -119,10 +115,33 @@ namespace hypster_admin.Areas.Editors.Controllers
                     sPost.scheduled_date = convertDateTime(datetimepicker);
                     sPost.activated = 0;
                     hyDB.ScheduledPost.AddObject(sPost);
-                    
+
                 }
-                hyDB.SaveChanges();
-            }            
+            }
+            else
+            {
+                try
+                {
+                    // newsManager.GetSchedulePostByID(p_Post.post_id) may throw ArgumentOutOfRangeException error
+                    sPost = newsManager.GetSchedulePostByID(p_Post.post_id);
+                    sPost.activated = 1;
+                    newsManager.EditSPost(sPost);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    // newsManager.GetSchedulePostByID(p_Post.post_id) throws ArgumentOutOfRangeException error which was occurred because the post is not having any records in the schedule post table.
+                    // Therefore, one must be created.
+                    Console.WriteLine(e.Message + " Scheduled Post does not exist previously for this post. Therefore, one must be created.\n\n" + e.StackTrace.ToString());
+                    sPost.post_id = p_Post.post_id;
+                    sPost.scheduled_date = DateTime.Now;
+                    sPost.activated = 1;
+                    hyDB.ScheduledPost.AddObject(sPost);
+
+                }
+            }
+            newsManager.EditPost(p_Post);
+            UploadImage(file, p_Post.post_id);
+            hyDB.SaveChanges();        
             //update sitemaps date and ping google and bing
             //
             int sitemapNewsID = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["sitemap_newsID"]);

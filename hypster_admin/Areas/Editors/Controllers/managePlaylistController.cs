@@ -290,15 +290,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                         if (d_song_id1 != 0)
                         {
                             playlistManager.DeleteSong(model.member.id, d_song_id1);
-
-                            if (Request.QueryString["ret_url"] == null)
-                            {
-                                return RedirectPermanent("/Editors/managePlaylist/");
-                            }
-                            else
-                            {
-                                return RedirectPermanent("/Editors/managePlaylist/");
-                            }
+                            return RedirectPermanent("/Editors/managePlaylist/");
                         }
                         break;
                     default:

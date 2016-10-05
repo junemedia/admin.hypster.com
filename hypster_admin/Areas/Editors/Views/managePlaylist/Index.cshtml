@@ -56,11 +56,10 @@
                     </div><br />
                 </div>
                 Playlist Name:<input id="Playlist_Name" type="text" class="input_field" style="width:90%;" />
-                @*Owner:<input id="Clone_To" type="text" value="" class="input_field" style="width:90%;" />*@
                 <input type="button" class="submit_btn" value="Clone" onclick="var plid = (($('#Music_Playlist_ID').val() != null) ? $('#Music_Playlist_ID').val() : $('#Playlist_ID').val()); validateCloneList(plid, $('#Playlist_Name').val(), '')" />@*$('#Clone_To').val()*@
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 <div style="float:left; width:67%; min-height:690px; background-color:#353535; border-radius:3px; padding:1%; margin-left:1%; text-align:left; ">
     <div class="MainHeadSongs" title="Play Playlist: @ViewBag.ActivePlaylistName">
@@ -85,14 +84,14 @@
         <a class="AddNew_Container" href="#" onclick="window.location = '/Editors/managePlaylist/addNewSongs?playlist=' + $('#newTagPlst').val(); return false;"><input type="button" value="Add New Song" /></a>
         @{ 
             int page_size = 20;
-            int? total_pages = @ViewBag.TotalResults / page_size;
+            int total_pages = @ViewBag.TotalResults / page_size;
+            if (@ViewBag.TotalResults % page_size > 0) total_pages++;
         }
-        @if ((@ViewBag.TotalResults % page_size) > 0) { total_pages += 1; }
         @for (int i = 0; i < total_pages; i++)
         {
             int count = i * page_size;
             int count2 = (i + 1) * page_size;
-            if (total_pages * page_size == count2) { count2 = count + (@ViewBag.TotalResults % page_size); }
+            if (count2 > @ViewBag.TotalResults) { count2 = @ViewBag.TotalResults; }
             <div id="page_@i" style="display:none;">
                 @for (int j = count; j < count2; j++)
                 {
@@ -155,30 +154,12 @@
         function load_more_songs_plst_details()
         {
             $("#LoMPlstBtnHeader").html("Loading...");
-
-            @*$.ajax({
-                type: "POST",
-                url: "/create/playlistDetailsAD?playlist_id=@ViewBag.ActivePlaylistID",
-                async: true,
-                success: function (data) {
-                    $('#LoMPlstBtn').css('display', 'none');
-                    $('#sortablePlaylist').append(data);
-                }
-            });*@
         }
 
         function clean_dead_links()
         {
             Hide_Content();
             $(document).scrollTop(0);
-            @*$.ajax({
-                type: "POST",
-                url: "/playlist/CleanDeadLinks?PL_ID=@ViewBag.ActivePlaylistID",
-                async: true,
-                success: function (data) {
-                    $('#popupContainer').html(data);
-                }
-            });*@
         }
         function playlistName(input) {
             if (input == "id") {

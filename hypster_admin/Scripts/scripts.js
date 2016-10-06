@@ -128,7 +128,7 @@ function ShowAddToMyPlaylist(song_guid, song_title)
         },
         async: true,
         success: function (data) {
-            window.location = "/Editors/managePlaylist/?playlist_id=" + $("#playlist_id").val();
+            alert(data);
         }
     });
 }

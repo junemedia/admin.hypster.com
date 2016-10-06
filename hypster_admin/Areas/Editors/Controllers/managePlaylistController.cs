@@ -108,7 +108,7 @@ namespace hypster_admin.Areas.Editors.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult SubmitAddNewSong(string Song_Title, string Song_Guid, string Sel_Playlist_ID)
+        public string SubmitAddNewSong(string Song_Title, string Song_Guid, string Sel_Playlist_ID)
         {
             hypster_tv_DAL.Hypster_Entities hypDB = new hypster_tv_DAL.Hypster_Entities();
             hypster_tv_DAL.songsManagement songsManager = new hypster_tv_DAL.songsManagement();
@@ -235,7 +235,8 @@ namespace hypster_admin.Areas.Editors.Controllers
                 hypDB.PlaylistDatas.AddObject(new_playlistData);
                 hypDB.SaveChanges();
             }
-            return RedirectPermanent("/Editors/managePlaylist/?playlist_id=" + Sel_Playlist_ID);
+            return "A New Song, " + Song_Title + " (ID: " + Song_Guid + ") has been added to the Playlist, " + playlistManagement.GetPlaylistById(Convert.ToInt32(Sel_Playlist_ID))[0].name;
+            //return RedirectPermanent("/Editors/managePlaylist/?playlist_id=" + Sel_Playlist_ID);
         }
 
         [Authorize]

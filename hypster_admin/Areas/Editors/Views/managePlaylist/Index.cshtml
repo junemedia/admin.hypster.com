@@ -18,8 +18,8 @@
             @using (Html.BeginForm("AddNewPlaylist", "managePlaylist", FormMethod.Post))
             { <div id="AddNewPlaylist_Container" style="display:none">
                 <input id="AddPlaylist_Name" name="AddPlaylist_Name" type="text" maxlength="60" style="width:250px;" />
-                <input id="AddPlaylist_Save" type="submit" value="Add new playlist" />
-                <input id="AddPlaylist_Cancel" type="button" value="Cancel" onclick="$('#AddNewPlaylist_Container').css('display','none'); $('.AddNewPlstItm').css('display','block');" />
+                <input id="AddPlaylist_Save" type="submit" value="Add new playlist" onclick="return validate()" />
+                <input id="AddPlaylist_Cancel" type="button" value="Cancel" onclick="$('#AddPlaylist_Name').removeClass('error');$('#AddNewPlaylist_Container').css('display','none'); $('.AddNewPlstItm').css('display','block');" />
             </div>
             }
 
@@ -210,6 +210,17 @@
                     ClonePLShow = 0;
                 });
             }
+        }
+
+        function validate() {
+            $("#AddPlaylist_Name").removeClass("error");
+            if ($("#AddPlaylist_Name").val() == "") {
+                $("#AddPlaylist_Name").addClass("error");
+                alert("Please enter the name of the playlist.");
+                return false;
+            }
+            else
+                return true;
         }
     </script>
 </div>

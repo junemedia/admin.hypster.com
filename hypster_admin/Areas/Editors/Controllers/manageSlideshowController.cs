@@ -48,7 +48,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 slideshowManager.IncAllSlides();
 
                 homeSlide.href = href;
-                homeSlide.isActive = true;
+                homeSlide.isActive = false;
                 homeSlide.SortOrder = 1;
                 homeSlide.ImageSrc = image_guid + file_slide.Extension;
 

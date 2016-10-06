@@ -91,7 +91,7 @@
         @using (Html.BeginForm("AddNewPost", "managePost", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validatePost();" }))
         {
             <text>Title:</text><br />
-            @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title" })<br /><br />
+            @Html.TextBoxFor(m => m.post_title, new { @id = "newsPost_Title", @class = "newsPost_Title input_fields" })<br /><br />
             <text>Image: (max size - 585px x 330px)</text><br />
             @Html.HiddenFor(m => m.post_image)
             <input type="file" name="file" id="file" style="width:40%; height:22px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" />
@@ -101,16 +101,16 @@
             </div><br /><br />
 
             <text>Content:</text><br />
-            @Html.TextAreaFor(m => m.post_content, new { @id = "newsPost_Content", @class = "newsPost_Content" })<br />
+            @Html.TextAreaFor(m => m.post_content, new { @id = "newsPost_Content", @class = "newsPost_Content input_fields" })<br />
             <text>Short Content:</text>
-            @Html.TextAreaFor(m => m.post_short_content, new { @id = "newsPost_ShortContent", @class = "newsPost_ShortContent", @style = "height:60px" })<br />
+            @Html.TextAreaFor(m => m.post_short_content, new { @id = "newsPost_ShortContent", @class = "newsPost_ShortContent input_fields", @style = "height:60px" })<br />
             <text>Music Player:</text>
             @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br /><br />
             <text>Scheduled Publish:</text> 
             <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
             <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text>
             <br /><br />
-            <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" disabled="disabled" style="width:200px" /><br /><br />
+            <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" disabled="disabled" style="width:200px" /><br /><br />
 
             <div style="margin-top:20px; width:100%; text-align:right;">
                 <input type="submit" value="Add New Post" />
@@ -128,22 +128,35 @@
     function validatePost()
     {
         var errMsg = "";
+        $(".input_fields").removeClass("error");
         if ($("#newsPost_Title").val() == "")
         {
+            $("#newsPost_Title").addClass("error");
             errMsg += "Title\n";
         }
-        if ($("#newsPost_Content").val() == "") {
+        if ($("#newsPost_Content").val() == "")
+        {
+            $("#newsPost_Content").addClass("error");
             errMsg += "Content\n";
         }
-        if ($("#newsPost_ShortContent").val() == "") {
+        if ($("#newsPost_ShortContent").val() == "")
+        {
+            $("#newsPost_ShortContent").addClass("error");
             errMsg += "Short Content\n";
+        }
+        if ($("input[name='scheduled']:checked").val() == "Yes" && $("#datetimepicker").val() == "")
+        {
+            $("#datetimepicker").addClass("error");
+            errMsg += "The scheduled date and time must be set\n";
         }
         if (errMsg != "") {
             alert("Please Fill Up the following REQUIRED fields:\n" + errMsg);
             return false;
         }
-        else
+        else {
+            $("#datetimepicker").val(new Date($("#datetimepicker").val()).toGMTString());
             return true;
+        }
     }
 
     function PreviewPost()
@@ -176,7 +189,10 @@
         else
             $("#datetimepicker").prop("disabled", false);
     }
-
+    //var content = tinymce.get('tinymceEditor').getContent({ format: 'text' });
+    //if ($.trim(content) == '') {
+    //    // editor is empty ...
+    //}
     tinymce.init({
         selector: "textarea#newsPost_Content",
         height: 550,

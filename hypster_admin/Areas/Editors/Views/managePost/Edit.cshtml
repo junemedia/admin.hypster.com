@@ -243,7 +243,7 @@
         var year = localtime.getFullYear();
         var month = ((localtime.getMonth()+1)<10)?"0"+(localtime.getMonth()+1):(localtime.getMonth()+1);
         var date = (localtime.getDate()<10)?"0"+localtime.getDate():localtime.getDate();
-        var hour = (localtime.getHours()%12<10)?"0"+localtime.getHours()%12:localtime.getHours()%12;
+        var hour = (localtime.getHours()<10)?"0"+localtime.getHours():localtime.getHours();
         var minute = (localtime.getMinutes()<10)?"0"+localtime.getMinutes():localtime.getMinutes();
         //var second = (localtime.getSeconds()<10)?"0"+localtime.getSeconds():localtime.getSeconds();
         //var ampm = (localtime.getHours()/12>0)?"PM":"AM";
@@ -259,7 +259,7 @@
         ],
         toolbar: "bold italic underline strikethrough | cut copy paste | searchreplace | bullist numlist | undo redo preview | link unlink image media code",
         menubar: false,
-        toolbar_items_size: 'medium',
+        toolbar_items_size: 'medium'
     });
 
     $.datetimepicker.setLocale("en");

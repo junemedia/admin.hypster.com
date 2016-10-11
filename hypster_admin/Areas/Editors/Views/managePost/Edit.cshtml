@@ -3,6 +3,28 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout_Editors.cshtml";
 }
+<style>
+#mceu_18 {
+    width: 26px;
+}
+
+figure.align-left {
+float: left;
+}
+
+figure.align-right {
+    float: right;
+}
+
+figure.image img {
+    margin: 8px 8px 0 8px;
+}
+
+figure.image figcaption {
+    margin: 6px 8px 6px 8px;
+    text-align: center;
+}
+</style>
 <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
 <script src="/Scripts/jquery.js"></script>
 <script src="/Scripts/jquery.datetimepicker.full.js"></script>
@@ -249,19 +271,79 @@
         //var ampm = (localtime.getHours()/12>0)?"PM":"AM";
         return year + "/" + month + "/" + date + " " + hour + ":" + minute;
     }
+    //tinymce.init({
+    //    selector: 'textarea#post_content.newsPost_Content',
+    //    height: 550,
+    //    plugins: [
+    //      "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+    //      "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+    //      "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
+    //    ],
+    //    toolbar1: "bold italic underline strikethrough alignleft aligncenter alignright alignjustify styleselect formatselect fontselect fontsizeselect",
+    //    toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview",
+    //    toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft | forecolor backcolor",
+    //    menubar: true,
+    //    toolbar_items_size: 'small',
+    //    image_caption: true,
+    //    image_advtab: true,
+    //    image_description: true,
+    //    style_formats: [{
+    //        title: 'Bold text',
+    //        inline: 'b'
+    //    }, {
+    //        title: 'Red text',
+    //        inline: 'span',
+    //        styles: {
+    //            color: '#ff0000'
+    //        }
+    //    }, {
+    //        title: 'Red header',
+    //        block: 'h1',
+    //        styles: {
+    //            color: '#ff0000'
+    //        }
+    //    }, {
+    //        title: 'Example 1',
+    //        inline: 'span',
+    //        classes: 'example1'
+    //    }, {
+    //        title: 'Example 2',
+    //        inline: 'span',
+    //        classes: 'example2'
+    //    }, {
+    //        title: 'Table styles'
+    //    }, {
+    //        title: 'Table row 1',
+    //        selector: 'tr',
+    //        classes: 'tablerow1'
+    //    }],
 
+    //    templates: [{
+    //        title: 'Test template 1',
+    //        content: 'Test 1'
+    //    }, {
+    //        title: 'Test template 2',
+    //        content: 'Test 2'
+    //    }],
+    //    content_css: [
+    //      '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    //      '//www.tinymce.com/css/codepen.min.css'
+    //    ]
+    //});
     tinymce.init({
-        selector: 'textarea#post_content.newsPost_Content',
+        selector: "textarea#post_content.newsPost_Content",
         height: 550,
+        theme: "modern",
         plugins: [
-            "advlist autolink autosave link image lists preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount code media nonbreaking"
+            "advlist autolink autosave link lists preview hr anchor pagebreak spellchecker searchreplace wordcount code media nonbreaking textcolor colorpicker image imagetools emoticons"
         ],
-        toolbar: "bold italic underline strikethrough | cut copy paste | searchreplace | bullist numlist | undo redo preview | link unlink image media code",
+        toolbar: "bold italic underline strikethrough forecolor backcolor | cut copy paste searchreplace bullist numlist outdent indent | undo redo preview link unlink | image emoticons code ",
         menubar: false,
-        toolbar_items_size: 'medium'
+        image_advtab: true,
+        toolbar_items_size: "medium",
+        image_caption: true,
+        image_description: true
     });
-
     $.datetimepicker.setLocale("en");
     $("#datetimepicker").datetimepicker({
         format:'Y/m/d H:i',

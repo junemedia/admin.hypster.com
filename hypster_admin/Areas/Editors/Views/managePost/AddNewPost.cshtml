@@ -3,6 +3,11 @@
     ViewBag.Title = "AddNewPost";
     Layout = "~/Views/Shared/_Layout_Editors.cshtml";
 }
+<style>
+    #mceu_18 {
+        width: 26px;
+    }
+</style>
 <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
 <script src="/Scripts/jquery.js"></script>
 <script src="/Scripts/jquery.datetimepicker.full.js"></script>
@@ -106,7 +111,7 @@
             @Html.TextAreaFor(m => m.post_short_content, new { @id = "newsPost_ShortContent", @class = "newsPost_ShortContent input_fields", @style = "height:60px" })<br />
             <text>Music Player:</text>
             @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br /><br />
-            <text>Scheduled Publish:</text> 
+            <text>Scheduled Publish:</text>
             <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
             <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text>
             <br /><br />
@@ -133,11 +138,6 @@
         {
             $("#newsPost_Title").addClass("error");
             errMsg += "Title\n";
-        }
-        if ($("#newsPost_Content").val() == "")
-        {
-            $("#newsPost_Content").addClass("error");
-            errMsg += "Content\n";
         }
         if ($("#newsPost_ShortContent").val() == "")
         {
@@ -189,20 +189,21 @@
         else
             $("#datetimepicker").prop("disabled", false);
     }
-    //var content = tinymce.get('tinymceEditor').getContent({ format: 'text' });
-    //if ($.trim(content) == '') {
-    //    // editor is empty ...
-    //}
+    
     tinymce.init({
         selector: "textarea#newsPost_Content",
         height: 550,
+        theme: "modern",
         plugins: [
-            "advlist autolink autosave link advimage lists preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount code media nonbreaking"
+            "advlist autolink autosave link lists preview hr anchor pagebreak spellchecker searchreplace wordcount code media nonbreaking textcolor colorpicker image imagetools emoticons"
         ],
-        toolbar: "bold italic underline strikethrough | cut copy paste | searchreplace | bullist numlist | undo redo preview | link unlink advimage media code",
+        toolbar: "bold italic underline strikethrough forecolor backcolor | cut copy paste searchreplace bullist numlist outdent indent | undo redo preview link unlink | image emoticons code ",
         menubar: false,
-        toolbar_items_size: 'medium',
+        toolbar_items_size: 'small',
+        image_caption: true,
+        image_advtab: true,
+        image_description: true,
+        object_resizing: true
     });
     $.datetimepicker.setLocale("en");
     $("#datetimepicker").datetimepicker({

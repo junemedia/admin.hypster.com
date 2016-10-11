@@ -400,6 +400,7 @@
     <Content Include="Areas\Administrators\Views\manageUsers\user.cshtml" />
     <Content Include="Areas\Administrators\Views\Web.config" />
     <None Include="Properties\PublishProfiles\adminBase.pubxml" />
+    <None Include="Properties\PublishProfiles\adminHypLocal.pubxml" />
     <None Include="Properties\PublishProfiles\adminHypster.pubxml" />
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />

@@ -139,6 +139,13 @@
             $("#newsPost_Title").addClass("error");
             errMsg += "Title\n";
         }
+
+        if ($("#newsPost_Content").val() == "")
+        {
+            $("#newsPost_Content").addClass("error");
+            errMsg += "Content\n";
+        }
+
         if ($("#newsPost_ShortContent").val() == "")
         {
             $("#newsPost_ShortContent").addClass("error");
@@ -189,7 +196,7 @@
         else
             $("#datetimepicker").prop("disabled", false);
     }
-    
+
     tinymce.init({
         selector: "textarea#newsPost_Content",
         height: 550,

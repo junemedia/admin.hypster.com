@@ -189,7 +189,9 @@ figure.image figcaption {
     var d = new Date();
     function validatePost()
     {
-        var errMsg = "";
+        var errMsg = "";        
+        tinyMCE.triggerSave();
+        $("#mceu_29.mce-panel").css("border","solid 0px");
         $(".input_fields").removeClass("error");
         if ($("#post_title").val() == "")
         {
@@ -198,7 +200,7 @@ figure.image figcaption {
         }
         if ($("#post_content").val() == "") 
         {
-            $("#post_content").addClass("error");
+            $("#mceu_29.mce-panel").css("border","solid 2px #f00");
             errMsg += "Content\n";
         }
         if ($("#post_ShortContent").val() == "") 

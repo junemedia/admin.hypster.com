@@ -133,6 +133,8 @@
     function validatePost()
     {
         var errMsg = "";
+        tinyMCE.triggerSave();
+        $("#mceu_29.mce-panel").css("border", "solid 0px");
         $(".input_fields").removeClass("error");
         if ($("#newsPost_Title").val() == "")
         {
@@ -142,7 +144,7 @@
 
         if ($("#newsPost_Content").val() == "")
         {
-            $("#newsPost_Content").addClass("error");
+            $("#mceu_29.mce-panel").css("border", "solid 2px #f00");
             errMsg += "Content\n";
         }
 

@@ -107,13 +107,18 @@
                 <div class="Post_mainCont" id="PreviewContHolder" style="display:none; float:left; width:625px; min-height:345px; padding:2% 2.5% 2.5% 2.5%; background-color:#111111; border-radius:2px; text-align:left; ">
                 </div>
             </div><br /><br />
-
             <text>Content:</text><br />
             @Html.TextAreaFor(m => m.post_content, new { @id = "newsPost_Content", @class = "newsPost_Content input_fields" })<br />
             <text>Short Content:</text>
             @Html.TextAreaFor(m => m.post_short_content, new { @id = "newsPost_ShortContent", @class = "newsPost_ShortContent input_fields", @style = "height:60px" })<br />
             <text>Music Player:</text>
             @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br /><br />
+            <br />
+            <text> Scheduled Publish:</text>
+            <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
+            <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text>
+            <br /><br />
+            <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" disabled="disabled" style="width:200px" /><br /><br />
             <div style="margin:5px 0px">
                 <text>Newsletter Attributes:</text>
                 <input type="checkbox" id="featured" /><text>Featured</text>
@@ -122,12 +127,6 @@
                 <input type="checkbox" id="more" /><text>More</text>
                 <input type="text" id="attributes" name="attributes" style="visibility:hidden" />
             </div>
-            <br />
-            <text> Scheduled Publish:</text>
-            <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
-            <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text>
-            <br /><br />
-            <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" disabled="disabled" style="width:200px" /><br /><br />
             <div style="margin-top:20px; width:100%; text-align:right;">
                 <input type="submit" value="Add New Post" />
                 <input type="button" value="Cancel" onclick="window.location = '/Editors/managePost';" />

@@ -161,15 +161,6 @@ input[type=checkbox] {
             <text>Date Create: </text>
             <text><i>@Model.post_date</i></text><input type="hidden" name="post_date" id="post_date" value="@Model.post_date" />
             <br /><br />
-            <div style="margin:5px 0px">
-                <text>Newsletter Attributes:</text>
-                <input type="checkbox" id="featured" value="Featured" /><text>Featured</text>
-                <input type="checkbox" id="newsletter" value="Newsletter" /><text>Newsletter</text>
-                <input type="checkbox" id="f_playlist" value="Playlist" /><text>Featured Playlist</text>
-                <input type="checkbox" id="more" value="More" /><text>More</text>
-                <input type="text" id="attributes" name="attributes" style="visibility:hidden" />
-            </div>
-            <br />
             <div id="SchedulePo">
                 <text>Scheduled Publish: </text>
                 <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
@@ -177,6 +168,14 @@ input[type=checkbox] {
                 <text>Publish Date Time: </text><input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" autocomplete="off" style="width:200px" disabled />                 
                 <span id="timezone" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:16px;font-weight:bold;color:#F00"></span>
                 <br /><br />
+            </div>
+            <div style="margin:5px 0px">
+                <text>Newsletter Attributes:</text>
+                <input type="checkbox" id="featured" value="Featured" /><text>Featured</text>
+                <input type="checkbox" id="newsletter" value="Newsletter" /><text>Newsletter</text>
+                <input type="checkbox" id="f_playlist" value="Playlist" /><text>Featured Playlist</text>
+                <input type="checkbox" id="more" value="More" /><text>More</text>
+                <input type="text" id="attributes" name="attributes" style="visibility:hidden" />
             </div>
             <text>Tags:</text>
             <div style="float:left; width:100%;">
@@ -186,7 +185,6 @@ input[type=checkbox] {
             <div id="tagsHolder1" style="float:left; width:100%; min-height:55px; margin-top:10px; ">
                 @Html.Action("getNewsTags", "managePost")
             </div>
-
             <div style="float:left; margin-top:20px; width:100%; text-align:right;">
                 <input id="previewBtn" type="button" value="Preview" onclick="PreviewPost();" />
                 <input type="submit" value="Save Post" />

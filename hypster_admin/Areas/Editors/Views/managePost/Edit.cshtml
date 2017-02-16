@@ -24,6 +24,10 @@ figure.image figcaption {
     margin: 6px 8px 6px 8px;
     text-align: center;
 }
+
+input[type=checkbox] {
+    margin-left: 10px;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
 <script src="/Scripts/jquery.js"></script>
@@ -157,6 +161,15 @@ figure.image figcaption {
             <text>Date Create: </text>
             <text><i>@Model.post_date</i></text><input type="hidden" name="post_date" id="post_date" value="@Model.post_date" />
             <br /><br />
+            <div style="margin:5px 0px">
+                <text>Newsletter Attributes:</text>
+                <input type="checkbox" id="featured" value="Featured" /><text>Featured</text>
+                <input type="checkbox" id="newsletter" value="Newsletter" /><text>Newsletter</text>
+                <input type="checkbox" id="f_playlist" value="Playlist" /><text>Featured Playlist</text>
+                <input type="checkbox" id="more" value="More" /><text>More</text>
+                <input type="text" id="attributes" name="attributes" style="visibility:hidden" />
+            </div>
+            <br />
             <div id="SchedulePo">
                 <text>Scheduled Publish: </text>
                 <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
@@ -189,7 +202,10 @@ figure.image figcaption {
     var d = new Date();
     function validatePost()
     {
-        var errMsg = "";        
+        var errMsg = "";
+        var attrStrOri = $("#attributes").val();
+        $("#attributes").val("");
+        var attrStr = "";
         tinyMCE.triggerSave();
         $("#mceu_29.mce-panel").css("border","solid 0px");
         $(".input_fields").removeClass("error");
@@ -198,27 +214,32 @@ figure.image figcaption {
             $("#post_title").addClass("error");
             errMsg += "Title\n";
         }
-        if ($("#post_content").val() == "") 
+        if ($("#post_content").val() == "")
         {
             $("#mceu_29.mce-panel").css("border","solid 2px #f00");
             errMsg += "Content\n";
         }
-        if ($("#post_ShortContent").val() == "") 
+        if ($("#post_ShortContent").val() == "")
         {
             $("#post_ShortContent").addClass("error");
             errMsg += "Short Content\n";
         }
-        if ($("#post_status").val() == 0 && $("input[name='scheduled']:checked").val() == "Yes" && $("#datetimepicker").val() == "") 
+        if ($("#post_status").val() == 0 && $("input[name='scheduled']:checked").val() == "Yes" && $("#datetimepicker").val() == "")
         {
             $("#datetimepicker").addClass("error");
             errMsg += "The scheduled date and time must be set\n";
         }
-        if (errMsg != "") 
+        if ($("#featured").is(":checked")) { attrStr += "Featured"; }
+        if ($("#newsletter").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Newsletter"; }
+        if ($("#f_playlist").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Playlist"; }
+        if ($("#more").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "More"; }
+        $("#attributes").val(attrStr);
+        if (errMsg != "")
         {
             alert("Please Fill Up OR Correct the following REQUIRED fields:\n" + errMsg);
             return false;
         }
-        else 
+        else
         {
             $("#datetimepicker").val(new Date($("#datetimepicker").val()).toGMTString());
             return true;
@@ -255,7 +276,6 @@ figure.image figcaption {
 
     function changeValue(val)
     {
-        //alert(val);
         if (val == 1)
             $("#SchedulePo").css("display","none");
         else
@@ -269,69 +289,9 @@ figure.image figcaption {
         var date = (localtime.getDate()<10)?"0"+localtime.getDate():localtime.getDate();
         var hour = (localtime.getHours()<10)?"0"+localtime.getHours():localtime.getHours();
         var minute = (localtime.getMinutes()<10)?"0"+localtime.getMinutes():localtime.getMinutes();
-        //var second = (localtime.getSeconds()<10)?"0"+localtime.getSeconds():localtime.getSeconds();
-        //var ampm = (localtime.getHours()/12>0)?"PM":"AM";
         return year + "/" + month + "/" + date + " " + hour + ":" + minute;
     }
-    //tinymce.init({
-    //    selector: 'textarea#post_content.newsPost_Content',
-    //    height: 550,
-    //    plugins: [
-    //      "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-    //      "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-    //      "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
-    //    ],
-    //    toolbar1: "bold italic underline strikethrough alignleft aligncenter alignright alignjustify styleselect formatselect fontselect fontsizeselect",
-    //    toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview",
-    //    toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft | forecolor backcolor",
-    //    menubar: true,
-    //    toolbar_items_size: 'small',
-    //    image_caption: true,
-    //    image_advtab: true,
-    //    image_description: true,
-    //    style_formats: [{
-    //        title: 'Bold text',
-    //        inline: 'b'
-    //    }, {
-    //        title: 'Red text',
-    //        inline: 'span',
-    //        styles: {
-    //            color: '#ff0000'
-    //        }
-    //    }, {
-    //        title: 'Red header',
-    //        block: 'h1',
-    //        styles: {
-    //            color: '#ff0000'
-    //        }
-    //    }, {
-    //        title: 'Example 1',
-    //        inline: 'span',
-    //        classes: 'example1'
-    //    }, {
-    //        title: 'Example 2',
-    //        inline: 'span',
-    //        classes: 'example2'
-    //    }, {
-    //        title: 'Table styles'
-    //    }, {
-    //        title: 'Table row 1',
-    //        selector: 'tr',
-    //        classes: 'tablerow1'
-    //    }],
 
-    //    templates: [{
-    //        title: 'Test template 1',
-    //        content: 'Test 1'
-    //    }, {
-    //        title: 'Test template 2',
-    //        content: 'Test 2'
-    //    }],
-    //    content_css: [
-    //      '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-    //      '//www.tinymce.com/css/codepen.min.css'
-    //    ]
-    //});
     tinymce.init({
         selector: "textarea#post_content.newsPost_Content",
         height: 550,
@@ -376,6 +336,21 @@ figure.image figcaption {
                     else {
                         $('input:radio[name=scheduled]')[1].checked = true;
                         scheduledValue("No");
+                    }
+                }
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Editors/managePost/getPostNewsletters?id=" + @ViewBag.ID,
+            async: true,
+            success: function (data) {
+                if (data != null || data != "")
+                {
+                    var s_info = data.split(';');
+                    for (var i = 0; i < s_info.length; i++)
+                    {
+                        $("input:checkbox[value='" + s_info[i] + "']").prop("checked", true);
                     }
                 }
             }

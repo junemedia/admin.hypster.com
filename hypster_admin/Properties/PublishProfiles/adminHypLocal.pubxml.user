@@ -7,5 +7,635 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword />
+    <_PublishTargetUrl>C:\inetpub\wwwroot\admin</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="ApplicationInsights.config">
+      <publishTime>06/10/2016 10:06:02</publishTime>
+    </File>
+    <File Include="Areas/Administrators/Views/manageUsers/AddNewUser.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/Administrators/Views/manageUsers/Index.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/Administrators/Views/manageUsers/manageUsernames.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/Administrators/Views/manageUsers/user.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/Administrators/Views/Web.config">
+      <publishTime>06/01/2016 11:13:57</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/editor/Index.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePlaylist/addNewSongs.cshtml">
+      <publishTime>10/06/2016 14:56:15</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePlaylist/addToPlayList.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePlaylist/delelePlaylistSong.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePlaylist/Index.cshtml">
+      <publishTime>10/06/2016 14:56:15</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePlaylist/MPL.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePost/AddNewPost.cshtml">
+      <publishTime>02/16/2017 12:25:51</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePost/Edit.cshtml">
+      <publishTime>02/16/2017 12:25:43</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePost/getNewsTags.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/managePost/Index.cshtml">
+      <publishTime>07/28/2016 15:29:48</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/manageSlideshow/AddNewSlideshow.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/manageSlideshow/EditSlideshow.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/manageSlideshow/Index.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/Editors/Views/Web.config">
+      <publishTime>06/01/2016 11:13:57</publishTime>
+    </File>
+    <File Include="Areas/NewsManagement/Views/homeCelebs/AddNewCeleb.cshtml">
+      <publishTime>06/10/2016 10:21:24</publishTime>
+    </File>
+    <File Include="Areas/NewsManagement/Views/homeCelebs/Index.cshtml">
+      <publishTime>06/10/2016 10:21:24</publishTime>
+    </File>
+    <File Include="Areas/NewsManagement/Views/homeNews/AddNewPost.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/NewsManagement/Views/homeNews/Edit.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Areas/NewsManagement/Views/homeNews/getNewsTags.cshtml">
+      <publishTime>06/10/2016 10:21:24</publishTime>
+    </File>
+    <File Include="Areas/NewsManagement/Views/homeNews/Index.cshtml">
+      <publishTime>06/10/2016 10:21:24</publishTime>
+    </File>
+    <File Include="Areas/NewsManagement/Views/Web.config">
+      <publishTime>06/10/2016 10:20:36</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/featuredVideo/AddNewFeaturedVideo.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/featuredVideo/Edit.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/featuredVideo/Index.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/homeVideo/Index.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/pendingVideo/Index.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/uploadedVideo/Edit.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/uploadedVideo/Index.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/VideoManagement/Views/Web.config">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/contactUs/editContactUs.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/contactUs/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/homeWebsite/Index.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypArtists/Confirm_Artist_Names.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypArtists/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypDynamicContent/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypEmails/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypFeaturedPlaylists/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypPublicPlaylists/Edit.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypPublicPlaylists/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypReports/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypReports/newRegisteredMembers.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypReports/SongsPlayReport.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/hypVote/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageAppPools/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageAppPools/StartApplicationPool.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageCharts/Billboard_Year_End_Hot_100.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageCharts/CloneChart.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageCharts/GenerateHypsterChart.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageCharts/Generate_Playlist.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageCharts/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageDeadLinks/DetectDeadLinks.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageDeadLinks/DetectDeadLinks_List.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageDeadLinks/GetPlaylistDetails.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageDeadLinks/GetPlaylistDetails_Check.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageDeadLinks/GetPlaylistDetails_View.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageDeadLinks/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageFeatured/AddToFeatured.cshtml">
+      <publishTime>05/11/2016 11:22:19</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageFeatured/AddToFeaturedSlideshow.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageFeatured/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageFestivals/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageGenres/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageManuals/EditManual.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageManuals/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Charts.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Featured.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Festivals.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Manuals.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_MostLiked_Playlists.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_MostViewed_Playlists.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_News.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Stations.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Website_EN.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Website_ES.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_Website_RU.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Generate_Hypster_WithDesc_Playlists.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSitemap/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSlideshow/AddNewSlideshow.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageSlideshow/Index.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageUsers/AddNewUser.cshtml">
+      <publishTime>09/14/2016 16:55:08</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageUsers/Index.cshtml">
+      <publishTime>07/27/2016 11:09:10</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageUsers/manageUsernames.cshtml">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/manageUsers/user.cshtml">
+      <publishTime>07/27/2016 11:09:10</publishTime>
+    </File>
+    <File Include="Areas/WebsiteManagement/Views/Web.config">
+      <publishTime>06/10/2016 10:39:26</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>06/10/2016 10:06:02</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>08/01/2012 19:42:08</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.Auth.dll">
+      <publishTime>05/10/2015 03:12:38</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.Auth.PlatformServices.dll">
+      <publishTime>05/10/2015 03:12:38</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.Core.dll">
+      <publishTime>05/10/2015 03:12:36</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.dll">
+      <publishTime>05/10/2015 03:12:38</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.PlatformServices.dll">
+      <publishTime>05/10/2015 03:12:38</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.YouTube.v3.dll">
+      <publishTime>05/10/2015 03:12:40</publishTime>
+    </File>
+    <File Include="bin/Google.GData.Client.dll">
+      <publishTime>06/22/2010 14:00:50</publishTime>
+    </File>
+    <File Include="bin/Google.GData.Extensions.dll">
+      <publishTime>06/22/2010 14:00:50</publishTime>
+    </File>
+    <File Include="bin/Google.GData.YouTube.dll">
+      <publishTime>06/22/2010 14:00:50</publishTime>
+    </File>
+    <File Include="bin/HtmlAgilityPack.dll">
+      <publishTime>08/12/2014 18:19:18</publishTime>
+    </File>
+    <File Include="bin/hypster_admin.dll">
+      <publishTime>02/16/2017 12:28:10</publishTime>
+    </File>
+    <File Include="bin/hypster_tv_DAL.dll">
+      <publishTime>02/16/2017 11:50:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Threading.Tasks.dll">
+      <publishTime>05/10/2015 03:12:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Administration.dll">
+      <publishTime>03/08/2016 11:28:06</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/10/2016 09:23:58</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/10/2016 09:23:58</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/10/2016 09:23:58</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Primitives.dll">
+      <publishTime>10/04/2016 15:10:29</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>05/11/2016 11:22:22</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>05/11/2016 11:22:23</publishTime>
+    </File>
+    <File Include="css/jquery.datetimepicker.css">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="css/Site.css">
+      <publishTime>02/16/2017 12:24:42</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_glass_55_fbf9ee_1x400.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_glass_75_dadada_1x400.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_glass_75_e6e6e6_1x400.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-icons_222222_256x240.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-icons_2e83ff_256x240.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-icons_454545_256x240.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-icons_888888_256x240.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/images/ui-icons_cd0a0a_256x240.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.accordion.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.all.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.autocomplete.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.base.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.button.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.core.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.datepicker.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.dialog.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.progressbar.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.resizable.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.selectable.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.slider.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.tabs.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="css/theme/base/jquery.ui.theme.css">
+      <publishTime>06/10/2016 09:27:15</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>06/10/2016 10:07:01</publishTime>
+    </File>
+    <File Include="imgs/logo.gif">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="imgs/logo.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="imgs/main_doc_back.jpg">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="imgs/main_doc_back.png">
+      <publishTime>05/11/2016 11:22:21</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>06/10/2016 10:11:06</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.6.2.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.6.2.min.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.9.1.min.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.8.11.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.8.11.min.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery.datetimepicker.full.js">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Scripts/jquery.datetimepicker.js">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Scripts/jquery.js">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/knockout-2.0.0.debug.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/knockout-2.0.0.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.0.6-development-only.js">
+      <publishTime>06/10/2016 09:45:59</publishTime>
+    </File>
+    <File Include="Scripts/scripts.js">
+      <publishTime>10/06/2016 14:56:15</publishTime>
+    </File>
+    <File Include="Views/account/Login.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Views/account/_LoginStatus.cshtml">
+      <publishTime>07/20/2016 15:08:39</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Views/search/Music.cshtml">
+      <publishTime>10/06/2016 14:56:15</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>06/10/2016 09:57:51</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout_Administrators.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout_Editors.cshtml">
+      <publishTime>10/14/2016 13:22:24</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout_NewsManagement.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout_VideoManagement.cshtml">
+      <publishTime>07/20/2016 17:13:52</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout_WebsiteManagement.cshtml">
+      <publishTime>10/04/2016 15:03:45</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginLayout.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_MenuMain.cshtml">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>07/06/2016 09:37:02</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>06/10/2016 10:16:31</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

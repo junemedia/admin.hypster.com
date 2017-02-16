@@ -28,7 +28,7 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult AddNewPost(hypster_tv_DAL.newsPost p_newPost, HttpPostedFileBase file, string scheduled, string datetimepicker)
+        public ActionResult AddNewPost(hypster_tv_DAL.newsPost p_newPost, HttpPostedFileBase file, string scheduled, string datetimepicker, string attributes)
         {
             hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
@@ -68,6 +68,18 @@ namespace hypster_admin.Areas.Editors.Controllers
                         hyDB.ScheduledPost.AddObject(sPost);
                         hyDB.SaveChanges();
                     }
+                    if (attributes != "")
+                    {
+                        string[] attribute = attributes.Split(';');
+                        foreach (string attr in attribute)
+                        {
+                            hypster_tv_DAL.postNewsletter pNewsletter = new hypster_tv_DAL.postNewsletter();
+                            pNewsletter.post_id = id;
+                            pNewsletter.attribute = attr;
+                            hyDB.postNewsletters.AddObject(pNewsletter);
+                            hyDB.SaveChanges();
+                        }
+                    }
                     return RedirectToAction("Index", "managePost");
                 }
             }
@@ -91,7 +103,7 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post, HttpPostedFileBase file, string scheduled, string datetimepicker)
+        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post, HttpPostedFileBase file, string scheduled, string datetimepicker, string attributes)
         {
             hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
             hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
@@ -115,7 +127,6 @@ namespace hypster_admin.Areas.Editors.Controllers
                     sPost.scheduled_date = convertDateTime(datetimepicker);
                     sPost.activated = 0;
                     hyDB.ScheduledPost.AddObject(sPost);
-
                 }
             }
             else
@@ -136,9 +147,9 @@ namespace hypster_admin.Areas.Editors.Controllers
                     sPost.scheduled_date = DateTime.Now;
                     sPost.activated = 1;
                     hyDB.ScheduledPost.AddObject(sPost);
-
                 }
             }
+            manageAttributes(hyDB, newsManager, p_Post.post_id, attributes, getAttrs(p_Post.post_id));
             newsManager.EditPost(p_Post);
             UploadImage(file, p_Post.post_id);
             hyDB.SaveChanges();        
@@ -393,6 +404,72 @@ namespace hypster_admin.Areas.Editors.Controllers
         {
             DateTime standard = TimeZoneInfo.ConvertTime(DateTime.Parse(datetime), TimeZoneInfo.Local);
             return standard;
+        }
+
+        public string getPostNewsletters()
+        {
+            int id = 0;
+            string attributes = "";
+            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+            List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result> attrs = new List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result>();
+            if (Request.QueryString["id"] != null)
+            {
+                id = Convert.ToInt32(Request.QueryString["id"]);
+                attrs = newsManager.GetPostAttributes_Result(id);
+                for (int i = 0; i < attrs.Count; i++)
+                {
+                    if (attributes != "") attributes += ";";
+                    attributes += attrs[i].attribute;
+                }
+            }
+            else
+            {
+                return "Error: The Post ID is null.";
+            }
+            return attributes;
+        }
+
+        public string getAttrs(int id)
+        {
+            string attributes = "";
+            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+            List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result> attrs = new List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result>();
+            attrs = newsManager.GetPostAttributes_Result(id);
+            for (int i = 0; i < attrs.Count; i++)
+            {
+                if (attributes != "") attributes += ";";
+                attributes += attrs[i].attribute;
+            }
+            return attributes;
+        }
+
+        // Compare 2 attribute strings, attributes (new attributes) and old_attr (old attributes).
+        public void manageAttributes(hypster_tv_DAL.Hypster_Entities hyDB, hypster_tv_DAL.newsManagement_Admin newsManager, int id, string attributes, string old_attr)
+        {
+            if (attributes != old_attr)
+            {
+                string[] attr = attributes.Split(';');
+                for (int i = 0; i < attr.Length; i++)
+                {
+                    if (!old_attr.Contains(attr[i]))
+                    {
+                        hypster_tv_DAL.postNewsletter pNewsletter = new hypster_tv_DAL.postNewsletter();
+                        pNewsletter.post_id = id;
+                        pNewsletter.attribute = attr[i];
+                        hyDB.postNewsletters.AddObject(pNewsletter);
+                        hyDB.SaveChanges();
+                    }
+                }
+                string[] o_attr = old_attr.Split(';');
+                for (int j = 0; j < o_attr.Length; j++)
+                {
+                    if (!attributes.Contains(o_attr[j]))
+                    {
+                        newsManager.DeletePostAttribute(id, o_attr[j]);
+                        hyDB.SaveChanges();
+                    }
+                }
+            }
         }
     }
 }

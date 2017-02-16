@@ -7,6 +7,9 @@
     #mceu_18 {
         width: 26px;
     }
+    input[type=checkbox] {
+        margin-left: 10px;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
 <script src="/Scripts/jquery.js"></script>
@@ -111,12 +114,20 @@
             @Html.TextAreaFor(m => m.post_short_content, new { @id = "newsPost_ShortContent", @class = "newsPost_ShortContent input_fields", @style = "height:60px" })<br />
             <text>Music Player:</text>
             @Html.TextAreaFor(m => m.MusicPlayer, new { @class = "newsPost_ShortContent", @style = "height:100px" })<br /><br />
-            <text>Scheduled Publish:</text>
+            <div style="margin:5px 0px">
+                <text>Newsletter Attributes:</text>
+                <input type="checkbox" id="featured" /><text>Featured</text>
+                <input type="checkbox" id="newsletter" /><text>Newsletter</text>
+                <input type="checkbox" id="f_playlist" /><text>Featured Playlist</text>
+                <input type="checkbox" id="more" /><text>More</text>
+                <input type="text" id="attributes" name="attributes" style="visibility:hidden" />
+            </div>
+            <br />
+            <text> Scheduled Publish:</text>
             <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
             <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text>
             <br /><br />
             <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" disabled="disabled" style="width:200px" /><br /><br />
-
             <div style="margin-top:20px; width:100%; text-align:right;">
                 <input type="submit" value="Add New Post" />
                 <input type="button" value="Cancel" onclick="window.location = '/Editors/managePost';" />
@@ -133,6 +144,8 @@
     function validatePost()
     {
         var errMsg = "";
+        var attrStr = "";
+        $("#attributes").val("");
         tinyMCE.triggerSave();
         $("#mceu_29.mce-panel").css("border", "solid 0px");
         $(".input_fields").removeClass("error");
@@ -158,6 +171,11 @@
             $("#datetimepicker").addClass("error");
             errMsg += "The scheduled date and time must be set\n";
         }
+        if ($("#featured").is(":checked")) { attrStr += "Featured"; }
+        if ($("#newsletter").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Newsletter"; }
+        if ($("#f_playlist").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Playlist"; }
+        if ($("#more").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "More"; }
+        $("#attributes").val(attrStr);
         if (errMsg != "") {
             alert("Please Fill Up the following REQUIRED fields:\n" + errMsg);
             return false;

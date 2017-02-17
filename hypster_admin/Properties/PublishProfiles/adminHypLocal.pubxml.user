@@ -47,10 +47,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/06/2016 09:37:02</publishTime>
     </File>
     <File Include="Areas/Editors/Views/managePost/AddNewPost.cshtml">
-      <publishTime>02/16/2017 12:25:51</publishTime>
+      <publishTime>02/16/2017 15:59:19</publishTime>
     </File>
     <File Include="Areas/Editors/Views/managePost/Edit.cshtml">
-      <publishTime>02/16/2017 12:25:43</publishTime>
+      <publishTime>02/17/2017 14:50:50</publishTime>
     </File>
     <File Include="Areas/Editors/Views/managePost/getNewsTags.cshtml">
       <publishTime>07/06/2016 09:37:02</publishTime>
@@ -317,10 +317,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/12/2014 18:19:18</publishTime>
     </File>
     <File Include="bin/hypster_admin.dll">
-      <publishTime>02/16/2017 12:28:10</publishTime>
+      <publishTime>02/17/2017 12:44:27</publishTime>
     </File>
     <File Include="bin/hypster_tv_DAL.dll">
-      <publishTime>02/16/2017 11:50:42</publishTime>
+      <publishTime>02/17/2017 09:53:37</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>05/11/2016 11:22:21</publishTime>

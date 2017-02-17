@@ -97,9 +97,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="hypster_tv_DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\class.hypster.com\obj\Release\hypster_tv_DAL.dll</HintPath>
+    <Reference Include="hypster_tv_DAL">
+      <HintPath>..\..\class.hypster.com\bin\Release\hypster_tv_DAL.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -399,7 +398,6 @@
     <Content Include="Areas\Administrators\Views\manageUsers\manageUsernames.cshtml" />
     <Content Include="Areas\Administrators\Views\manageUsers\user.cshtml" />
     <Content Include="Areas\Administrators\Views\Web.config" />
-    <None Include="Properties\PublishProfiles\adminBase.pubxml" />
     <None Include="Properties\PublishProfiles\adminHypLocal.pubxml" />
     <None Include="Properties\PublishProfiles\adminHypster.pubxml" />
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />

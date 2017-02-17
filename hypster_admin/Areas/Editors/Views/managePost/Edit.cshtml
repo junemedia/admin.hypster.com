@@ -135,7 +135,7 @@ input[type=checkbox] {
                 </div>
             </div><br /><br />
             <div style="float:left; width:98%; margin:1%; overflow:hidden; text-align:center;">
-            @if (Model.post_image != "" || Model.post_image != null)
+            @if (Model.post_image != null)
             {
                 <img alt="" src="http://@System.Configuration.ConfigurationManager.AppSettings["hypsterHostName"]/imgs/i_posts/@Model.post_image?@(new Random().Next(1000, 100000))" />
             }

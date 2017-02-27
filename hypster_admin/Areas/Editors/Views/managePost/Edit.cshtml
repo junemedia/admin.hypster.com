@@ -169,13 +169,24 @@ input[type=checkbox] {
                 <span id="timezone" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:16px;font-weight:bold;color:#F00"></span>
                 <br /><br />
             </div>
+            <div id="chkbxGenres" style="margin:10px 0px">
+                <text>Post Genres:</text><br />
+                <input type="checkbox" name="genre" id="1" value="1" /><text>Indie Pop</text>
+                <input type="checkbox" name="genre" id="2" value="2" /><text>Young Pop Icons</text>
+                <input type="checkbox" name="genre" id="3" value="3" /><text>Folk</text>
+                <input type="checkbox" name="genre" id="4" value="4" /><text>Urban</text>
+                <input type="checkbox" name="genre" id="5" value="5" /><text>Hip Hop and Rap</text>
+                <input type="checkbox" name="genre" id="6" value="6" /><text>Rock</text>
+                <input type="checkbox" name="genre" id="7" value="7" /><text>EDM</text>
+                <input type="checkbox" name="genre" id="8" value="8" /><text>Country</text><br />
+                <input type="checkbox" name="genre" id="9" value="9" /><text>Big Music News</text>
+            </div>            
             <div style="margin:5px 0px">
-                <text>Newsletter Attributes:</text>
+                <text>Newsletter Attributes:</text><br />
                 <input type="checkbox" id="featured" value="Featured" /><text>Featured</text>
                 <input type="checkbox" id="newsletter" value="Newsletter" /><text>Newsletter</text>
                 <input type="checkbox" id="f_playlist" value="Playlist" /><text>Featured Playlist</text>
-                <input type="checkbox" id="more" value="More" /><text>More</text>
-                <input type="text" id="attributes" name="attributes" style="visibility:hidden" />
+                <input type="checkbox" id="more" value="More" /><text>More</text>                
             </div>
             <text>Tags:</text>
             <div style="float:left; width:100%;">
@@ -186,6 +197,8 @@ input[type=checkbox] {
                 @Html.Action("getNewsTags", "managePost")
             </div>
             <div style="float:left; margin-top:20px; width:100%; text-align:right;">
+                <input type="text" id="postgenres" name="postgenres" style="display:none" />
+                <input type="text" id="attributes" name="attributes" style="display:none" />
                 <input id="previewBtn" type="button" value="Preview" onclick="PreviewPost();" />
                 <input type="submit" value="Save Post" />
                 <input type="button" value="Cancel" onclick="window.location='/Editors/managePost';" />
@@ -201,9 +214,11 @@ input[type=checkbox] {
     function validatePost()
     {
         var errMsg = "";
-        var attrStrOri = $("#attributes").val();
-        $("#attributes").val("");
         var attrStr = "";
+        var genre_list = "";
+        var n = $("input[name='genre']").length;
+        $("#attributes").val("");
+        $("#postgenres").val("");
         tinyMCE.triggerSave();
         $("#mceu_29.mce-panel").css("border","solid 0px");
         $(".input_fields").removeClass("error");
@@ -226,7 +241,17 @@ input[type=checkbox] {
         {
             $("#datetimepicker").addClass("error");
             errMsg += "The scheduled date and time must be set\n";
+        }        
+        for (var i = 1; i <= n; i++) 
+        {
+            if ($("#" + i).is(":checked")) 
+            { 
+                if (genre_list != "") 
+                    genre_list += ";"; 
+                genre_list += i; 
+            }
         }
+        $("#postgenres").val(genre_list);
         if ($("#featured").is(":checked")) { attrStr += "Featured"; }
         if ($("#newsletter").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Newsletter"; }
         if ($("#f_playlist").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Playlist"; }
@@ -315,12 +340,13 @@ input[type=checkbox] {
     });
 
     $(document).ready(function () {
+        var AsocGenres = "";
         $.ajax({
             type: "POST",
             url: "/Editors/managePost/getScheduledPostInfo?post_id=" + @ViewBag.ID,
             async: true,
             success: function (data) {
-                if (data != null || data != "")
+                if (data != "non")
                 {
                     var s_info = data.split(',');
                     if (s_info[1] == 0) {
@@ -335,6 +361,17 @@ input[type=checkbox] {
                         $('input:radio[name=scheduled]')[1].checked = true;
                         scheduledValue("No");
                     }
+                }
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Editors/managePost/getAssociatedGenreIds?id=" + @ViewBag.ID,
+            async: true,
+            success: function (data) {
+                AsocGenres = data.split(';');
+                for (var i = 0; i < AsocGenres.length; i++){
+                    $("input:checkbox[id='" + AsocGenres[i] + "']").prop("checked", true);
                 }
             }
         });

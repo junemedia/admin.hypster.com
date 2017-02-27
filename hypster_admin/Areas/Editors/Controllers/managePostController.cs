@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using hypster_tv_DAL;
 
 namespace hypster_admin.Areas.Editors.Controllers
 {
@@ -14,8 +15,8 @@ namespace hypster_admin.Areas.Editors.Controllers
         // GET: Editors/managePost
         public ActionResult Index()
         {
-            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
-            List<hypster_tv_DAL.newsPost> newsPost_list = new List<hypster_tv_DAL.newsPost>();
+            newsManagement_Admin newsManager = new newsManagement_Admin();
+            List<newsPost> newsPost_list = new List<newsPost>();
             newsPost_list = newsManager.GetLatestNews();
             return View(newsPost_list);
         }
@@ -23,15 +24,16 @@ namespace hypster_admin.Areas.Editors.Controllers
         [HttpGet]
         public ActionResult AddNewPost()
         {
-            hypster_tv_DAL.newsPost newPost = new hypster_tv_DAL.newsPost();
+            newsPost newPost = new newsPost();
             return View(newPost);
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult AddNewPost(hypster_tv_DAL.newsPost p_newPost, HttpPostedFileBase file, string scheduled, string datetimepicker, string attributes)
+        public ActionResult AddNewPost(newsPost p_newPost, HttpPostedFileBase file, string scheduled, string datetimepicker, string postgenres, string attributes)
         {
-            hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
-            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+            Hypster_Entities hyDB = new Hypster_Entities();
+            newsManagement_Admin newsManager_admin = new newsManagement_Admin();
+            newsManagement newsManager = new newsManagement();
             if (p_newPost.post_title != null && p_newPost.post_title != "")
             {
                 if (p_newPost.post_content == null || p_newPost.post_content == "")
@@ -45,11 +47,11 @@ namespace hypster_admin.Areas.Editors.Controllers
 
                 p_newPost.post_date = DateTime.Now;
                 p_newPost.post_guid = p_newPost.post_title.Replace("/", "").Replace("\\", "").Replace("&", "").Replace("+", "").Replace(" ", "-").Replace("?", "").Replace("!", "").Replace("*", "").Replace("$", "").Replace("\"", "").Replace("'", "").Replace("{", "").Replace("}", "").Replace(")", "").Replace("(", "").Replace("[", "").Replace("]", "").Replace("|", "").Replace(".", "").Replace(",", "").Replace(":", "").Replace(";", "");
-                p_newPost.post_status = (int)hypster_tv_DAL.postStatus.NoActive;
+                p_newPost.post_status = (int)postStatus.NoActive;
                 //
                 //check if post guid is exist in database
-                hypster_tv_DAL.newsPost post_check = newsManager.GetPostByGUID(p_newPost.post_guid);
-                if (post_check.post_id != 0 && newsManager.GetPostByGUID(post_check.post_guid).post_guid != "")
+                newsPost post_check = newsManager_admin.GetPostByGUID(p_newPost.post_guid);
+                if (post_check.post_id != 0 && newsManager_admin.GetPostByGUID(post_check.post_guid).post_guid != "")
                 {
                     ModelState.AddModelError("", "NOT ABLE TO GENERATE POST GUID.Please choose modify title. Post with following title already exist.");
                 }
@@ -61,22 +63,34 @@ namespace hypster_admin.Areas.Editors.Controllers
                     UploadImage(file, id);
                     if (scheduled == "Yes")
                     {
-                        hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
+                        ScheduledPost sPost = new ScheduledPost();
                         sPost.post_id = id;
                         sPost.scheduled_date = convertDateTime(datetimepicker);
                         sPost.activated = 0;
                         hyDB.ScheduledPost.AddObject(sPost);
                         hyDB.SaveChanges();
-                    }
+                    }                    
                     if (attributes != "")
                     {
                         string[] attribute = attributes.Split(';');
                         foreach (string attr in attribute)
                         {
-                            hypster_tv_DAL.postNewsletter pNewsletter = new hypster_tv_DAL.postNewsletter();
+                            postNewsletter pNewsletter = new postNewsletter();
                             pNewsletter.post_id = id;
                             pNewsletter.attribute = attr;
                             hyDB.postNewsletters.AddObject(pNewsletter);
+                            hyDB.SaveChanges();
+                        }
+                    }
+                    if (postgenres.Length != 0)
+                    {
+                        string[] postgenre = postgenres.Split(';');
+                        for (int i = 0; i < postgenre.Length; i++)
+                        {
+                            Post_Genre postGenre = new Post_Genre();
+                            postGenre.post_id = id;
+                            postGenre.genre_id = Convert.ToInt32(postgenre[i]);
+                            hyDB.Post_Genre.AddObject(postGenre);
                             hyDB.SaveChanges();
                         }
                     }
@@ -89,34 +103,35 @@ namespace hypster_admin.Areas.Editors.Controllers
             }
 
             // if no success
-            return View(new hypster_tv_DAL.newsPost());
+            return View(new newsPost());
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            hypster_tv_DAL.newsPost newsPost = new hypster_tv_DAL.newsPost();
-            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+            newsPost newsPost = new newsPost();
+            newsManagement_Admin newsManager = new newsManagement_Admin();
             newsPost = newsManager.GetPostByID(id);
             ViewBag.ID = id;
             return View(newsPost);
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(hypster_tv_DAL.newsPost p_Post, HttpPostedFileBase file, string scheduled, string datetimepicker, string attributes)
+        public ActionResult Edit(newsPost p_Post, HttpPostedFileBase file, string scheduled, string datetimepicker, string postgenres, string attributes)
         {
-            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
-            hypster_tv_DAL.Hypster_Entities hyDB = new hypster_tv_DAL.Hypster_Entities();
-            hypster_tv_DAL.ScheduledPost sPost = new hypster_tv_DAL.ScheduledPost();
+            newsManagement_Admin newsManager_admin = new newsManagement_Admin();
+            newsManagement newsManager = new newsManagement();
+            Hypster_Entities hyDB = new Hypster_Entities();
+            ScheduledPost sPost = new ScheduledPost();
             if (p_Post.post_status == 0 && scheduled == "Yes")
             {
                 try
                 {
                     // newsManager.GetSchedulePostByID(p_Post.post_id) may throw ArgumentOutOfRangeException error
-                    sPost = newsManager.GetSchedulePostByID(p_Post.post_id);
+                    sPost = newsManager_admin.GetSchedulePostByID(p_Post.post_id);
                     sPost.scheduled_date = convertDateTime(datetimepicker);
                     sPost.activated = 0;
-                    newsManager.EditSPost(sPost);
+                    newsManager_admin.EditSPost(sPost);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -134,9 +149,9 @@ namespace hypster_admin.Areas.Editors.Controllers
                 try
                 {
                     // newsManager.GetSchedulePostByID(p_Post.post_id) may throw ArgumentOutOfRangeException error
-                    sPost = newsManager.GetSchedulePostByID(p_Post.post_id);
+                    sPost = newsManager_admin.GetSchedulePostByID(p_Post.post_id);
                     sPost.activated = 1;
-                    newsManager.EditSPost(sPost);
+                    newsManager_admin.EditSPost(sPost);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -149,15 +164,16 @@ namespace hypster_admin.Areas.Editors.Controllers
                     hyDB.ScheduledPost.AddObject(sPost);
                 }
             }
-            manageAttributes(hyDB, newsManager, p_Post.post_id, attributes, getAttrs(p_Post.post_id));
-            newsManager.EditPost(p_Post);
+            manageGenres(hyDB, newsManager, p_Post.post_id, postgenres, getAssociatedGenreIds(p_Post.post_id));
+            manageAttributes(hyDB, newsManager_admin, p_Post.post_id, attributes, getAttrs(p_Post.post_id));
+            newsManager_admin.EditPost(p_Post);
             UploadImage(file, p_Post.post_id);
             hyDB.SaveChanges();        
             //update sitemaps date and ping google and bing
             //
             int sitemapNewsID = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["sitemap_newsID"]);
 
-            hypster_tv_DAL.SitemapManagement sitemapManager = new hypster_tv_DAL.SitemapManagement();
+            SitemapManagement sitemapManager = new SitemapManagement();
             sitemapManager.UpdateDateChanged(sitemapNewsID, DateTime.Now);
 
             HttpWebRequest ping_google_request = (HttpWebRequest)WebRequest.Create("http://www.google.com/webmasters/sitemaps/ping?sitemap=http://hypster.com/sitemaps/sitemap_index");
@@ -181,7 +197,8 @@ namespace hypster_admin.Areas.Editors.Controllers
             }
             //-------------------------------------------------------------------------------------------------------------
             return RedirectToAction("Index");
-        }
+        }        
+
         //------------------------------------------------------------------------------------------
 
         //------------------------------------------------------------------------------------------
@@ -200,8 +217,8 @@ namespace hypster_admin.Areas.Editors.Controllers
         //------------------------------------------------------------------------------------------
         public ActionResult getNewsTags(int id)
         {
-            hypster_tv_DAL.TagManagement tagManager = new hypster_tv_DAL.TagManagement();
-            List<hypster_tv_DAL.sp_Tag_GetNewsTags_Result> news_tags = new List<hypster_tv_DAL.sp_Tag_GetNewsTags_Result>();
+            TagManagement tagManager = new TagManagement();
+            List<sp_Tag_GetNewsTags_Result> news_tags = new List<sp_Tag_GetNewsTags_Result>();
             news_tags = tagManager.GetNewsTags(id);
             return View(news_tags);
         }
@@ -223,17 +240,17 @@ namespace hypster_admin.Areas.Editors.Controllers
                 Int32.TryParse(Request.QueryString["article_id"], out article_id);
             }
 
-            hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
-            hypster_tv_DAL.Member member = new hypster_tv_DAL.Member();
+            memberManagement memberManager = new memberManagement();
+            Member member = new Member();
             member = memberManager.getMemberByUserName(User.Identity.Name);
 
-            hypster_tv_DAL.newsManagement newsManager = new hypster_tv_DAL.newsManagement();
-            hypster_tv_DAL.newsPost curr_article = new hypster_tv_DAL.newsPost();
+            newsManagement newsManager = new newsManagement();
+            newsPost curr_article = new newsPost();
             curr_article = newsManager.GetPostByID(article_id);
 
             if (curr_article.post_id != 0 && article_id == curr_article.post_id)
             {
-                hypster_tv_DAL.TagManagement tagManager = new hypster_tv_DAL.TagManagement();
+                TagManagement tagManager = new TagManagement();
                 int tag_ID = 0;
                 tag_ID = tagManager.AddNewTag(tag_name);
                 tagManager.AddTagToNewsArticle(tag_ID, article_id);
@@ -262,7 +279,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 Int32.TryParse(Request.QueryString["article_id"], out article_id);
             }
 
-            hypster_tv_DAL.TagManagement tagManager = new hypster_tv_DAL.TagManagement();
+            TagManagement tagManager = new TagManagement();
             tagManager.DeleteNewsTag(tag_plst_id);
 
             return "";
@@ -279,7 +296,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 username = Request.QueryString["username"];
             }
 
-            hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
+            memberManagement memberManager = new memberManagement();
 
             str_val = memberManager.getMemberByUserName(username).id.ToString();
             return str_val;
@@ -293,8 +310,8 @@ namespace hypster_admin.Areas.Editors.Controllers
             {
                 username = Request.QueryString["username"];
             }
-            hypster_tv_DAL.memberManagement memberManager = new hypster_tv_DAL.memberManagement();
-            hypster_tv_DAL.playlistManagement playlistManagement = new hypster_tv_DAL.playlistManagement();
+            memberManagement memberManager = new memberManagement();
+            playlistManagement playlistManagement = new playlistManagement();
             for (int i = 0; i < playlistManagement.GetUserPlaylists(memberManager.getMemberByUserName(username).id).Count; i++)
             {
                 if (sel_list != "") sel_list += ",";
@@ -312,7 +329,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 playlistid = Request.QueryString["playlistid"];
                 try
                 {
-                    hypster_tv_DAL.playlistManagement playlistManagement = new hypster_tv_DAL.playlistManagement();
+                    playlistManagement playlistManagement = new playlistManagement();
                     int list = playlistManagement.GetPlaylistById(Convert.ToInt32(playlistid)).Count;
                     if (list == 0)
                         return "Error: The Playlist DOES NOT EXIST!!!";
@@ -336,28 +353,33 @@ namespace hypster_admin.Areas.Editors.Controllers
         public string getScheduledPostInfo()
         {
             string post_id = "";
-            hypster_tv_DAL.ScheduledPost s_post = new hypster_tv_DAL.ScheduledPost();
+            ScheduledPost s_post = new ScheduledPost();
             if (Request.QueryString["post_id"] != null)
             {
                 post_id = Request.QueryString["post_id"];                
-                hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
+                newsManagement_Admin newsManager = new newsManagement_Admin();
                 s_post = newsManager.GetSchedulePostByID(Convert.ToInt32(post_id));
             }
             else
             {
-                return "Error: The Post ID is null.";
+                return "non";
             }
-            DateTime datetime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse(s_post.scheduled_date.ToString()));
-            return datetime.ToString("yyyy/MM/dd hh:mm tt") + ", " + s_post.activated;
+            if (s_post.scheduled_date > DateTime.Now)
+            {
+                DateTime datetime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse(s_post.scheduled_date.ToString()));
+                return datetime.ToString("yyyy/MM/dd hh:mm tt") + ", " + s_post.activated;
+            }
+            else
+                return "non";
         }
 
         public void UploadImage(HttpPostedFileBase file, int id)
         {            
             if (file != null && file.ContentLength > 0)
             {
-                hypster_tv_DAL.newsPost p_Post = new hypster_tv_DAL.newsPost();
-                hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
-                hypster_tv_DAL.Image_Resize_Manager image_resizer = new hypster_tv_DAL.Image_Resize_Manager();
+                newsPost p_Post = new newsPost();
+                newsManagement_Admin newsManager = new newsManagement_Admin();
+                Image_Resize_Manager image_resizer = new Image_Resize_Manager();
                 p_Post = newsManager.GetPostByID(id);
                 var extension = System.IO.Path.GetExtension(file.FileName);
                 if (file.FileName != "")
@@ -410,8 +432,8 @@ namespace hypster_admin.Areas.Editors.Controllers
         {
             int id = 0;
             string attributes = "";
-            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
-            List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result> attrs = new List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result>();
+            newsManagement_Admin newsManager = new newsManagement_Admin();
+            List<sp_postNewsletter_GetPostAttributes_Result> attrs = new List<sp_postNewsletter_GetPostAttributes_Result>();
             if (Request.QueryString["id"] != null)
             {
                 id = Convert.ToInt32(Request.QueryString["id"]);
@@ -432,8 +454,8 @@ namespace hypster_admin.Areas.Editors.Controllers
         public string getAttrs(int id)
         {
             string attributes = "";
-            hypster_tv_DAL.newsManagement_Admin newsManager = new hypster_tv_DAL.newsManagement_Admin();
-            List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result> attrs = new List<hypster_tv_DAL.sp_postNewsletter_GetPostAttributes_Result>();
+            newsManagement_Admin newsManager = new newsManagement_Admin();
+            List<sp_postNewsletter_GetPostAttributes_Result> attrs = new List<sp_postNewsletter_GetPostAttributes_Result>();
             attrs = newsManager.GetPostAttributes_Result(id);
             for (int i = 0; i < attrs.Count; i++)
             {
@@ -444,7 +466,7 @@ namespace hypster_admin.Areas.Editors.Controllers
         }
 
         // Compare 2 attribute strings, attributes (new attributes) and old_attr (old attributes).
-        public void manageAttributes(hypster_tv_DAL.Hypster_Entities hyDB, hypster_tv_DAL.newsManagement_Admin newsManager, int id, string attributes, string old_attr)
+        public void manageAttributes(Hypster_Entities hyDB, newsManagement_Admin newsManager, int id, string attributes, string old_attr)
         {
             if (attributes != old_attr)
             {
@@ -453,7 +475,7 @@ namespace hypster_admin.Areas.Editors.Controllers
                 {
                     if (!old_attr.Contains(attr[i]))
                     {
-                        hypster_tv_DAL.postNewsletter pNewsletter = new hypster_tv_DAL.postNewsletter();
+                        postNewsletter pNewsletter = new postNewsletter();
                         pNewsletter.post_id = id;
                         pNewsletter.attribute = attr[i];
                         hyDB.postNewsletters.AddObject(pNewsletter);
@@ -466,6 +488,49 @@ namespace hypster_admin.Areas.Editors.Controllers
                     if (!attributes.Contains(o_attr[j]))
                     {
                         newsManager.DeletePostAttribute(id, o_attr[j]);
+                        hyDB.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        public string getAssociatedGenreIds(int id)
+        {
+            string genres = "";
+            newsManagement newsManager = new newsManagement();
+            List<int?> allGenres = new List<int?>();
+            allGenres = newsManager.GetAsociatGenreIds(id);
+            for (int i = 0; i < allGenres.Count; i++)
+            {
+                if (genres != "") genres += ";";
+                genres += allGenres[i];
+            }
+            return genres;
+        }
+
+        public void manageGenres(Hypster_Entities hyDB, newsManagement newsManager, int id, string postgenres, string old_pgenres)
+        {
+            if (postgenres != old_pgenres)
+            {
+                string[] posgn = postgenres.Split(';');
+                for (int i = 0; i < posgn.Length; i++)
+                {
+                    if (!old_pgenres.Contains(posgn[i]))
+                    {
+                        Post_Genre postGen = new Post_Genre();
+                        postGen.post_id = id;
+                        postGen.genre_id = Convert.ToInt32(posgn[i]);
+                        hyDB.Post_Genre.AddObject(postGen);
+                        hyDB.SaveChanges();
+                    }
+                }
+                string[] o_posgn = old_pgenres.Split(';');
+                for (int j = 0; j < o_posgn.Length; j++)
+                {
+                    if (!postgenres.Contains(o_posgn[j]))
+                    {
+                        int genId = Convert.ToInt32(o_posgn[j]);
+                        newsManager.DeletePostGenre(id, genId);
                         hyDB.SaveChanges();
                     }
                 }

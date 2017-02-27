@@ -118,16 +118,30 @@
             <input type="radio" name="scheduled" value="Yes" onclick="scheduledValue(this.value)" /><text>Yes            </text>
             <input type="radio" name="scheduled" value="No" onclick="scheduledValue(this.value)" checked /><text>No            </text>
             <br /><br />
-            <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" disabled="disabled" style="width:200px" /><br /><br />
+            <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" disabled="disabled" style="width:200px" />
+            <br /><br />
+            <div id="chkbxGenres" style="margin:10px 0px">
+                <text>Post Genres:</text><br />
+                <input type="checkbox" name="genre" id="1" value="1" /><text>Indie Pop</text>
+                <input type="checkbox" name="genre" id="2" value="2" /><text>Young Pop Icons</text>
+                <input type="checkbox" name="genre" id="3" value="3" /><text>Folk</text>
+                <input type="checkbox" name="genre" id="4" value="4" /><text>Urban</text>
+                <input type="checkbox" name="genre" id="5" value="5" /><text>Hip Hop and Rap</text>
+                <input type="checkbox" name="genre" id="6" value="6" /><text>Rock</text>
+                <input type="checkbox" name="genre" id="7" value="7" /><text>EDM</text>
+                <input type="checkbox" name="genre" id="8" value="8" /><text>Country</text><br />
+                <input type="checkbox" name="genre" id="9" value="9" /><text>Big Music News</text>
+            </div>
             <div style="margin:5px 0px">
-                <text>Newsletter Attributes:</text>
+                <text>Newsletter Attributes:</text><br />
                 <input type="checkbox" id="featured" /><text>Featured</text>
                 <input type="checkbox" id="newsletter" /><text>Newsletter</text>
                 <input type="checkbox" id="f_playlist" /><text>Featured Playlist</text>
                 <input type="checkbox" id="more" /><text>More</text>
-                <input type="text" id="attributes" name="attributes" style="visibility:hidden" />
             </div>
             <div style="margin-top:20px; width:100%; text-align:right;">
+                <input type="text" id="postgenres" name="postgenres" style="display:none" />
+                <input type="text" id="attributes" name="attributes" style="display:none" />
                 <input type="submit" value="Add New Post" />
                 <input type="button" value="Cancel" onclick="window.location = '/Editors/managePost';" />
             </div>
@@ -144,7 +158,10 @@
     {
         var errMsg = "";
         var attrStr = "";
+        var genre_list = "";
+        var n = $("input[name='genre']").length;
         $("#attributes").val("");
+        $("#postgenres").val("");
         tinyMCE.triggerSave();
         $("#mceu_29.mce-panel").css("border", "solid 0px");
         $(".input_fields").removeClass("error");
@@ -170,6 +187,16 @@
             $("#datetimepicker").addClass("error");
             errMsg += "The scheduled date and time must be set\n";
         }
+        for (var i = 1; i <= n; i++)
+        {
+            if ($("#" + i).is(":checked"))
+            {
+                if (genre_list != "")
+                    genre_list += ";";
+                genre_list += i;
+            }
+        }
+        $("#postgenres").val(genre_list);
         if ($("#featured").is(":checked")) { attrStr += "Featured"; }
         if ($("#newsletter").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Newsletter"; }
         if ($("#f_playlist").is(":checked")) { if (attrStr != "") attrStr += ";"; attrStr += "Playlist"; }

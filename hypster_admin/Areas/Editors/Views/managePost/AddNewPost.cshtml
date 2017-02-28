@@ -120,24 +120,30 @@
             <br /><br />
             <text>Activate Date Time:</text> <input type="text" value="" id="datetimepicker" name="datetimepicker" class="input_fields" disabled="disabled" style="width:200px" />
             <br /><br />
-            <div id="chkbxGenres" style="margin:10px 0px">
-                <text>Post Genres:</text><br />
-                <input type="checkbox" name="genre" id="1" value="1" /><text>Indie Pop</text>
-                <input type="checkbox" name="genre" id="2" value="2" /><text>Young Pop Icons</text>
-                <input type="checkbox" name="genre" id="3" value="3" /><text>Folk</text>
-                <input type="checkbox" name="genre" id="4" value="4" /><text>Urban</text>
-                <input type="checkbox" name="genre" id="5" value="5" /><text>Hip Hop and Rap</text><br />
-                <input type="checkbox" name="genre" id="6" value="6" /><text>Rock</text>
-                <input type="checkbox" name="genre" id="7" value="7" /><text>EDM</text>
-                <input type="checkbox" name="genre" id="8" value="8" /><text>Country</text>
-                <input type="checkbox" name="genre" id="9" value="9" /><text>Big Music News</text>
-            </div>
             <div style="margin:5px 0px">
                 <text>Newsletter Attributes:</text><br />
                 <input type="checkbox" id="featured" /><text>Featured</text>
                 <input type="checkbox" id="newsletter" /><text>Newsletter</text>
                 <input type="checkbox" id="f_playlist" /><text>Featured Playlist</text>
                 <input type="checkbox" id="more" /><text>More</text>
+            </div>
+            <div id="chkbxGenres" style="margin:10px 0px">
+                <text>Post Genres:</text><br />
+                <table style="border:none;line-height:0px">
+                    <tr>
+                        <td><input type="checkbox" name="genre" id="1" value="1" /><text>Indie Pop</text></td>
+                        <td><input type="checkbox" name="genre" id="2" value="2" /><text>Young Pop Icons</text></td>
+                        <td><input type="checkbox" name="genre" id="3" value="3" /><text>Folk</text></td>
+                        <td><input type="checkbox" name="genre" id="4" value="4" /><text>Urban</text></td>
+                        <td><input type="checkbox" name="genre" id="5" value="5" /><text>Hip Hop and Rap</text></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="genre" id="6" value="6" /><text>Rock</text></td>
+                        <td><input type="checkbox" name="genre" id="7" value="7" /><text>EDM</text></td>
+                        <td><input type="checkbox" name="genre" id="8" value="8" /><text>Country</text></td>
+                        <td><input type="checkbox" name="genre" id="9" value="9" /><text>Big Music News</text></td>
+                    </tr>
+                </table>
             </div>
             <div style="margin-top:20px; width:100%; text-align:right;">
                 <input type="text" id="postgenres" name="postgenres" style="display:none" />
